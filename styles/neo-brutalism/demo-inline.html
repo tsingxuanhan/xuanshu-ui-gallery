@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>铉枢 · Neo-Brutalism 材料科研工作站</title>
+  <style>
+/* ============================================
+   铉枢 Neo-Brutalism Design System
+   粗野主义 - 反精致、硬边、高对比、大色块
+   ============================================ */
+
+/* === Fonts === */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* === CSS Variables === */
+:root {
+  /* Colors */
+  --nb-orange: #FF6B35;
+  --nb-yellow: #FFD23F;
+  --nb-pink: #EE4266;
+  --nb-green: #00CC66;
+  --nb-blue: #3B82F6;
+  --nb-white: #F5F0E8;
+  --nb-black: #000000;
+  
+  /* Theme - Light */
+  --bg-primary: #F5F0E8;
+  --bg-card: #FFFFFF;
+  --bg-secondary: #F0EBE1;
+  --text-primary: #000000;
+  --text-secondary: #333333;
+  --text-muted: #666666;
+  --border-color: #000000;
+  --shadow-color: #000000;
+  
+  /* Dimensions */
+  --border-width: 3px;
+  --shadow-x: 4px;
+  --shadow-y: 4px;
+  --radius: 0px;
+  
+  /* Font */
+  --font-primary: 'Space Grotesk', 'Inter', -apple-system, sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+  
+  /* Transitions */
+  --transition-fast: 0.12s ease;
+  --transition-normal: 0.15s ease;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg-primary: #1a1a1a;
+  --bg-card: #2a2a2a;
+  --bg-secondary: #222222;
+  --text-primary: #F5F0E8;
+  --text-secondary: #CCCCCC;
+  --text-muted: #888888;
+  --border-color: #555555;
+  --shadow-color: #000000;
+}
+
+/* === Reset & Base === */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-normal);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  padding-bottom: 80px;
+}
+
+/* === Typography === */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-black);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.875rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.125rem; }
+
+.text-uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* === Layout === */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 32px 0;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: var(--border-width) solid var(--border-color);
+  display: inline-block;
+}
+
+/* === Header === */
+.nb-header {
+  background-color: var(--bg-card);
+  border-bottom: 4px solid var(--border-color);
+  padding: 24px 0;
+  position: relative;
+}
+
+.nb-header::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--nb-orange);
+}
+
+.nb-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nb-header-title {
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+}
+
+.nb-header-title span {
+  color: var(--nb-orange);
+}
+
+.nb-header-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* === Theme Toggle === */
+.nb-theme-toggle {
+  width: 56px;
+  height: 56px;
+  border: var(--border-width) solid var(--border-color);
+  background: var(--nb-yellow);
+  box-shadow: var(--shadow-x) var(--shadow-y) 0 var(--shadow-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: all var(--transition-fast);
+  border-radius: var(--radius);
+}
+
+.nb-theme-toggle:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.nb-theme-toggle:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--shadow-color);
+}
+
+/* === Status Bar === */
+.nb-status-bar {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px 0;
+}
+
+.nb-status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: var(--border-width) solid var(--border-color);
+  background: var(--bg-card);
+  box-shadow: 3px 3px 0 var(--shadow-color);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.nb-status-item:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--shadow-color);
+}
+
+.nb-status-dot {
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--border-color);
+}
+
+.nb-status-dot--green { background: var(--nb-green); }
+.nb-status-dot--yellow { background: var(--nb-yellow); }
+.nb-status-dot--red { background: var(--nb-pink); }
+.nb-status-dot--blue { background: var(--nb-blue); }
+
+/* === Warning Banner === */
+.nb-warning {
+  background: var(--nb-pink);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-x) var(--shadow-y) 0 var(--shadow-color);
+  padding: 16px 24px;
+  margin: 24px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nb-warning-icon {
+  font-size: 1.5rem;
+  font-weight: 900;
+  width: 40px;
+  height: 40px;
+  background: var(--nb-black);
+  color: var(--nb-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .nb-warning-icon {
+  background: var(--nb-white);
+}
+
+.nb-warning-text {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--nb-black);
+}
+
+/* === Cards === */
+.nb-card {
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-x) var(--shadow-y) 0 var(--shadow-color);
+  padding: 24px;
+  transition: all var(--transition-fast);
+}
+
+.nb-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.nb-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.nb-card-icon {
+  width: 48px;
+  height: 48px;
+  border: var(--border-width) solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.nb-card-icon--orange { background: var(--nb-orange); }
+.nb-card-icon--yellow { background: var(--nb-yellow); }
+.nb-card-icon--pink { background: var(--nb-pink); }
+.nb-card-icon--green { background: var(--nb-green); }
+.nb-card-icon--blue { background: var(--nb-blue); }
+
+.nb-card-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.nb-card-desc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.nb-card-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 2px solid var(--border-color);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 12px;
+  background: var(--nb-yellow);
+}
+
+/* === Card Grid === */
+.nb-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.nb-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.nb-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.nb-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 768px) {
+  .nb-grid--2, .nb-grid--3, .nb-grid--4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === Feature Nav Cards === */
+.nb-feature-card {
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-x) var(--shadow-y) 0 var(--shadow-color);
+  padding: 20px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.nb-feature-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.nb-feature-card:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--shadow-color);
+}
+
+.nb-feature-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.nb-feature-title {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.nb-feature-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* === Metric Cards === */
+.nb-metric {
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-x) var(--shadow-y) 0 var(--shadow-color);
+  padding: 20px;
+  transition: all var(--transition-fast);
+}
+
+.nb-metric:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.nb-metric-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.nb-metric-value {
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.nb-metric-value--orange { color: var(--nb-orange); }
+.nb-metric-value--yellow { color: #C4A000; }
+.nb-metric-value--pink { color: var(--nb-pink); }
+.nb-metric-value--green { color: var(--nb-green); }
+.nb-metric-value--blue { color: var(--nb-blue); }
+
+.nb-metric-change {
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 8px;
+  display: inline-block;
+  padding: 2px 8px;
+  border: 2px solid var(--border-color);
+}
+
+.nb-metric-change--up {
+  background: var(--nb-green);
+  color: var(--nb-black);
+}
+
+.nb-metric-change--down {
+  background: var(--nb-pink);
+  color: var(--nb-black);
+}
+
+/* === Data Table === */
+.nb-table-wrapper {
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-x) var(--shadow-y) 0 var(--shadow-color);
+  overflow-x: auto;
+  background: var(--bg-card);
+}
+
+.nb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.nb-table th {
+  background: var(--nb-black);
+  color: var(--nb-white);
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  border-bottom: var(--border-width) solid var(--border-color);
+}
+
+[data-theme="dark"] .nb-table th {
+  background: #333;
+  color: var(--nb-white);
+}
+
+.nb-table td {
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--border-color);
+  font-weight: 500;
+}
+
+.nb-table tr:last-child td {
+  border-bottom: none;
+}
+
+.nb-table tr:hover td {
+  background: var(--bg-secondary);
+}
+
+.nb-table-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 2px solid var(--border-color);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.nb-table-status--running { background: var(--nb-green); color: var(--nb-black); }
+.nb-table-status--idle { background: var(--nb-yellow); color: var(--nb-black); }
+.nb-table-status--error { background: var(--nb-pink); color: var(--nb-black); }
+.nb-table-status--loading { background: var(--nb-blue); color: var(--nb-white); }
+
+/* === Buttons === */
+.nb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-x) var(--shadow-y) 0 var(--shadow-color);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  border-radius: var(--radius);
+}
+
+.nb-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.nb-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--shadow-color);
+}
+
+.nb-btn--orange { background: var(--nb-orange); color: var(--nb-black); }
+.nb-btn--yellow { background: var(--nb-yellow); color: var(--nb-black); }
+.nb-btn--pink { background: var(--nb-pink); color: var(--nb-black); }
+.nb-btn--green { background: var(--nb-green); color: var(--nb-black); }
+.nb-btn--blue { background: var(--nb-blue); color: var(--nb-white); }
+.nb-btn--black { background: var(--nb-black); color: var(--nb-white); }
+.nb-btn--white { background: var(--nb-white); color: var(--nb-black); }
+
+.nb-btn--sm {
+  padding: 8px 16px;
+  font-size: 0.75rem;
+  box-shadow: 3px 3px 0 var(--shadow-color);
+}
+
+.nb-btn--lg {
+  padding: 16px 32px;
+  font-size: 1rem;
+  box-shadow: 5px 5px 0 var(--shadow-color);
+}
+
+.nb-btn--lg:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+/* === Tags / Badges === */
+.nb-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 2px solid var(--border-color);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  box-shadow: 3px 3px 0 var(--shadow-color);
+  transition: all var(--transition-fast);
+}
+
+.nb-tag:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.nb-tag--orange { background: var(--nb-orange); color: var(--nb-black); }
+.nb-tag--yellow { background: var(--nb-yellow); color: var(--nb-black); }
+.nb-tag--pink { background: var(--nb-pink); color: var(--nb-black); }
+.nb-tag--green { background: var(--nb-green); color: var(--nb-black); }
+.nb-tag--blue { background: var(--nb-blue); color: var(--nb-white); }
+.nb-tag--black { background: var(--nb-black); color: var(--nb-white); }
+
+/* === Input === */
+.nb-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: var(--border-width) solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  box-shadow: 3px 3px 0 var(--shadow-color);
+  transition: all var(--transition-fast);
+  border-radius: var(--radius);
+  outline: none;
+}
+
+.nb-input:focus {
+  box-shadow: 0 0 0 3px var(--nb-orange);
+  border-color: var(--nb-orange);
+}
+
+.nb-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.nb-input-group {
+  display: flex;
+  gap: 0;
+}
+
+.nb-input-group .nb-input {
+  box-shadow: none;
+  border-right: none;
+}
+
+.nb-input-group .nb-btn {
+  box-shadow: var(--shadow-x) var(--shadow-y) 0 var(--shadow-color);
+  flex-shrink: 0;
+}
+
+/* === Progress Bar === */
+.nb-progress {
+  width: 100%;
+  height: 28px;
+  border: var(--border-width) solid var(--border-color);
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+
+.nb-progress-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.nb-progress-fill--orange { background: var(--nb-orange); }
+.nb-progress-fill--yellow { background: var(--nb-yellow); }
+.nb-progress-fill--pink { background: var(--nb-pink); }
+.nb-progress-fill--green { background: var(--nb-green); }
+.nb-progress-fill--blue { background: var(--nb-blue); }
+
+.nb-progress-label {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--nb-black);
+}
+
+/* === Bottom Navigation === */
+.nb-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border-top: 4px solid var(--border-color);
+  box-shadow: 0 -4px 0 var(--shadow-color);
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  z-index: 1000;
+}
+
+.nb-bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 2px solid transparent;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.nb-bottom-nav-item:hover {
+  border-color: var(--border-color);
+  background: var(--bg-secondary);
+  transform: translateY(-2px);
+}
+
+.nb-bottom-nav-item--active {
+  border-color: var(--border-color);
+  background: var(--nb-orange);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.nb-bottom-nav-icon {
+  font-size: 1.25rem;
+}
+
+.nb-bottom-nav-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* === Data Panel === */
+.nb-data-panel {
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-x) var(--shadow-y) 0 var(--shadow-color);
+  padding: 24px;
+}
+
+.nb-data-panel-title {
+  font-size: 1.125rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: var(--border-width) solid var(--border-color);
+}
+
+/* === Component Showcase === */
+.nb-showcase {
+  margin-top: 24px;
+}
+
+.nb-showcase-item {
+  margin-bottom: 32px;
+}
+
+.nb-showcase-label {
+  font-size: 0.8125rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.nb-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.nb-tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.nb-input-group-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
+}
+
+.nb-progress-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
+}
+
+/* === Utility === */
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
+.mt-4 { margin-top: 32px; }
+.mb-2 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 24px; }
+.gap-2 { gap: 16px; }
+.flex { display: flex; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+
+</style>
+</head>
+<body>
+
+  <!-- === Header === -->
+  <header class="nb-header">
+    <div class="container">
+      <div class="nb-header-content">
+        <div>
+          <h1 class="nb-header-title"><span>铉枢</span> · 材料科研工作站</h1>
+          <p class="nb-header-subtitle">Xuanshu Materials Science Research Workstation — Neo-Brutalism Edition</p>
+        </div>
+        <button class="nb-theme-toggle" id="themeToggle" aria-label="切换主题">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- === Status Bar === -->
+  <section class="section">
+    <div class="container">
+      <div class="nb-status-bar">
+        <div class="nb-status-item">
+          <span class="nb-status-dot nb-status-dot--green"></span>
+          <span>Docker</span>
+          <strong>Running</strong>
+        </div>
+        <div class="nb-status-item">
+          <span class="nb-status-dot nb-status-dot--yellow"></span>
+          <span>Ollama</span>
+          <strong>Standby</strong>
+        </div>
+        <div class="nb-status-item">
+          <span class="nb-status-dot nb-status-dot--green"></span>
+          <span>GPU</span>
+          <strong>RTX 4060</strong>
+        </div>
+        <div class="nb-status-item">
+          <span class="nb-status-dot nb-status-dot--blue"></span>
+          <span>VRAM</span>
+          <strong>8.2 / 16 GB</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- === VRAM Warning === -->
+  <div class="container">
+    <div class="nb-warning">
+      <div class="nb-warning-icon">⚠</div>
+      <div class="nb-warning-text">
+        VRAM 用量已达 51.2% — 大模型加载时请注意显存溢出风险，建议关闭非必要服务。
+      </div>
+    </div>
+  </div>
+
+  <!-- === Service Cards Grid === -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">服务状态</h2>
+      <div class="nb-grid nb-grid--3">
+        
+        <div class="nb-card">
+          <div class="nb-card-header">
+            <div class="nb-card-icon nb-card-icon--orange">⚡</div>
+            <h3 class="nb-card-title">文献挖掘 Agent</h3>
+          </div>
+          <p class="nb-card-desc">基于 DeepSeek-V4 的多源文献并行检索与摘要生成引擎</p>
+          <span class="nb-card-tag" style="background: var(--nb-green);">● Online</span>
+        </div>
+
+        <div class="nb-card">
+          <div class="nb-card-header">
+            <div class="nb-card-icon nb-card-icon--yellow">🔬</div>
+            <h3 class="nb-card-title">数据验证 Agent</h3>
+          </div>
+          <p class="nb-card-desc">实验数据自动校验、异常值检测与统计一致性验证</p>
+          <span class="nb-card-tag" style="background: var(--nb-green);">● Online</span>
+        </div>
+
+        <div class="nb-card">
+          <div class="nb-card-header">
+            <div class="nb-card-icon nb-card-icon--pink">🧪</div>
+            <h3 class="nb-card-title">方案生成 Agent</h3>
+          </div>
+          <p class="nb-card-desc">基于材料数据库的实验方案设计 & 参数优化推荐</p>
+          <span class="nb-card-tag" style="background: var(--nb-yellow);">◐ Loading</span>
+        </div>
+
+        <div class="nb-card">
+          <div class="nb-card-header">
+            <div class="nb-card-icon nb-card-icon--green">📊</div>
+            <h3 class="nb-card-title">成果整合 Agent</h3>
+          </div>
+          <p class="nb-card-desc">多源数据融合分析，自动生成可视化报告与论文草稿</p>
+          <span class="nb-card-tag" style="background: var(--nb-green);">● Online</span>
+        </div>
+
+        <div class="nb-card">
+          <div class="nb-card-header">
+            <div class="nb-card-icon nb-card-icon--blue">🗄️</div>
+            <h3 class="nb-card-title">向量知识库</h3>
+          </div>
+          <p class="nb-card-desc">NGram TF-IDF 混合检索引擎，覆盖 12,847 篇文献</p>
+          <span class="nb-card-tag" style="background: var(--nb-green);">● Online</span>
+        </div>
+
+        <div class="nb-card">
+          <div class="nb-card-header">
+            <div class="nb-card-icon nb-card-icon--orange">🌐</div>
+            <h3 class="nb-card-title">API 网关</h3>
+          </div>
+          <p class="nb-card-desc">统一接口代理层，支持 OpenAI / Anthropic 兼容协议</p>
+          <span class="nb-card-tag" style="background: var(--nb-pink);">● Offline</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- === Feature Navigation Cards === -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">功能模块</h2>
+      <div class="nb-grid nb-grid--3">
+        
+        <div class="nb-feature-card">
+          <span class="nb-feature-icon">📑</span>
+          <h4 class="nb-feature-title">文献管理</h4>
+          <p class="nb-feature-desc">论文导入 / 标签 / 检索</p>
+        </div>
+
+        <div class="nb-feature-card">
+          <span class="nb-feature-icon">🧬</span>
+          <h4 class="nb-feature-title">材料数据库</h4>
+          <p class="nb-feature-desc">晶体结构 / 相图 / 性能</p>
+        </div>
+
+        <div class="nb-feature-card">
+          <span class="nb-feature-icon">📈</span>
+          <h4 class="nb-feature-title">实验分析</h4>
+          <p class="nb-feature-desc">XRD / SEM / DSC 数据处理</p>
+        </div>
+
+        <div class="nb-feature-card">
+          <span class="nb-feature-icon">🤖</span>
+          <h4 class="nb-feature-title">Agent 编排</h4>
+          <p class="nb-feature-desc">多 Agent 协作工作流</p>
+        </div>
+
+        <div class="nb-feature-card">
+          <span class="nb-feature-icon">📝</span>
+          <h4 class="nb-feature-title">报告生成</h4>
+          <p class="nb-feature-desc">自动化论文 / 报告撰写</p>
+        </div>
+
+        <div class="nb-feature-card">
+          <span class="nb-feature-icon">⚙️</span>
+          <h4 class="nb-feature-title">系统配置</h4>
+          <p class="nb-feature-desc">环境 / 密钥 / 日志</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- === Data Panel: Knowledge Base Overview === -->
+  <section class="section">
+    <div class="container">
+      <div class="nb-data-panel">
+        <h3 class="nb-data-panel-title">知识库概览 — Knowledge Base Metrics</h3>
+        <div class="nb-grid nb-grid--4">
+          
+          <div class="nb-metric">
+            <div class="nb-metric-label">文献总量</div>
+            <div class="nb-metric-value nb-metric-value--orange">12,847</div>
+            <span class="nb-metric-change nb-metric-change--up">+234 本周</span>
+          </div>
+
+          <div class="nb-metric">
+            <div class="nb-metric-label">向量索引</div>
+            <div class="nb-metric-value nb-metric-value--blue">98.2%</div>
+            <span class="nb-metric-change nb-metric-change--up">+1.3%</span>
+          </div>
+
+          <div class="nb-metric">
+            <div class="nb-metric-label">检索延迟</div>
+            <div class="nb-metric-value nb-metric-value--green">23ms</div>
+            <span class="nb-metric-change nb-metric-change--up">-5ms</span>
+          </div>
+
+          <div class="nb-metric">
+            <div class="nb-metric-label">异常记录</div>
+            <div class="nb-metric-value nb-metric-value--pink">7</div>
+            <span class="nb-metric-change nb-metric-change--down">+3 今日</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- === Data Table: Agent Status === -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Agent 运行状态</h2>
+      <div class="nb-table-wrapper">
+        <table class="nb-table">
+          <thead>
+            <tr>
+              <th>Agent</th>
+              <th>模型</th>
+              <th>状态</th>
+              <th>任务数</th>
+              <th>内存</th>
+              <th>最后活跃</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>矿工 Pro</strong></td>
+              <td>deepseek-v4-pro</td>
+              <td><span class="nb-table-status nb-table-status--running">Running</span></td>
+              <td>142</td>
+              <td>1.2 GB</td>
+              <td>刚刚</td>
+            </tr>
+            <tr>
+              <td><strong>试金 Flash</strong></td>
+              <td>deepseek-v4-flash</td>
+              <td><span class="nb-table-status nb-table-status--running">Running</span></td>
+              <td>89</td>
+              <td>0.8 GB</td>
+              <td>2 分钟前</td>
+            </tr>
+            <tr>
+              <td><strong>铸师 Pro</strong></td>
+              <td>deepseek-v4-pro</td>
+              <td><span class="nb-table-status nb-table-status--idle">Idle</span></td>
+              <td>67</td>
+              <td>1.1 GB</td>
+              <td>15 分钟前</td>
+            </tr>
+            <tr>
+              <td><strong>匠人 Flash</strong></td>
+              <td>deepseek-v4-flash</td>
+              <td><span class="nb-table-status nb-table-status--loading">Loading</span></td>
+              <td>203</td>
+              <td>0.9 GB</td>
+              <td>刚刚</td>
+            </tr>
+            <tr>
+              <td><strong>本地 Ollama</strong></td>
+              <td>qwen2.5:0.5b</td>
+              <td><span class="nb-table-status nb-table-status--error">Error</span></td>
+              <td>0</td>
+              <td>—</td>
+              <td>1 小时前</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- === Component Showcase === -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">组件展示</h2>
+
+      <div class="nb-showcase">
+
+        <!-- Buttons -->
+        <div class="nb-showcase-item">
+          <div class="nb-showcase-label">按钮组 — Buttons</div>
+          <div class="nb-btn-group">
+            <button class="nb-btn nb-btn--orange">文献检索</button>
+            <button class="nb-btn nb-btn--yellow">数据分析</button>
+            <button class="nb-btn nb-btn--pink">紧急停止</button>
+            <button class="nb-btn nb-btn--green">运行任务</button>
+            <button class="nb-btn nb-btn--blue">导出报告</button>
+            <button class="nb-btn nb-btn--black">系统配置</button>
+          </div>
+          <div class="nb-btn-group mt-2">
+            <button class="nb-btn nb-btn--sm nb-btn--orange">小按钮</button>
+            <button class="nb-btn nb-btn--orange">默认按钮</button>
+            <button class="nb-btn nb-btn--lg nb-btn--orange">大按钮</button>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="nb-showcase-item">
+          <div class="nb-showcase-label">标签组 — Tags</div>
+          <div class="nb-tag-group">
+            <span class="nb-tag nb-tag--orange">材料科学</span>
+            <span class="nb-tag nb-tag--yellow">XRD 分析</span>
+            <span class="nb-tag nb-tag--pink">高优先级</span>
+            <span class="nb-tag nb-tag--green">已完成</span>
+            <span class="nb-tag nb-tag--blue">进行中</span>
+            <span class="nb-tag nb-tag--black">系统任务</span>
+          </div>
+        </div>
+
+        <!-- Inputs -->
+        <div class="nb-showcase-item">
+          <div class="nb-showcase-label">输入框 — Inputs</div>
+          <div class="nb-input-group-vertical">
+            <input type="text" class="nb-input" placeholder="搜索文献关键词...">
+            <div class="nb-input-group">
+              <input type="text" class="nb-input" placeholder="输入 DOI 编号查询论文">
+              <button class="nb-btn nb-btn--orange">查询</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Bars -->
+        <div class="nb-showcase-item">
+          <div class="nb-showcase-label">进度条 — Progress Bars</div>
+          <div class="nb-progress-group">
+            <div class="nb-progress">
+              <div class="nb-progress-fill nb-progress-fill--orange" style="width: 72%;">
+                <span class="nb-progress-label">文献挖掘 72%</span>
+              </div>
+            </div>
+            <div class="nb-progress">
+              <div class="nb-progress-fill nb-progress-fill--green" style="width: 95%;">
+                <span class="nb-progress-label">数据校验 95%</span>
+              </div>
+            </div>
+            <div class="nb-progress">
+              <div class="nb-progress-fill nb-progress-fill--blue" style="width: 43%;">
+                <span class="nb-progress-label">方案生成 43%</span>
+              </div>
+            </div>
+            <div class="nb-progress">
+              <div class="nb-progress-fill nb-progress-fill--pink" style="width: 18%;">
+                <span class="nb-progress-label">报告整合 18%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- === Bottom Navigation === -->
+  <nav class="nb-bottom-nav">
+    <a class="nb-bottom-nav-item nb-bottom-nav-item--active" href="#">
+      <span class="nb-bottom-nav-icon">🏠</span>
+      <span class="nb-bottom-nav-label">首页</span>
+    </a>
+    <a class="nb-bottom-nav-item" href="#">
+      <span class="nb-bottom-nav-icon">📑</span>
+      <span class="nb-bottom-nav-label">文献</span>
+    </a>
+    <a class="nb-bottom-nav-item" href="#">
+      <span class="nb-bottom-nav-icon">🤖</span>
+      <span class="nb-bottom-nav-label">Agent</span>
+    </a>
+    <a class="nb-bottom-nav-item" href="#">
+      <span class="nb-bottom-nav-icon">📊</span>
+      <span class="nb-bottom-nav-label">数据</span>
+    </a>
+    <a class="nb-bottom-nav-item" href="#">
+      <span class="nb-bottom-nav-icon">⚙️</span>
+      <span class="nb-bottom-nav-label">设置</span>
+    </a>
+  </nav>
+
+  <!-- === Theme Toggle Script === -->
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+
+    // Check saved preference
+    const saved = localStorage.getItem('nb-theme');
+    if (saved) {
+      html.setAttribute('data-theme', saved);
+      toggle.textContent = saved === 'dark' ? '☀️' : '🌙';
+    }
+
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('nb-theme', next);
+    });
+  </script>
+
+</body>
+</html>

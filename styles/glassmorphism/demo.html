@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>铉枢 · Glassmorphism</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="header-title">
+      <h1>铉枢 · 材料科研工作站</h1>
+      <span class="subtitle">Xuanshu Materials Research Workstation</span>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+      <span id="themeIcon">🌙</span>
+    </button>
+  </header>
+
+  <div class="page-wrapper">
+
+    <!-- ===== STATUS BAR ===== -->
+    <section class="section animate-in">
+      <div class="status-bar">
+        <div class="status-item">
+          <span class="status-dot online"></span>
+          <span>Docker 运行中</span>
+        </div>
+        <div class="status-item">
+          <span class="status-dot offline"></span>
+          <span>Ollama 离线</span>
+        </div>
+        <div class="status-item">
+          <span class="status-dot warning"></span>
+          <span>GPU RTX 4060</span>
+        </div>
+        <div class="status-item">
+          <span class="status-dot online"></span>
+          <span>VRAM 6.2 / 8 GB</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VRAM WARNING ===== -->
+    <section class="section animate-in animate-delay-1">
+      <div class="warning-banner">
+        <span class="warning-icon">⚠️</span>
+        <div class="warning-text">
+          <strong>VRAM 使用率 78%</strong> — 显存占用接近阈值，建议关闭未使用的 GPU 密集型服务以确保大模型推理稳定。
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SERVICE CARDS ===== -->
+    <section class="section animate-in animate-delay-2">
+      <div class="section-title">服务状态</div>
+      <div class="card-grid">
+        <div class="service-card glass glass-hover">
+          <div class="card-icon">🔬</div>
+          <div class="card-title">Open WebUI</div>
+          <div class="card-desc">大模型交互界面</div>
+          <div class="card-status"><span class="status-dot online"></span></div>
+        </div>
+        <div class="service-card glass glass-hover">
+          <div class="card-icon">🦙</div>
+          <div class="card-title">Ollama API</div>
+          <div class="card-desc">本地模型推理引擎</div>
+          <div class="card-status"><span class="status-dot offline"></span></div>
+        </div>
+        <div class="service-card glass glass-hover">
+          <div class="card-icon">📓</div>
+          <div class="card-title">JupyterLab</div>
+          <div class="card-desc">交互式计算环境</div>
+          <div class="card-status"><span class="status-dot online"></span></div>
+        </div>
+        <div class="service-card glass glass-hover">
+          <div class="card-icon">🎨</div>
+          <div class="card-title">ComfyUI</div>
+          <div class="card-desc">AI 图像生成工作流</div>
+          <div class="card-status"><span class="status-dot online"></span></div>
+        </div>
+        <div class="service-card glass glass-hover">
+          <div class="card-icon">🐳</div>
+          <div class="card-title">Portainer</div>
+          <div class="card-desc">容器管理面板</div>
+          <div class="card-status"><span class="status-dot online"></span></div>
+        </div>
+        <div class="service-card glass glass-hover">
+          <div class="card-icon">📄</div>
+          <div class="card-title">Stirling PDF</div>
+          <div class="card-desc">PDF 工具套件</div>
+          <div class="card-status"><span class="status-dot online"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MODULE NAVIGATION ===== -->
+    <section class="section animate-in animate-delay-3">
+      <div class="section-title">功能模块</div>
+      <div class="card-grid card-grid-3">
+        <div class="nav-card glass glass-hover">
+          <div class="nav-icon">🧠</div>
+          <div class="nav-label">模型管理</div>
+          <div class="nav-hint">部署、微调与版本控制</div>
+        </div>
+        <div class="nav-card glass glass-hover">
+          <div class="nav-icon">📊</div>
+          <div class="nav-label">系统监控</div>
+          <div class="nav-hint">CPU / GPU / 内存 / 磁盘</div>
+        </div>
+        <div class="nav-card glass glass-hover">
+          <div class="nav-icon">⚡</div>
+          <div class="nav-label">命令中心</div>
+          <div class="nav-hint">终端与批量任务</div>
+        </div>
+        <div class="nav-card glass glass-hover">
+          <div class="nav-icon">💬</div>
+          <div class="nav-label">通讯管理</div>
+          <div class="nav-hint">多 Agent 消息总线</div>
+        </div>
+        <div class="nav-card glass glass-hover">
+          <div class="nav-icon">📚</div>
+          <div class="nav-label">知识库</div>
+          <div class="nav-hint">RAG 检索与向量化</div>
+        </div>
+        <div class="nav-card glass glass-hover">
+          <div class="nav-icon">⚙️</div>
+          <div class="nav-label">配置文件</div>
+          <div class="nav-hint">环境变量与参数</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== METRIC CARDS ===== -->
+    <section class="section animate-in animate-delay-4">
+      <div class="section-title">知识库概览</div>
+      <div class="metric-grid">
+        <div class="metric-card glass">
+          <div class="metric-value">524</div>
+          <div class="metric-label">收录论文</div>
+          <div class="metric-trend">↑ 12 本周新增</div>
+        </div>
+        <div class="metric-card glass">
+          <div class="metric-value">30</div>
+          <div class="metric-label">知识分类</div>
+          <div class="metric-trend">覆盖全学科</div>
+        </div>
+        <div class="metric-card glass">
+          <div class="metric-value">89%</div>
+          <div class="metric-label">检索命中率</div>
+          <div class="metric-trend">↑ 3.2% 较上月</div>
+        </div>
+        <div class="metric-card glass">
+          <div class="metric-value">4.2<span style="font-size:0.9rem;font-weight:600">ms</span></div>
+          <div class="metric-label">平均响应</div>
+          <div class="metric-trend">↓ 0.8ms 优化</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DATA TABLE ===== -->
+    <section class="section animate-in animate-delay-5">
+      <div class="section-title">Agent 运行状态</div>
+      <div class="data-table-wrapper glass">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Agent</th>
+              <th>模型</th>
+              <th>角色</th>
+              <th>状态</th>
+              <th>延迟</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary)">⛏ 矿工</td>
+              <td>DeepSeek-V4-Pro</td>
+              <td>文献挖掘</td>
+              <td><span class="tag tag-success">运行中</span></td>
+              <td>1.2s</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary)">🔍 试金</td>
+              <td>DeepSeek-V4-Flash</td>
+              <td>数据验证</td>
+              <td><span class="tag tag-success">运行中</span></td>
+              <td>0.4s</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary)">🔨 铸师</td>
+              <td>DeepSeek-V4-Pro</td>
+              <td>方案生成</td>
+              <td><span class="tag tag-warning">等待中</span></td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary)">🛠 匠人</td>
+              <td>DeepSeek-V4-Flash</td>
+              <td>成果整合</td>
+              <td><span class="tag tag-info">空闲</span></td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== COMPONENT SHOWCASE ===== -->
+    <section class="section animate-in animate-delay-6">
+      <div class="section-title">组件展示</div>
+      <div class="showcase-grid">
+
+        <!-- Buttons -->
+        <div class="showcase-item glass">
+          <div class="showcase-label">按钮组</div>
+          <div class="flex flex-wrap gap-12">
+            <button class="btn btn-primary">主要操作</button>
+            <button class="btn btn-secondary">次要操作</button>
+            <button class="btn btn-ghost">幽灵按钮</button>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="showcase-item glass">
+          <div class="showcase-label">标签组</div>
+          <div class="flex flex-wrap gap-8">
+            <span class="tag tag-success">✓ 成功</span>
+            <span class="tag tag-warning">⚠ 警告</span>
+            <span class="tag tag-danger">✕ 危险</span>
+            <span class="tag tag-info">ℹ 信息</span>
+          </div>
+        </div>
+
+        <!-- Input -->
+        <div class="showcase-item glass">
+          <div class="showcase-label">输入框</div>
+          <input type="text" class="input" placeholder="搜索论文、模型、配置项…">
+        </div>
+
+        <!-- Progress Bars -->
+        <div class="showcase-item glass">
+          <div class="showcase-label">进度条</div>
+          <div class="flex flex-col gap-16">
+            <div>
+              <div class="progress-label">
+                <span>知识库构建</span>
+                <span class="progress-percent">45%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 45%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="progress-label">
+                <span>模型微调</span>
+                <span class="progress-percent">72%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 72%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="progress-label">
+                <span>磁盘清理</span>
+                <span class="progress-percent">91%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 91%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /.page-wrapper -->
+
+  <!-- ===== BOTTOM NAV ===== -->
+  <nav class="bottom-nav">
+    <span class="nav-style-name">Glassmorphism</span>
+    <span style="color:var(--text-muted);font-size:0.75rem">·</span>
+    <a href="../../">← 返回首页</a>
+  </nav>
+
+  <!-- ===== THEME TOGGLE SCRIPT ===== -->
+  <script>
+    (function() {
+      const toggle = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+      const html = document.documentElement;
+
+      // Load saved theme
+      const saved = localStorage.getItem('glass-theme');
+      if (saved === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+        icon.textContent = '☀️';
+      }
+
+      toggle.addEventListener('click', function() {
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        icon.textContent = next === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('glass-theme', next);
+      });
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swiss Minimal — 铉枢控制面板</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       1. HEADER
+       ═══════════════════════════════════════ -->
+  <header class="header">
+    <div class="container">
+      <div class="header-left">
+        <h1>铉枢控制面板</h1>
+        <div class="subtitle">XUANSHU CONTROL CENTER — V3.3.0</div>
+      </div>
+      <div class="header-right">
+        <button class="btn btn-sm btn-ghost">文档</button>
+        <button class="btn btn-sm btn-accent">+ 部署</button>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换主题">
+          <span id="themeIcon">☽</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════
+       2. STATUS BAR
+       ═══════════════════════════════════════ -->
+  <div class="status-bar">
+    <div class="container">
+      <div class="status-bar-left">
+        <div class="status-item">
+          <span class="status-dot"></span>
+          <span class="label">系统运行中</span>
+        </div>
+        <div class="status-item">
+          <span class="label">运行时间 42 天</span>
+        </div>
+        <div class="status-item">
+          <span class="label">延迟 12ms</span>
+        </div>
+      </div>
+      <div class="status-bar-right">
+        <span class="label tabular-nums">2026-07-12 14:36:28</span>
+        <span class="label">BUILD 0712</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+
+    <!-- ═══════════════════════════════════════
+         3. VRAM WARNING
+         ═══════════════════════════════════════ -->
+    <div class="vram-warning">
+      <span class="label">⚠ 内存警告</span>
+      <p>当前 VRAM 使用率 94%（15.1 / 16 GB），建议释放非必要进程</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         4. 服务卡片网格（6个）
+         ═══════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-label">
+        <span class="label">核心服务 · CORE SERVICES</span>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <span class="card-label label">01</span>
+          <div class="card-title">API 代理</div>
+          <div class="card-desc">OpenAI 兼容协议转发，支持 DeepSeek / MiMo 多模型路由</div>
+        </div>
+        <div class="card">
+          <span class="card-label label">02</span>
+          <div class="card-title">向量记忆</div>
+          <div class="card-desc">NGram TF-IDF 向量检索 + 混合 RRF 融合排序</div>
+        </div>
+        <div class="card">
+          <span class="card-label label">03</span>
+          <div class="card-title">任务调度</div>
+          <div class="card-desc">多 Agent 协作框架，矿工 / 试金 / 铸师 / 匠人 四角色</div>
+        </div>
+        <div class="card">
+          <span class="card-label label">04</span>
+          <div class="card-title">知识库</div>
+          <div class="card-desc">本地文档索引，支持 PDF / Markdown / 代码片段检索</div>
+        </div>
+        <div class="card">
+          <span class="card-label label">05</span>
+          <div class="card-title">A2A 发现</div>
+          <div class="card-desc">Agent-to-Agent 能力发现与任务委派，P2P 通道通信</div>
+        </div>
+        <div class="card">
+          <span class="card-label label">06</span>
+          <div class="card-title">监控面板</div>
+          <div class="card-desc">实时系统指标、日志流、错误追踪与告警</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         5. 功能模块导航卡片（6个）
+         ═══════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-label">
+        <span class="label">功能模块 · MODULES</span>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <span class="card-icon">◇</span>
+          <div class="card-title">矿工 Agent</div>
+          <div class="card-desc">深度文献挖掘与知识提取，使用 pro 推理模型</div>
+        </div>
+        <div class="card">
+          <span class="card-icon">△</span>
+          <div class="card-title">试金 Agent</div>
+          <div class="card-desc">数据质量验证与交叉核验，flash 模型高速响应</div>
+        </div>
+        <div class="card">
+          <span class="card-icon">○</span>
+          <div class="card-title">铸师 Agent</div>
+          <div class="card-desc">方案生成与策略推演，pro 模型深度思考</div>
+        </div>
+        <div class="card">
+          <span class="card-icon">□</span>
+          <div class="card-title">匠人 Agent</div>
+          <div class="card-desc">成果整合与输出格式化，flash 模型高效执行</div>
+        </div>
+        <div class="card">
+          <span class="card-icon">◎</span>
+          <div class="card-title">Guardrails</div>
+          <div class="card-desc">输入输出护栏，安全校验与内容合规过滤</div>
+        </div>
+        <div class="card">
+          <span class="card-icon">▬</span>
+          <div class="card-title">Slot Memory</div>
+          <div class="card-desc">结构化槽位记忆，冲突检测与自动更新</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         6. 数据面板 — 知识库概览
+         ═══════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-label">
+        <span class="label">知识库概览 · KNOWLEDGE BASE</span>
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-value tabular-nums">2,847</div>
+          <div class="metric-label">文档总数</div>
+          <div class="metric-change">+128 本周</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value tabular-nums">1.2M</div>
+          <div class="metric-label">向量碎片</div>
+          <div class="metric-change">+34K 本周</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value tabular-nums">96.4<span style="font-size:1.5rem">%</span></div>
+          <div class="metric-label">索引完整度</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value tabular-nums">8ms</div>
+          <div class="metric-label">平均检索延迟</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         7. 数据表格 — Agent 运行状态
+         ═══════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-label">
+        <span class="label">Agent 运行状态 · RUNTIME</span>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Agent</th>
+            <th>模型</th>
+            <th>状态</th>
+            <th>请求数</th>
+            <th>延迟 P95</th>
+            <th>错误率</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600">矿工</td>
+            <td class="tabular-nums">deepseek-v4-pro</td>
+            <td><span class="status-badge active">活跃</span></td>
+            <td class="tabular-nums">1,204</td>
+            <td class="tabular-nums">3.2s</td>
+            <td class="tabular-nums">0.3%</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">试金</td>
+            <td class="tabular-nums">deepseek-v4-flash</td>
+            <td><span class="status-badge active">活跃</span></td>
+            <td class="tabular-nums">3,891</td>
+            <td class="tabular-nums">0.8s</td>
+            <td class="tabular-nums">0.1%</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">铸师</td>
+            <td class="tabular-nums">deepseek-v4-pro</td>
+            <td><span class="status-badge idle">空闲</span></td>
+            <td class="tabular-nums">847</td>
+            <td class="tabular-nums">2.1s</td>
+            <td class="tabular-nums">0.5%</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">匠人</td>
+            <td class="tabular-nums">deepseek-v4-flash</td>
+            <td><span class="status-badge active">活跃</span></td>
+            <td class="tabular-nums">2,156</td>
+            <td class="tabular-nums">0.6s</td>
+            <td class="tabular-nums">0.2%</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">护栏</td>
+            <td class="tabular-nums">local-filter</td>
+            <td><span class="status-badge active">活跃</span></td>
+            <td class="tabular-nums">8,098</td>
+            <td class="tabular-nums">12ms</td>
+            <td class="tabular-nums">0.0%</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">检索器</td>
+            <td class="tabular-nums">ngram-tfidf</td>
+            <td><span class="status-badge error">异常</span></td>
+            <td class="tabular-nums">5,421</td>
+            <td class="tabular-nums">45ms</td>
+            <td class="tabular-nums">2.1%</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         8. 组件展示区
+         ═══════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-label">
+        <span class="label">组件展示 · COMPONENTS</span>
+      </div>
+      <div class="showcase">
+
+        <!-- 按钮组 -->
+        <div class="showcase-block">
+          <div class="showcase-block-title">按钮 · Buttons</div>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+            <button class="btn">默认按钮</button>
+            <button class="btn btn-accent">强调按钮</button>
+            <button class="btn btn-sm">小尺寸</button>
+            <button class="btn btn-ghost">幽灵按钮</button>
+          </div>
+        </div>
+
+        <!-- 标签组 -->
+        <div class="showcase-block">
+          <div class="showcase-block-title">标签 · Tags</div>
+          <div class="tag-group">
+            <span class="tag tag-active">全部</span>
+            <span class="tag">运行中</span>
+            <span class="tag">已停止</span>
+            <span class="tag">异常</span>
+          </div>
+          <div style="height:16px"></div>
+          <div class="tag-group">
+            <span class="tag tag-underline">deepseek</span>
+            <span class="tag tag-underline">mimo</span>
+            <span class="tag tag-underline">ollama</span>
+            <span class="tag tag-underline">local</span>
+          </div>
+        </div>
+
+        <!-- 输入框 -->
+        <div class="showcase-block">
+          <div class="showcase-block-title">输入 · Inputs</div>
+          <div class="input-group" style="margin-bottom:16px;">
+            <label class="input-label">搜索文档</label>
+            <div class="input-search">
+              <input type="text" class="input" placeholder="输入关键词…">
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="input-label">API 端点</label>
+            <input type="text" class="input" value="https://api.deepseek.com/v1" readonly>
+          </div>
+        </div>
+
+        <!-- 进度条 -->
+        <div class="showcase-block">
+          <div class="showcase-block-title">进度 · Progress</div>
+          <div class="progress-group">
+            <div>
+              <div class="progress-label">
+                <span class="label">VRAM 使用</span>
+                <span class="tabular-nums">94%</span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar accent" style="width:94%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="progress-label">
+                <span class="label">内存占用</span>
+                <span class="tabular-nums">67%</span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar" style="width:67%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="progress-label">
+                <span class="label">磁盘空间</span>
+                <span class="tabular-nums">43%</span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar" style="width:43%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════
+       9. BOTTOM NAVIGATION
+       ═══════════════════════════════════════ -->
+  <nav class="bottom-nav">
+    <div class="container">
+      <a class="nav-item active" href="#">
+        <span class="nav-icon">◇</span>
+        <span class="nav-label">概览</span>
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">△</span>
+        <span class="nav-label">Agent</span>
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">○</span>
+        <span class="nav-label">知识库</span>
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">□</span>
+        <span class="nav-label">日志</span>
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">◎</span>
+        <span class="nav-label">设置</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       10. THEME TOGGLE JS
+       ═══════════════════════════════════════ -->
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      if (html.getAttribute('data-theme') === 'dark') {
+        html.setAttribute('data-theme', 'light');
+        icon.textContent = '☽';
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        icon.textContent = '☀';
+      }
+    }
+
+    // Live clock
+    function updateClock() {
+      const now = new Date();
+      const pad = n => String(n).padStart(2, '0');
+      const timeStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+      const clockEl = document.querySelectorAll('.status-bar-right .tabular-nums')[0];
+      if (clockEl) clockEl.textContent = timeStr;
+    }
+    setInterval(updateClock, 1000);
+  </script>
+
+</body>
+</html>

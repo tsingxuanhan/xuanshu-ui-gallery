@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>水墨国风 · Ink Wash — 铉枢风格库</title>
+    <title>水墨国风 · Ink Wash v2 — 铉枢风格库</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        /* Demo-specific: style switcher bar */
+        /* Demo-specific styles */
         .demo-bar {
             position: fixed; bottom: 0; left: 0; right: 0;
             background: var(--bg-card); border-top: 1px solid var(--border);
@@ -21,18 +21,58 @@
             font-family: 'Noto Serif SC', serif;
             color: var(--text-secondary);
         }
-        body { padding-bottom: 60px; }
+        body { padding-bottom: 56px; }
+
+        /* 竖排标题装饰 */
+        .vertical-title {
+            position: fixed;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.3em;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 印章水印装饰 */
+        .seal-watermark {
+            position: fixed;
+            left: 40px;
+            bottom: 100px;
+            width: 80px;
+            height: 80px;
+            border: 3px solid var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent);
+            opacity: 0.08;
+            transform: rotate(-12deg);
+            pointer-events: none;
+            z-index: 0;
+        }
     </style>
 </head>
 <body>
-    <div class="ink-bg-decoration"></div>
+    <!-- 装饰元素 -->
+    <div class="vertical-title">铉枢 · 材料科研工作站</div>
+    <div class="seal-watermark">铉</div>
 
     <div class="container">
         <!-- Header -->
         <header class="header">
             <div class="header-title">
                 <h1>铉枢 · 材料科研工作站</h1>
-                <p>XuanShu Workstation — Ink Wash Theme Demo</p>
+                <p>XuanShu Workstation — Ink Wash Theme v2</p>
             </div>
             <div class="header-actions">
                 <button class="theme-toggle" onclick="toggleTheme()" title="切换明暗" id="themeBtn">🌙</button>
@@ -232,7 +272,7 @@
             <div style="max-width: 400px; margin-top: 16px;">
                 <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">GPU 使用率 — 45%</div>
                 <div class="progress-bar">
-                    <div class="progress-fill" style="width: 45%;"></div>
+                    <div class="progress-fill normal" style="width: 45%;"></div>
                 </div>
                 <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">VRAM 使用率 — 72%</div>
                 <div class="progress-bar">
@@ -247,28 +287,55 @@
 
         <!-- Footer -->
         <div class="footer">
-            铉枢风格库 · 水墨国风 Demo · 2026-06-14
+            铉枢风格库 · 水墨国风 v2 Demo · 2026-06-14
         </div>
     </div>
 
     <!-- Demo Navigation Bar -->
     <div class="demo-bar">
-        <span class="style-label">当前风格：水墨国风 Ink Wash</span>
+        <span class="style-label">当前风格：水墨国风 Ink Wash v2</span>
         <a href="../index.html">← 返回风格库</a>
     </div>
 
     <script>
+        // 主题切换
         function toggleTheme() {
             const html = document.documentElement;
             const btn = document.getElementById('themeBtn');
             if (html.getAttribute('data-theme') === 'dark') {
                 html.removeAttribute('data-theme');
                 btn.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
             } else {
                 html.setAttribute('data-theme', 'dark');
                 btn.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
             }
         }
+
+        // 初始化主题
+        document.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('themeBtn').textContent = '☀️';
+            }
+        });
+
+        // 点击涟漪效果
+        document.querySelectorAll('.btn, .theme-toggle, .settings-btn').forEach(el => {
+            el.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
     </script>
 </body>
 </html>

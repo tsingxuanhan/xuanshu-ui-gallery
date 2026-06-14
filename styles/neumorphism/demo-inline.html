@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>铉枢 · 新拟态风格</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* ============================================
+   Neumorphism Design System - 新拟态风格
+   Soft UI with extruded/pressed shadows
+   ============================================ */
+
+/* ---------- CSS Variables ---------- */
+:root {
+  /* Light Theme (Default) */
+  --bg: #e0e5ec;
+  --bg-rgb: 224, 229, 236;
+  --shadow-dark: #b8bec7;
+  --shadow-light: #ffffff;
+  --text-primary: #2d3436;
+  --text-secondary: #636e72;
+  --text-muted: #a0a8b4;
+
+  /* Accent Colors */
+  --accent: #6b5ce7;
+  --accent-light: #8b7ef0;
+  --accent-dark: #5a4bd6;
+  --success: #48bb78;
+  --warning: #ed8936;
+  --danger: #e53e3e;
+  --info: #4299e1;
+
+  /* Shadows */
+  --shadow-convex: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+  --shadow-concave: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+  --shadow-convex-sm: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+  --shadow-concave-sm: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
+  --shadow-convex-lg: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+  --shadow-flat: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+
+  /* Spacing & Radius */
+  --radius: 16px;
+  --radius-sm: 12px;
+  --radius-lg: 20px;
+  --radius-full: 50%;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Transitions */
+  --transition: all 0.2s ease;
+  --transition-slow: all 0.35s ease;
+
+  /* Font */
+  --font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+}
+
+/* ---------- Dark Theme ---------- */
+[data-theme="dark"] {
+  --bg: #1e2128;
+  --bg-rgb: 30, 33, 40;
+  --shadow-dark: #15171b;
+  --shadow-light: #272b31;
+  --text-primary: #e2e8f0;
+  --text-secondary: #a0aec0;
+  --text-muted: #636e7a;
+
+  --accent: #8b7ef0;
+  --accent-light: #a599f5;
+  --accent-dark: #6b5ce7;
+  --success: #68d391;
+  --warning: #f6ad55;
+  --danger: #fc8181;
+  --info: #63b3ed;
+}
+
+/* ---------- Reset & Base ---------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: var(--transition-slow);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- Layout ---------- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ---------- Header ---------- */
+.neu-header {
+  padding: var(--space-xl) var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.neu-header__title {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.neu-header__subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-xs);
+}
+
+.neu-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* Theme Toggle */
+.neu-theme-toggle {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--bg);
+  box-shadow: var(--shadow-convex-sm);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: var(--transition);
+  color: var(--text-primary);
+}
+
+.neu-theme-toggle:hover {
+  box-shadow: var(--shadow-convex);
+}
+
+.neu-theme-toggle:active {
+  box-shadow: var(--shadow-concave-sm);
+}
+
+/* ---------- Status Bar ---------- */
+.neu-status-bar {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border-radius: var(--radius);
+  background: var(--bg);
+  box-shadow: var(--shadow-flat);
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.neu-status-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  box-shadow: var(--shadow-convex-sm);
+  transition: var(--transition);
+}
+
+.neu-status-item:hover {
+  box-shadow: var(--shadow-convex);
+}
+
+.neu-status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.neu-status-dot--success { background: var(--success); box-shadow: 0 0 6px rgba(72, 187, 120, 0.5); }
+.neu-status-dot--warning { background: var(--warning); box-shadow: 0 0 6px rgba(237, 137, 54, 0.5); }
+.neu-status-dot--danger { background: var(--danger); box-shadow: 0 0 6px rgba(229, 62, 62, 0.5); }
+.neu-status-dot--info { background: var(--info); box-shadow: 0 0 6px rgba(66, 153, 225, 0.5); }
+
+.neu-status-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.neu-status-value {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ---------- Warning Bar ---------- */
+.neu-warning {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius);
+  background: var(--bg);
+  box-shadow: var(--shadow-flat);
+  margin-bottom: var(--space-xl);
+  border-left: 4px solid var(--warning);
+}
+
+.neu-warning__icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.neu-warning__content {
+  flex: 1;
+}
+
+.neu-warning__title {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--warning);
+}
+
+.neu-warning__text {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.neu-warning__dismiss {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--bg);
+  box-shadow: var(--shadow-convex-sm);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.neu-warning__dismiss:active {
+  box-shadow: var(--shadow-concave-sm);
+}
+
+/* ---------- Cards ---------- */
+.neu-card {
+  background: var(--bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-convex);
+  padding: var(--space-lg);
+  transition: var(--transition);
+}
+
+.neu-card:hover {
+  box-shadow: var(--shadow-convex-lg);
+}
+
+.neu-card--concave {
+  box-shadow: var(--shadow-concave);
+}
+
+.neu-card--flat {
+  box-shadow: var(--shadow-flat);
+}
+
+.neu-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.neu-card__title {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.neu-card__subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+/* Service Cards */
+.neu-service-card {
+  background: var(--bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-convex);
+  padding: var(--space-lg);
+  transition: var(--transition);
+  cursor: pointer;
+  text-align: center;
+}
+
+.neu-service-card:hover {
+  box-shadow: var(--shadow-convex-lg);
+  transform: translateY(-2px);
+}
+
+.neu-service-card:active {
+  box-shadow: var(--shadow-concave);
+  transform: translateY(0);
+}
+
+.neu-service-card__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius);
+  background: var(--bg);
+  box-shadow: var(--shadow-concave-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-md);
+  font-size: 1.5rem;
+}
+
+.neu-service-card__name {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.neu-service-card__desc {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.neu-service-card__status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.neu-service-card__status--running {
+  color: var(--success);
+}
+
+.neu-service-card__status--stopped {
+  color: var(--danger);
+}
+
+/* Navigation Cards */
+.neu-nav-card {
+  background: var(--bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-convex);
+  padding: var(--space-lg);
+  transition: var(--transition);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-md);
+}
+
+.neu-nav-card:hover {
+  box-shadow: var(--shadow-convex-lg);
+  transform: translateY(-3px);
+}
+
+.neu-nav-card:active {
+  box-shadow: var(--shadow-concave);
+  transform: translateY(0);
+}
+
+.neu-nav-card__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  background: var(--bg);
+  box-shadow: var(--shadow-convex-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  transition: var(--transition);
+}
+
+.neu-nav-card:hover .neu-nav-card__icon {
+  box-shadow: var(--shadow-concave);
+}
+
+.neu-nav-card__label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.neu-nav-card__desc {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* Metric Cards */
+.neu-metric {
+  background: var(--bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-convex);
+  padding: var(--space-lg);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.neu-metric:hover {
+  box-shadow: var(--shadow-convex-lg);
+}
+
+.neu-metric__value {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.2;
+}
+
+.neu-metric__label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: var(--space-xs);
+}
+
+.neu-metric__change {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  margin-top: var(--space-sm);
+}
+
+.neu-metric__change--up { color: var(--success); }
+.neu-metric__change--down { color: var(--danger); }
+
+/* ---------- Table ---------- */
+.neu-table-wrapper {
+  background: var(--bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-convex);
+  overflow: hidden;
+}
+
+.neu-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.neu-table th {
+  padding: var(--space-md) var(--space-lg);
+  text-align: left;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-concave-sm);
+  background: var(--bg);
+}
+
+.neu-table td {
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  border-top: 1px solid rgba(var(--bg-rgb), 0.5);
+}
+
+.neu-table tr:hover td {
+  background: rgba(var(--bg-rgb), 0.3);
+}
+
+.neu-table__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.neu-table__badge--running {
+  background: rgba(72, 187, 120, 0.15);
+  color: var(--success);
+}
+
+.neu-table__badge--idle {
+  background: rgba(66, 153, 225, 0.15);
+  color: var(--info);
+}
+
+.neu-table__badge--error {
+  background: rgba(229, 62, 62, 0.15);
+  color: var(--danger);
+}
+
+/* ---------- Buttons ---------- */
+.neu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  box-shadow: var(--shadow-convex-sm);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+}
+
+.neu-btn:hover {
+  box-shadow: var(--shadow-convex);
+}
+
+.neu-btn:active {
+  box-shadow: var(--shadow-concave-sm);
+}
+
+.neu-btn--primary {
+  color: var(--accent);
+}
+
+.neu-btn--success {
+  color: var(--success);
+}
+
+.neu-btn--warning {
+  color: var(--warning);
+}
+
+.neu-btn--danger {
+  color: var(--danger);
+}
+
+.neu-btn--sm {
+  padding: 8px 16px;
+  font-size: var(--font-size-xs);
+  border-radius: var(--space-sm);
+}
+
+.neu-btn--lg {
+  padding: 16px 32px;
+  font-size: var(--font-size-base);
+  border-radius: var(--radius);
+}
+
+.neu-btn--icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-full);
+}
+
+.neu-btn--block {
+  width: 100%;
+}
+
+/* ---------- Tags ---------- */
+.neu-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  background: var(--bg);
+  box-shadow: var(--shadow-convex-sm);
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.neu-tag--accent { color: var(--accent); }
+.neu-tag--success { color: var(--success); }
+.neu-tag--warning { color: var(--warning); }
+.neu-tag--danger { color: var(--danger); }
+.neu-tag--info { color: var(--info); }
+
+/* ---------- Inputs ---------- */
+.neu-input {
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  box-shadow: var(--shadow-concave);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  outline: none;
+  transition: var(--transition);
+}
+
+.neu-input::placeholder {
+  color: var(--text-muted);
+}
+
+.neu-input:focus {
+  box-shadow: var(--shadow-concave), 0 0 0 2px rgba(107, 92, 231, 0.3);
+}
+
+.neu-textarea {
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  box-shadow: var(--shadow-concave);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  outline: none;
+  resize: vertical;
+  min-height: 100px;
+  transition: var(--transition);
+}
+
+.neu-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.neu-textarea:focus {
+  box-shadow: var(--shadow-concave), 0 0 0 2px rgba(107, 92, 231, 0.3);
+}
+
+.neu-input-group {
+  position: relative;
+}
+
+.neu-input-group .neu-input {
+  padding-right: 48px;
+}
+
+.neu-input-group__append {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  box-shadow: var(--shadow-convex-sm);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  transition: var(--transition);
+}
+
+.neu-input-group__append:active {
+  box-shadow: var(--shadow-concave-sm);
+}
+
+/* ---------- Progress Bar ---------- */
+.neu-progress {
+  width: 100%;
+  margin-bottom: var(--space-md);
+}
+
+.neu-progress__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.neu-progress__label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.neu-progress__value {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.neu-progress__track {
+  width: 100%;
+  height: 12px;
+  border-radius: 6px;
+  background: var(--bg);
+  box-shadow: var(--shadow-concave-sm);
+  overflow: hidden;
+}
+
+.neu-progress__fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.5s ease;
+  box-shadow: var(--shadow-convex-sm);
+}
+
+.neu-progress__fill--accent {
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+}
+
+.neu-progress__fill--success {
+  background: linear-gradient(90deg, var(--success), #68d391);
+}
+
+.neu-progress__fill--warning {
+  background: linear-gradient(90deg, var(--warning), #f6ad55);
+}
+
+.neu-progress__fill--danger {
+  background: linear-gradient(90deg, var(--danger), #fc8181);
+}
+
+/* ---------- Bottom Navigation ---------- */
+.neu-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg);
+  box-shadow: 0 -4px 12px rgba(var(--bg-rgb), 0.8);
+  padding: var(--space-sm) var(--space-md);
+  padding-bottom: calc(var(--space-sm) + env(safe-area-inset-bottom, 0));
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  border-top: 1px solid rgba(var(--bg-rgb), 0.5);
+}
+
+.neu-bottom-nav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  font-family: var(--font-family);
+}
+
+.neu-bottom-nav__item:hover {
+  color: var(--text-secondary);
+}
+
+.neu-bottom-nav__item--active {
+  color: var(--accent);
+}
+
+.neu-bottom-nav__item--active .neu-bottom-nav__icon {
+  box-shadow: var(--shadow-concave-sm);
+}
+
+.neu-bottom-nav__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: var(--transition);
+}
+
+.neu-bottom-nav__label {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* ---------- Section ---------- */
+.neu-section {
+  margin-bottom: var(--space-2xl);
+}
+
+.neu-section__title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-lg);
+  padding-left: var(--space-sm);
+}
+
+/* ---------- Divider ---------- */
+.neu-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--shadow-dark), transparent);
+  margin: var(--space-xl) 0;
+  opacity: 0.4;
+}
+
+/* ---------- Toggle Switch ---------- */
+.neu-toggle {
+  width: 52px;
+  height: 28px;
+  border-radius: 14px;
+  background: var(--bg);
+  box-shadow: var(--shadow-concave);
+  position: relative;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.neu-toggle__knob {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: var(--bg);
+  box-shadow: var(--shadow-convex-sm);
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: var(--transition);
+}
+
+.neu-toggle--active {
+  background: var(--accent);
+  box-shadow: var(--shadow-concave);
+}
+
+.neu-toggle--active .neu-toggle__knob {
+  left: 27px;
+}
+
+/* ---------- Avatar ---------- */
+.neu-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--bg);
+  box-shadow: var(--shadow-convex-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--accent);
+  transition: var(--transition);
+}
+
+.neu-avatar--sm {
+  width: 36px;
+  height: 36px;
+  font-size: var(--font-size-sm);
+}
+
+.neu-avatar--lg {
+  width: 64px;
+  height: 64px;
+  font-size: var(--font-size-xl);
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--shadow-dark);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .grid-4,
+  .grid-3,
+  .grid-2 { grid-template-columns: 1fr; }
+
+  .neu-header {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .neu-status-bar {
+    flex-direction: column;
+  }
+
+  .neu-bottom-nav {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .container {
+    padding: var(--space-md);
+  }
+
+  body {
+    padding-bottom: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-2xl: 1.5rem;
+    --font-size-xl: 1.25rem;
+  }
+
+  .neu-btn {
+    padding: 10px 18px;
+  }
+}
+
+/* ---------- Animations ---------- */
+@keyframes neu-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.neu-pulse {
+  animation: neu-pulse 2s infinite;
+}
+
+@keyframes neu-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* ---------- Utility ---------- */
+.text-accent { color: var(--accent); }
+.text-success { color: var(--success); }
+.text-warning { color: var(--warning); }
+.text-danger { color: var(--danger); }
+.text-muted { color: var(--text-muted); }
+.text-secondary { color: var(--text-secondary); }
+
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+
+</style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- ========== 1. Header ========== -->
+    <header class="neu-header flex-between">
+      <div>
+        <h1 class="neu-header__title">铉枢 · 材料科研工作站</h1>
+        <p class="neu-header__subtitle">Materials Research Workstation — Neumorphism UI Demo</p>
+      </div>
+      <div class="neu-header__actions">
+        <button class="neu-theme-toggle" id="themeToggle" aria-label="切换主题">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ========== 2. Status Bar ========== -->
+    <section class="neu-section">
+      <div class="neu-status-bar">
+        <div class="neu-status-item">
+          <span class="neu-status-dot neu-status-dot--success"></span>
+          <div>
+            <div class="neu-status-label">Docker</div>
+            <div class="neu-status-value">运行中</div>
+          </div>
+        </div>
+        <div class="neu-status-item">
+          <span class="neu-status-dot neu-status-dot--success"></span>
+          <div>
+            <div class="neu-status-label">Ollama</div>
+            <div class="neu-status-value">v0.5.4</div>
+          </div>
+        </div>
+        <div class="neu-status-item">
+          <span class="neu-status-dot neu-status-dot--warning"></span>
+          <div>
+            <div class="neu-status-label">GPU</div>
+            <div class="neu-status-value">73°C</div>
+          </div>
+        </div>
+        <div class="neu-status-item">
+          <span class="neu-status-dot neu-status-dot--info"></span>
+          <div>
+            <div class="neu-status-label">VRAM</div>
+            <div class="neu-status-value">12.4 / 16 GB</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== 3. Warning Bar ========== -->
+      <div class="neu-warning">
+        <span class="neu-warning__icon">⚠️</span>
+        <div class="neu-warning__content">
+          <div class="neu-warning__title">VRAM 使用率 77.5%</div>
+          <div class="neu-warning__text">显存占用较高，建议关闭不使用的模型以释放资源。</div>
+        </div>
+        <button class="neu-warning__dismiss" aria-label="关闭">✕</button>
+      </div>
+    </section>
+
+    <!-- ========== 4. Service Cards ========== -->
+    <section class="neu-section">
+      <h2 class="neu-section__title">服务状态</h2>
+      <div class="grid grid-3">
+        <div class="neu-service-card">
+          <div class="neu-service-card__icon">💬</div>
+          <div class="neu-service-card__name">Open WebUI</div>
+          <div class="neu-service-card__desc">大模型对话界面</div>
+          <div class="neu-service-card__status neu-service-card__status--running">
+            <span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span> 运行中
+          </div>
+        </div>
+        <div class="neu-service-card">
+          <div class="neu-service-card__icon">🦙</div>
+          <div class="neu-service-card__name">Ollama API</div>
+          <div class="neu-service-card__desc">模型推理服务</div>
+          <div class="neu-service-card__status neu-service-card__status--running">
+            <span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span> 运行中
+          </div>
+        </div>
+        <div class="neu-service-card">
+          <div class="neu-service-card__icon">📓</div>
+          <div class="neu-service-card__name">JupyterLab</div>
+          <div class="neu-service-card__desc">交互式计算环境</div>
+          <div class="neu-service-card__status neu-service-card__status--running">
+            <span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span> 运行中
+          </div>
+        </div>
+        <div class="neu-service-card">
+          <div class="neu-service-card__icon">🎨</div>
+          <div class="neu-service-card__name">ComfyUI</div>
+          <div class="neu-service-card__desc">图像生成工作流</div>
+          <div class="neu-service-card__status neu-service-card__status--stopped">
+            <span class="neu-status-dot neu-status-dot--danger" style="width:6px;height:6px"></span> 已停止
+          </div>
+        </div>
+        <div class="neu-service-card">
+          <div class="neu-service-card__icon">🐳</div>
+          <div class="neu-service-card__name">Portainer</div>
+          <div class="neu-service-card__desc">容器管理面板</div>
+          <div class="neu-service-card__status neu-service-card__status--running">
+            <span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span> 运行中
+          </div>
+        </div>
+        <div class="neu-service-card">
+          <div class="neu-service-card__icon">📄</div>
+          <div class="neu-service-card__name">Stirling PDF</div>
+          <div class="neu-service-card__desc">PDF 工具箱</div>
+          <div class="neu-service-card__status neu-service-card__status--running">
+            <span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span> 运行中
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 5. Navigation Cards ========== -->
+    <section class="neu-section">
+      <h2 class="neu-section__title">功能模块</h2>
+      <div class="grid grid-3">
+        <div class="neu-nav-card">
+          <div class="neu-nav-card__icon">🔬</div>
+          <div class="neu-nav-card__label">文献挖掘</div>
+          <div class="neu-nav-card__desc">Semantic Scholar / arXiv 论文检索</div>
+        </div>
+        <div class="neu-nav-card">
+          <div class="neu-nav-card__icon">🧪</div>
+          <div class="neu-nav-card__label">实验设计</div>
+          <div class="neu-nav-card__desc">DOE 设计与参数优化</div>
+        </div>
+        <div class="neu-nav-card">
+          <div class="neu-nav-card__icon">📊</div>
+          <div class="neu-nav-card__label">数据分析</div>
+          <div class="neu-nav-card__desc">XRD / SEM / XPS 数据解析</div>
+        </div>
+        <div class="neu-nav-card">
+          <div class="neu-nav-card__icon">🤖</div>
+          <div class="neu-nav-card__label">Agent 调度</div>
+          <div class="neu-nav-card__desc">多 Agent 协作任务编排</div>
+        </div>
+        <div class="neu-nav-card">
+          <div class="neu-nav-card__icon">📝</div>
+          <div class="neu-nav-card__label">论文写作</div>
+          <div class="neu-nav-card__desc">AI 辅助论文撰写与润色</div>
+        </div>
+        <div class="neu-nav-card">
+          <div class="neu-nav-card__icon">⚙️</div>
+          <div class="neu-nav-card__label">系统设置</div>
+          <div class="neu-nav-card__desc">模型管理 / 服务配置</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 6. Data Panel ========== -->
+    <section class="neu-section">
+      <h2 class="neu-section__title">知识库概览</h2>
+      <div class="grid grid-4">
+        <div class="neu-metric">
+          <div class="neu-metric__value">2,847</div>
+          <div class="neu-metric__label">论文总量</div>
+          <div class="neu-metric__change neu-metric__change--up">↑ 124 本周新增</div>
+        </div>
+        <div class="neu-metric">
+          <div class="neu-metric__value">186</div>
+          <div class="neu-metric__label">知识卡片</div>
+          <div class="neu-metric__change neu-metric__change--up">↑ 23 本周新增</div>
+        </div>
+        <div class="neu-metric">
+          <div class="neu-metric__value">42</div>
+          <div class="neu-metric__label">数据集</div>
+          <div class="neu-metric__change neu-metric__change--up">↑ 5 本周新增</div>
+        </div>
+        <div class="neu-metric">
+          <div class="neu-metric__value">15.2<small style="font-size:0.6em">GB</small></div>
+          <div class="neu-metric__label">存储占用</div>
+          <div class="neu-metric__change neu-metric__change--down">↓ 较上周减少 0.3GB</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 7. Data Table ========== -->
+    <section class="neu-section">
+      <h2 class="neu-section__title">Agent 运行状态</h2>
+      <div class="neu-table-wrapper">
+        <table class="neu-table">
+          <thead>
+            <tr>
+              <th>Agent</th>
+              <th>角色</th>
+              <th>模型</th>
+              <th>任务数</th>
+              <th>状态</th>
+              <th>耗时</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>矿工</strong></td>
+              <td>文献挖掘</td>
+              <td>deepseek-v4-pro</td>
+              <td>12</td>
+              <td><span class="neu-table__badge neu-table__badge--running"><span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span>运行</span></td>
+              <td>2h 34m</td>
+            </tr>
+            <tr>
+              <td><strong>试金</strong></td>
+              <td>数据验证</td>
+              <td>deepseek-v4-flash</td>
+              <td>8</td>
+              <td><span class="neu-table__badge neu-table__badge--idle"><span class="neu-status-dot neu-status-dot--info" style="width:6px;height:6px"></span>空闲</span></td>
+              <td>1h 12m</td>
+            </tr>
+            <tr>
+              <td><strong>铸师</strong></td>
+              <td>方案生成</td>
+              <td>deepseek-v4-pro</td>
+              <td>5</td>
+              <td><span class="neu-table__badge neu-table__badge--running"><span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span>运行</span></td>
+              <td>3h 08m</td>
+            </tr>
+            <tr>
+              <td><strong>匠人</strong></td>
+              <td>成果整合</td>
+              <td>deepseek-v4-flash</td>
+              <td>3</td>
+              <td><span class="neu-table__badge neu-table__badge--error"><span class="neu-status-dot neu-status-dot--danger" style="width:6px;height:6px"></span>异常</span></td>
+              <td>0h 45m</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========== 8. Components Showcase ========== -->
+    <section class="neu-section">
+      <h2 class="neu-section__title">组件展示</h2>
+      <div class="neu-card" style="margin-bottom: var(--space-lg);">
+        <div class="neu-card__header">
+          <span class="neu-card__title">按钮组</span>
+        </div>
+        <div class="flex flex-wrap gap-md">
+          <button class="neu-btn neu-btn--primary">🚀 启动服务</button>
+          <button class="neu-btn neu-btn--success">✅ 确认</button>
+          <button class="neu-btn neu-btn--warning">⚡ 刷新</button>
+          <button class="neu-btn neu-btn--danger">🗑 删除</button>
+          <button class="neu-btn">📎 默认按钮</button>
+        </div>
+        <div class="neu-divider"></div>
+        <div class="flex flex-wrap gap-md">
+          <button class="neu-btn neu-btn--sm neu-btn--primary">小号按钮</button>
+          <button class="neu-btn neu-btn--primary">中号按钮</button>
+          <button class="neu-btn neu-btn--lg neu-btn--primary">大号按钮</button>
+          <button class="neu-btn neu-btn--icon">⚙</button>
+          <button class="neu-btn neu-btn--icon">🔔</button>
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div class="neu-card" style="margin-bottom: var(--space-lg);">
+        <div class="neu-card__header">
+          <span class="neu-card__title">标签组</span>
+        </div>
+        <div class="flex flex-wrap gap-sm">
+          <span class="neu-tag neu-tag--accent">🏷 材料科学</span>
+          <span class="neu-tag neu-tag--success">● 在线</span>
+          <span class="neu-tag neu-tag--warning">⏳ 处理中</span>
+          <span class="neu-tag neu-tag--danger">✕ 已中断</span>
+          <span class="neu-tag neu-tag--info">📊 数据</span>
+          <span class="neu-tag">默认标签</span>
+        </div>
+      </div>
+
+      <!-- Inputs -->
+      <div class="neu-card" style="margin-bottom: var(--space-lg);">
+        <div class="neu-card__header">
+          <span class="neu-card__title">输入框</span>
+        </div>
+        <div class="grid grid-2 gap-md">
+          <div>
+            <input class="neu-input" type="text" placeholder="搜索论文标题 / DOI...">
+          </div>
+          <div class="neu-input-group">
+            <input class="neu-input" type="text" placeholder="输入关键词...">
+            <button class="neu-input-group__append">🔍</button>
+          </div>
+        </div>
+        <div class="mt-md">
+          <textarea class="neu-textarea" placeholder="输入研究需求描述...&#10;支持多行文本输入"></textarea>
+        </div>
+      </div>
+
+      <!-- Progress Bars -->
+      <div class="neu-card">
+        <div class="neu-card__header">
+          <span class="neu-card__title">进度条</span>
+        </div>
+        <div class="neu-progress">
+          <div class="neu-progress__header">
+            <span class="neu-progress__label">VRAM 使用</span>
+            <span class="neu-progress__value">77.5%</span>
+          </div>
+          <div class="neu-progress__track">
+            <div class="neu-progress__fill neu-progress__fill--warning" style="width: 77.5%"></div>
+          </div>
+        </div>
+        <div class="neu-progress">
+          <div class="neu-progress__header">
+            <span class="neu-progress__label">GPU 利用率</span>
+            <span class="neu-progress__value">62%</span>
+          </div>
+          <div class="neu-progress__track">
+            <div class="neu-progress__fill neu-progress__fill--accent" style="width: 62%"></div>
+          </div>
+        </div>
+        <div class="neu-progress">
+          <div class="neu-progress__header">
+            <span class="neu-progress__label">磁盘空间</span>
+            <span class="neu-progress__value">45%</span>
+          </div>
+          <div class="neu-progress__track">
+            <div class="neu-progress__fill neu-progress__fill--success" style="width: 45%"></div>
+          </div>
+        </div>
+        <div class="neu-progress">
+          <div class="neu-progress__header">
+            <span class="neu-progress__label">内存占用</span>
+            <span class="neu-progress__value">91%</span>
+          </div>
+          <div class="neu-progress__track">
+            <div class="neu-progress__fill neu-progress__fill--danger" style="width: 91%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom padding for fixed nav -->
+    <div style="height: 80px;"></div>
+
+  </div>
+
+  <!-- ========== 9. Bottom Navigation ========== -->
+  <nav class="neu-bottom-nav">
+    <button class="neu-bottom-nav__item neu-bottom-nav__item--active">
+      <div class="neu-bottom-nav__icon">🏠</div>
+      <span class="neu-bottom-nav__label">首页</span>
+    </button>
+    <button class="neu-bottom-nav__item">
+      <div class="neu-bottom-nav__icon">📂</div>
+      <span class="neu-bottom-nav__label">文件</span>
+    </button>
+    <button class="neu-bottom-nav__item">
+      <div class="neu-bottom-nav__icon">💻</div>
+      <span class="neu-bottom-nav__label">终端</span>
+    </button>
+    <button class="neu-bottom-nav__item">
+      <div class="neu-bottom-nav__icon">📈</div>
+      <span class="neu-bottom-nav__label">监控</span>
+    </button>
+    <button class="neu-bottom-nav__item">
+      <div class="neu-bottom-nav__icon">⚙️</div>
+      <span class="neu-bottom-nav__label">设置</span>
+    </button>
+  </nav>
+
+  <!-- ========== 10. Theme Toggle Script ========== -->
+  <script>
+    (function() {
+      const html = document.documentElement;
+      const toggle = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+
+      // Load saved theme
+      const saved = localStorage.getItem('neu-theme');
+      if (saved) {
+        html.setAttribute('data-theme', saved);
+        icon.textContent = saved === 'dark' ? '☀️' : '🌙';
+      }
+
+      toggle.addEventListener('click', function() {
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('neu-theme', next);
+        icon.textContent = next === 'dark' ? '☀️' : '🌙';
+      });
+
+      // Bottom nav interaction
+      const navItems = document.querySelectorAll('.neu-bottom-nav__item');
+      navItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+          navItems.forEach(function(i) { i.classList.remove('neu-bottom-nav__item--active'); });
+          item.classList.add('neu-bottom-nav__item--active');
+        });
+      });
+
+      // Warning dismiss
+      const dismissBtn = document.querySelector('.neu-warning__dismiss');
+      if (dismissBtn) {
+        dismissBtn.addEventListener('click', function() {
+          const warning = document.querySelector('.neu-warning');
+          if (warning) {
+            warning.style.opacity = '0';
+            warning.style.transform = 'translateY(-10px)';
+            warning.style.transition = 'all 0.3s ease';
+            setTimeout(function() { warning.style.display = 'none'; }, 300);
+          }
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

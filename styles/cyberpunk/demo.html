@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>铉枢 · 材料科研工作站 — Cyberpunk Theme</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-content">
+    <div class="container">
+
+      <!-- ==================== HEADER ==================== -->
+      <header class="header">
+        <h1 class="header-title">铉枢 · 材料科研工作站</h1>
+        <p class="header-subtitle">XUANSHU Material Research Workstation v3.3.0</p>
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+          <span id="themeIcon">☀</span> 切换亮色
+        </button>
+      </header>
+
+      <!-- ==================== STATUS BAR ==================== -->
+      <div class="status-bar">
+        <div class="status-item">
+          <span class="status-indicator online"></span>
+          <span>系统就绪</span>
+        </div>
+        <div class="status-item">
+          <span class="status-indicator processing"></span>
+          <span>矿工 Agent 运行中</span>
+        </div>
+        <div class="status-item">
+          <span class="status-indicator online"></span>
+          <span>API Proxy: 127.0.0.1:8080</span>
+        </div>
+        <div class="status-item">
+          <span class="status-indicator warning"></span>
+          <span>VRAM: 14.2 / 16.0 GB</span>
+        </div>
+        <div class="status-item">
+          <span class="status-indicator online"></span>
+          <span>ChromaDB: Connected</span>
+        </div>
+      </div>
+
+      <!-- ==================== VRAM WARNING ==================== -->
+      <div class="warning-banner">
+        <span class="warning-icon">⚠</span>
+        <span>VRAM 使用率 88.7% — 接近硬约束阈值 (16GB)，建议关闭闲置模型或切换至 flash 推理通道</span>
+      </div>
+
+      <!-- ==================== SERVICE CARDS ==================== -->
+      <section class="section">
+        <h2 class="section-title">// 服务矩阵</h2>
+        <div class="card-grid">
+          <div class="card">
+            <h3 class="card-title">矿工 Agent (Pro)</h3>
+            <p class="card-desc">深度文献挖掘与知识提取，调用 DeepSeek-V4-Pro 进行多轮推理与结构化分析。</p>
+            <div class="card-meta">
+              <span class="status-indicator online" style="width:6px;height:6px;"></span>
+              <span>Running · deepseek-v4-pro</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">试金 Agent (Flash)</h3>
+            <p class="card-desc">数据验证与快速检索通道，低延迟响应，处理高频查询任务。</p>
+            <div class="card-meta">
+              <span class="status-indicator online" style="width:6px;height:6px;"></span>
+              <span>Idle · deepseek-v4-flash</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">铸师 Agent (Pro)</h3>
+            <p class="card-desc">方案生成与策略优化，基于验证数据构建实验方案与技术路线图。</p>
+            <div class="card-meta">
+              <span class="status-indicator processing" style="width:6px;height:6px;"></span>
+              <span>Processing · deepseek-v4-pro</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">匠人 Agent (Flash)</h3>
+            <p class="card-desc">成果整合与报告生成，汇总多 Agent 输出为可交付文档。</p>
+            <div class="card-meta">
+              <span class="status-indicator online" style="width:6px;height:6px;"></span>
+              <span>Idle · deepseek-v4-flash</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">API Proxy</h3>
+            <p class="card-desc">纯 Python API 代理层，无 Docker 依赖，低内存占用，统一管理密钥与请求路由。</p>
+            <div class="card-meta">
+              <span class="status-indicator online" style="width:6px;height:6px;"></span>
+              <span>Listening · :8080</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">向量记忆引擎</h3>
+            <p class="card-desc">NGramTFIDF + Hybrid RRF 检索，SlotMemory 冲突检测，本地化知识持久化。</p>
+            <div class="card-meta">
+              <span class="status-indicator warning" style="width:6px;height:6px;"></span>
+              <span>High Load · 2,847 slots</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== FEATURE NAV ==================== -->
+      <section class="section">
+        <h2 class="section-title">// 功能模块</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span class="icon">📚</span>
+            <span class="label">知识库</span>
+          </div>
+          <div class="feature-card">
+            <span class="icon">🔬</span>
+            <span class="label">实验管理</span>
+          </div>
+          <div class="feature-card">
+            <span class="icon">📊</span>
+            <span class="label">数据分析</span>
+          </div>
+          <div class="feature-card">
+            <span class="icon">🤖</span>
+            <span class="label">Agent 编排</span>
+          </div>
+          <div class="feature-card">
+            <span class="icon">🔗</span>
+            <span class="label">A2A 通道</span>
+          </div>
+          <div class="feature-card">
+            <span class="icon">⚙️</span>
+            <span class="label">系统配置</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== DATA PANEL ==================== -->
+      <section class="section">
+        <h2 class="section-title">// 知识库概览</h2>
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-value">2,847</div>
+            <div class="metric-label">知识槽位</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value magenta">156</div>
+            <div class="metric-label">活跃项目</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value yellow">89.3%</div>
+            <div class="metric-label">命中率</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">12ms</div>
+            <div class="metric-label">平均检索延迟</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== DATA TABLE ==================== -->
+      <section class="section">
+        <h2 class="section-title">// Agent 运行状态</h2>
+        <div class="data-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Agent</th>
+                <th>模型</th>
+                <th>状态</th>
+                <th>Token 用量</th>
+                <th>延迟</th>
+                <th>最后活跃</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>矿工</td>
+                <td>deepseek-v4-pro</td>
+                <td><span class="table-status running">● Running</span></td>
+                <td>48,291</td>
+                <td>1.2s</td>
+                <td>刚刚</td>
+              </tr>
+              <tr>
+                <td>试金</td>
+                <td>deepseek-v4-flash</td>
+                <td><span class="table-status idle">○ Idle</span></td>
+                <td>12,044</td>
+                <td>0.3s</td>
+                <td>3 分钟前</td>
+              </tr>
+              <tr>
+                <td>铸师</td>
+                <td>deepseek-v4-pro</td>
+                <td><span class="table-status running">● Running</span></td>
+                <td>31,877</td>
+                <td>1.8s</td>
+                <td>刚刚</td>
+              </tr>
+              <tr>
+                <td>匠人</td>
+                <td>deepseek-v4-flash</td>
+                <td><span class="table-status idle">○ Idle</span></td>
+                <td>8,502</td>
+                <td>0.4s</td>
+                <td>12 分钟前</td>
+              </tr>
+              <tr>
+                <td>API Proxy</td>
+                <td>—</td>
+                <td><span class="table-status running">● Active</span></td>
+                <td>—</td>
+                <td>2ms</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>向量引擎</td>
+                <td>NGramTFIDF</td>
+                <td><span class="table-status error">⚠ High Load</span></td>
+                <td>—</td>
+                <td>45ms</td>
+                <td>刚刚</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== COMPONENT SHOWCASE ==================== -->
+      <section class="section">
+        <h2 class="section-title">// 组件展示</h2>
+
+        <!-- Buttons -->
+        <h3 class="card-title mb-md">按钮组</h3>
+        <div class="btn-group">
+          <button class="btn btn-cyan">执行任务</button>
+          <button class="btn btn-magenta">中断进程</button>
+          <button class="btn btn-yellow">警告确认</button>
+          <button class="btn btn-filled">启动 Agent</button>
+        </div>
+
+        <!-- Tags -->
+        <h3 class="card-title mb-md">标签组</h3>
+        <div class="tag-group">
+          <span class="tag tag-cyan">deepseek-v4-pro</span>
+          <span class="tag tag-magenta">向量检索</span>
+          <span class="tag tag-yellow">VRAM 警告</span>
+          <span class="tag tag-red">异常终止</span>
+          <span class="tag tag-cyan">A2A</span>
+          <span class="tag tag-cyan">Hybrid RRF</span>
+          <span class="tag tag-magenta">SlotMemory</span>
+        </div>
+
+        <!-- Inputs -->
+        <h3 class="card-title mb-md">输入框</h3>
+        <div class="input-group">
+          <label class="input-label">搜索关键词</label>
+          <input type="text" class="input-field" placeholder="输入查询内容...">
+        </div>
+        <div class="input-group">
+          <label class="input-label">Agent 指令</label>
+          <input type="text" class="input-field magenta" placeholder="向矿工 Agent 发送指令...">
+        </div>
+
+        <!-- Progress Bars -->
+        <h3 class="card-title mb-md">进度条</h3>
+        <div class="progress-group">
+          <div class="progress-item">
+            <span class="progress-label">VRAM</span>
+            <div class="progress-bar">
+              <div class="progress-fill cyan" style="width: 88%"></div>
+            </div>
+            <span class="progress-value">88%</span>
+          </div>
+          <div class="progress-item">
+            <span class="progress-label">RAM</span>
+            <div class="progress-bar">
+              <div class="progress-fill magenta" style="width: 72%"></div>
+            </div>
+            <span class="progress-value" style="color: var(--neon-magenta);">72%</span>
+          </div>
+          <div class="progress-item">
+            <span class="progress-label">知识库</span>
+            <div class="progress-bar">
+              <div class="progress-fill yellow" style="width: 45%"></div>
+            </div>
+            <span class="progress-value" style="color: var(--neon-yellow);">45%</span>
+          </div>
+          <div class="progress-item">
+            <span class="progress-label">磁盘</span>
+            <div class="progress-bar">
+              <div class="progress-fill cyan" style="width: 31%"></div>
+            </div>
+            <span class="progress-value">31%</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ==================== BOTTOM NAV ==================== -->
+  <nav class="bottom-nav">
+    <a class="nav-item active">
+      <span class="nav-icon">◈</span>
+      <span>总览</span>
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon">⬡</span>
+      <span>Agent</span>
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon">◉</span>
+      <span>知识库</span>
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon">⚡</span>
+      <span>任务</span>
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon">⚙</span>
+      <span>设置</span>
+    </a>
+  </nav>
+
+  <!-- ==================== THEME TOGGLE JS ==================== -->
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+
+      if (html.getAttribute('data-theme') === 'dark') {
+        html.setAttribute('data-theme', 'light');
+        icon.textContent = '☾';
+        btn.innerHTML = '<span id="themeIcon">☾</span> 切换暗色';
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        icon.textContent = '☀';
+        btn.innerHTML = '<span id="themeIcon">☀</span> 切换亮色';
+      }
+    }
+  </script>
+</body>
+</html>

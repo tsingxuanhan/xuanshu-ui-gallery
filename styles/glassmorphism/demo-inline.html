@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>铉枢 · Glassmorphism</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* ========================================
+   铉枢 Glassmorphism UI — style.css
+   macOS Vision Pro / iOS 控制中心风格
+   ======================================== */
+
+/* === Google Fonts === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* === CSS Variables — Light Mode (Default) === */
+:root {
+  /* Background Gradient */
+  --bg-gradient: linear-gradient(135deg, #e8f5e9 0%, #e3f2fd 25%, #ede7f6 50%, #fce4ec 75%, #fff8e1 100%);
+  --bg-gradient-alt: linear-gradient(160deg, #f0fdf4 0%, #ede9fe 40%, #fef3c7 100%);
+
+  /* Glass Card */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-hover: rgba(255, 255, 255, 0.7);
+  --glass-bg-active: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-border-hover: rgba(255, 255, 255, 0.85);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --glass-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
+  --glass-blur: blur(18px);
+  --glass-saturate: saturate(180%);
+
+  /* Text */
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a5568;
+  --text-muted: #94a3b8;
+  --text-inverse: #ffffff;
+
+  /* Accent Colors */
+  --accent-primary: #6366f1;
+  --accent-secondary: #8b5cf6;
+  --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
+
+  /* Status Colors */
+  --success: #22c55e;
+  --success-glow: rgba(34, 197, 94, 0.5);
+  --warning: #f59e0b;
+  --warning-glow: rgba(245, 158, 11, 0.5);
+  --danger: #ef4444;
+  --danger-glow: rgba(239, 68, 68, 0.5);
+  --info: #3b82f6;
+  --info-glow: rgba(59, 130, 246, 0.5);
+
+  /* Spacing */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Layout */
+  --container-max: 1400px;
+  --header-height: 72px;
+  --nav-height: 64px;
+
+  /* Input */
+  --input-bg: rgba(255, 255, 255, 0.4);
+  --input-border: rgba(255, 255, 255, 0.5);
+  --input-focus-border: rgba(99, 102, 241, 0.6);
+}
+
+/* === Dark Mode === */
+[data-theme="dark"] {
+  --bg-gradient: linear-gradient(135deg, #1a0533 0%, #0d1b3e 25%, #0a1628 50%, #061a2e 75%, #0f172a 100%);
+  --bg-gradient-alt: linear-gradient(160deg, #0f0a1f 0%, #0c1445 40%, #042f2e 100%);
+
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-hover: rgba(255, 255, 255, 0.1);
+  --glass-bg-active: rgba(255, 255, 255, 0.14);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-hover: rgba(255, 255, 255, 0.22);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --glass-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.4);
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #1a1a2e;
+
+  --accent-primary: #818cf8;
+  --accent-secondary: #a78bfa;
+  --accent-gradient: linear-gradient(135deg, #818cf8, #a78bfa, #c4b5fd);
+
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --input-border: rgba(255, 255, 255, 0.1);
+  --input-focus-border: rgba(129, 140, 248, 0.6);
+}
+
+/* === Reset & Base === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', -apple-system, 'SF Pro Display', BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  min-height: 100vh;
+  line-height: 1.6;
+  transition: background var(--transition-slow), color var(--transition-base);
+}
+
+/* === Glass Mixin Class === */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  -webkit-backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-base);
+}
+
+.glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.glass-hover:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--glass-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.glass:active {
+  background: var(--glass-bg-active);
+  transform: translateY(0);
+}
+
+/* === Layout Container === */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* === Header === */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  -webkit-backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+}
+
+.header-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-title h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-title .subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* === Theme Toggle === */
+.theme-toggle {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: all var(--transition-base);
+  color: var(--text-primary);
+}
+
+.theme-toggle:hover {
+  background: var(--glass-bg-hover);
+  transform: rotate(15deg) scale(1.05);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2);
+}
+
+/* === Status Bar === */
+.status-bar {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  flex-wrap: wrap;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all var(--transition-base);
+}
+
+.status-item:hover {
+  background: var(--glass-bg-hover);
+}
+
+/* Status Indicator with Glow */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.status-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.status-dot.online {
+  background: var(--success);
+  box-shadow: 0 0 8px var(--success-glow);
+}
+.status-dot.online::after {
+  background: var(--success);
+}
+
+.status-dot.offline {
+  background: var(--danger);
+  box-shadow: 0 0 8px var(--danger-glow);
+}
+.status-dot.offline::after {
+  background: var(--danger);
+}
+
+.status-dot.warning {
+  background: var(--warning);
+  box-shadow: 0 0 8px var(--warning-glow);
+}
+.status-dot.warning::after {
+  background: var(--warning);
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.4); }
+}
+
+/* === Warning Banner === */
+.warning-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: var(--radius-lg);
+  background: rgba(245, 158, 11, 0.08);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  margin: 12px 0;
+}
+
+[data-theme="dark"] .warning-banner {
+  background: rgba(245, 158, 11, 0.06);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.warning-banner .warning-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.warning-banner .warning-text {
+  flex: 1;
+}
+
+.warning-banner .warning-text strong {
+  color: var(--warning);
+  font-weight: 600;
+}
+
+/* === Section === */
+.section {
+  margin: 32px 0;
+}
+
+.section-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  padding-left: 4px;
+}
+
+/* === Card Grid === */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.card-grid-3 {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* === Service Card === */
+.service-card {
+  position: relative;
+  padding: 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.service-card .card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 14px;
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+
+.service-card .card-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.service-card .card-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.service-card .card-status {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+/* === Nav Card (Module Navigation) === */
+.nav-card {
+  position: relative;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.nav-card .nav-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  transition: all var(--transition-base);
+}
+
+.nav-card:hover .nav-icon {
+  background: var(--accent-gradient);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+  transform: scale(1.05);
+}
+
+.nav-card .nav-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.nav-card .nav-hint {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+}
+
+/* === Metric Cards === */
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.metric-card {
+  position: relative;
+  padding: 24px;
+  text-align: center;
+}
+
+.metric-card .metric-value {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.metric-card .metric-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.metric-card .metric-trend {
+  font-size: 0.6875rem;
+  color: var(--success);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+/* === Data Table === */
+.data-table-wrapper {
+  position: relative;
+  padding: 4px;
+  overflow: hidden;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.8125rem;
+}
+
+.data-table thead th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.data-table tbody td {
+  padding: 14px 16px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background var(--transition-fast);
+}
+
+.data-table tbody tr:hover td {
+  background: var(--glass-bg-hover);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* === Buttons === */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.45);
+}
+
+.btn-secondary {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.15);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--accent-primary);
+  border: 1px solid transparent;
+}
+
+.btn-ghost:hover {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+}
+
+/* === Tags/Badges === */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.tag-success {
+  background: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+[data-theme="dark"] .tag-success {
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+  border-color: rgba(34, 197, 94, 0.15);
+}
+
+.tag-warning {
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+[data-theme="dark"] .tag-warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.15);
+}
+
+.tag-danger {
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+[data-theme="dark"] .tag-danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.15);
+}
+
+.tag-info {
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+[data-theme="dark"] .tag-info {
+  background: rgba(59, 130, 246, 0.1);
+  color: #60a5fa;
+  border-color: rgba(59, 130, 246, 0.15);
+}
+
+/* === Input === */
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  background: var(--input-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--input-border);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.875rem;
+  transition: all var(--transition-base);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.input:focus {
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1), 0 4px 12px rgba(99, 102, 241, 0.1);
+  background: var(--glass-bg-hover);
+}
+
+/* === Progress Bar === */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent-gradient);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.3), transparent);
+  border-radius: 999px 999px 0 0;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.progress-label .progress-percent {
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+/* === Bottom Nav === */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 0 24px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  -webkit-backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  border-top: 1px solid var(--glass-border);
+}
+
+.bottom-nav::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+}
+
+.bottom-nav .nav-style-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  letter-spacing: 0.05em;
+}
+
+.bottom-nav a {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.bottom-nav a:hover {
+  color: var(--accent-primary);
+}
+
+/* === Page Wrapper === */
+.page-wrapper {
+  padding: 24px 24px calc(var(--nav-height) + 32px);
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+/* === Component Showcase === */
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.showcase-item {
+  position: relative;
+  padding: 24px;
+}
+
+.showcase-item .showcase-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+/* === Flex Utilities === */
+.flex { display: flex; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.gap-20 { gap: 20px; }
+
+/* === Spacing Utilities === */
+.mb-8 { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.mb-32 { margin-bottom: 32px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 60px;
+  }
+
+  .header {
+    padding: 0 16px;
+  }
+
+  .header-title h1 {
+    font-size: 1.05rem;
+  }
+
+  .page-wrapper {
+    padding: 16px 16px calc(var(--nav-height) + 24px);
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .metric-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .status-bar {
+    gap: 8px;
+  }
+
+  .status-item {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+
+  .data-table {
+    font-size: 0.75rem;
+  }
+
+  .data-table thead th,
+  .data-table tbody td {
+    padding: 10px 12px;
+  }
+
+  .showcase-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .metric-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .metric-card .metric-value {
+    font-size: 1.5rem;
+  }
+
+  .nav-card {
+    padding: 16px;
+  }
+}
+
+/* === Animations === */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.animate-delay-1 { animation-delay: 0.05s; }
+.animate-delay-2 { animation-delay: 0.1s; }
+.animate-delay-3 { animation-delay: 0.15s; }
+.animate-delay-4 { animation-delay: 0.2s; }
+.animate-delay-5 { animation-delay: 0.25s; }
+.animate-delay-6 { animation-delay: 0.3s; }
+
+/* === Scrollbar === */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+</style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="header-title">
+      <h1>铉枢 · 材料科研工作站</h1>
+      <span class="subtitle">Xuanshu Materials Research Workstation</span>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+      <span id="themeIcon">🌙</span>
+    </button>
+  </header>
+
+  <div class="page-wrapper">
+
+    <!-- ===== STATUS BAR ===== -->
+    <section class="section animate-in">
+      <div class="status-bar">
+        <div class="status-item">
+          <span class="status-dot online"></span>
+          <span>Docker 运行中</span>
+        </div>
+        <div class="status-item">
+          <span class="status-dot offline"></span>
+          <span>Ollama 离线</span>
+        </div>
+        <div class="status-item">
+          <span class="status-dot warning"></span>
+          <span>GPU RTX 4060</span>
+        </div>
+        <div class="status-item">
+          <span class="status-dot online"></span>
+          <span>VRAM 6.2 / 8 GB</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VRAM WARNING ===== -->
+    <section class="section animate-in animate-delay-1">
+      <div class="warning-banner">
+        <span class="warning-icon">⚠️</span>
+        <div class="warning-text">
+          <strong>VRAM 使用率 78%</strong> — 显存占用接近阈值，建议关闭未使用的 GPU 密集型服务以确保大模型推理稳定。
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SERVICE CARDS ===== -->
+    <section class="section animate-in animate-delay-2">
+      <div class="section-title">服务状态</div>
+      <div class="card-grid">
+        <div class="service-card glass glass-hover">
+          <div class="card-icon">🔬</div>
+          <div class="card-title">Open WebUI</div>
+          <div class="card-desc">大模型交互界面</div>
+          <div class="card-status"><span class="status-dot online"></span></div>
+        </div>
+        <div class="service-card glass glass-hover">
+          <div class="card-icon">🦙</div>
+          <div class="card-title">Ollama API</div>
+          <div class="card-desc">本地模型推理引擎</div>
+          <div class="card-status"><span class="status-dot offline"></span></div>
+        </div>
+        <div class="service-card glass glass-hover">
+          <div class="card-icon">📓</div>
+          <div class="card-title">JupyterLab</div>
+          <div class="card-desc">交互式计算环境</div>
+          <div class="card-status"><span class="status-dot online"></span></div>
+        </div>
+        <div class="service-card glass glass-hover">
+          <div class="card-icon">🎨</div>
+          <div class="card-title">ComfyUI</div>
+          <div class="card-desc">AI 图像生成工作流</div>
+          <div class="card-status"><span class="status-dot online"></span></div>
+        </div>
+        <div class="service-card glass glass-hover">
+          <div class="card-icon">🐳</div>
+          <div class="card-title">Portainer</div>
+          <div class="card-desc">容器管理面板</div>
+          <div class="card-status"><span class="status-dot online"></span></div>
+        </div>
+        <div class="service-card glass glass-hover">
+          <div class="card-icon">📄</div>
+          <div class="card-title">Stirling PDF</div>
+          <div class="card-desc">PDF 工具套件</div>
+          <div class="card-status"><span class="status-dot online"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MODULE NAVIGATION ===== -->
+    <section class="section animate-in animate-delay-3">
+      <div class="section-title">功能模块</div>
+      <div class="card-grid card-grid-3">
+        <div class="nav-card glass glass-hover">
+          <div class="nav-icon">🧠</div>
+          <div class="nav-label">模型管理</div>
+          <div class="nav-hint">部署、微调与版本控制</div>
+        </div>
+        <div class="nav-card glass glass-hover">
+          <div class="nav-icon">📊</div>
+          <div class="nav-label">系统监控</div>
+          <div class="nav-hint">CPU / GPU / 内存 / 磁盘</div>
+        </div>
+        <div class="nav-card glass glass-hover">
+          <div class="nav-icon">⚡</div>
+          <div class="nav-label">命令中心</div>
+          <div class="nav-hint">终端与批量任务</div>
+        </div>
+        <div class="nav-card glass glass-hover">
+          <div class="nav-icon">💬</div>
+          <div class="nav-label">通讯管理</div>
+          <div class="nav-hint">多 Agent 消息总线</div>
+        </div>
+        <div class="nav-card glass glass-hover">
+          <div class="nav-icon">📚</div>
+          <div class="nav-label">知识库</div>
+          <div class="nav-hint">RAG 检索与向量化</div>
+        </div>
+        <div class="nav-card glass glass-hover">
+          <div class="nav-icon">⚙️</div>
+          <div class="nav-label">配置文件</div>
+          <div class="nav-hint">环境变量与参数</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== METRIC CARDS ===== -->
+    <section class="section animate-in animate-delay-4">
+      <div class="section-title">知识库概览</div>
+      <div class="metric-grid">
+        <div class="metric-card glass">
+          <div class="metric-value">524</div>
+          <div class="metric-label">收录论文</div>
+          <div class="metric-trend">↑ 12 本周新增</div>
+        </div>
+        <div class="metric-card glass">
+          <div class="metric-value">30</div>
+          <div class="metric-label">知识分类</div>
+          <div class="metric-trend">覆盖全学科</div>
+        </div>
+        <div class="metric-card glass">
+          <div class="metric-value">89%</div>
+          <div class="metric-label">检索命中率</div>
+          <div class="metric-trend">↑ 3.2% 较上月</div>
+        </div>
+        <div class="metric-card glass">
+          <div class="metric-value">4.2<span style="font-size:0.9rem;font-weight:600">ms</span></div>
+          <div class="metric-label">平均响应</div>
+          <div class="metric-trend">↓ 0.8ms 优化</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DATA TABLE ===== -->
+    <section class="section animate-in animate-delay-5">
+      <div class="section-title">Agent 运行状态</div>
+      <div class="data-table-wrapper glass">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Agent</th>
+              <th>模型</th>
+              <th>角色</th>
+              <th>状态</th>
+              <th>延迟</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary)">⛏ 矿工</td>
+              <td>DeepSeek-V4-Pro</td>
+              <td>文献挖掘</td>
+              <td><span class="tag tag-success">运行中</span></td>
+              <td>1.2s</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary)">🔍 试金</td>
+              <td>DeepSeek-V4-Flash</td>
+              <td>数据验证</td>
+              <td><span class="tag tag-success">运行中</span></td>
+              <td>0.4s</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary)">🔨 铸师</td>
+              <td>DeepSeek-V4-Pro</td>
+              <td>方案生成</td>
+              <td><span class="tag tag-warning">等待中</span></td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary)">🛠 匠人</td>
+              <td>DeepSeek-V4-Flash</td>
+              <td>成果整合</td>
+              <td><span class="tag tag-info">空闲</span></td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== COMPONENT SHOWCASE ===== -->
+    <section class="section animate-in animate-delay-6">
+      <div class="section-title">组件展示</div>
+      <div class="showcase-grid">
+
+        <!-- Buttons -->
+        <div class="showcase-item glass">
+          <div class="showcase-label">按钮组</div>
+          <div class="flex flex-wrap gap-12">
+            <button class="btn btn-primary">主要操作</button>
+            <button class="btn btn-secondary">次要操作</button>
+            <button class="btn btn-ghost">幽灵按钮</button>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="showcase-item glass">
+          <div class="showcase-label">标签组</div>
+          <div class="flex flex-wrap gap-8">
+            <span class="tag tag-success">✓ 成功</span>
+            <span class="tag tag-warning">⚠ 警告</span>
+            <span class="tag tag-danger">✕ 危险</span>
+            <span class="tag tag-info">ℹ 信息</span>
+          </div>
+        </div>
+
+        <!-- Input -->
+        <div class="showcase-item glass">
+          <div class="showcase-label">输入框</div>
+          <input type="text" class="input" placeholder="搜索论文、模型、配置项…">
+        </div>
+
+        <!-- Progress Bars -->
+        <div class="showcase-item glass">
+          <div class="showcase-label">进度条</div>
+          <div class="flex flex-col gap-16">
+            <div>
+              <div class="progress-label">
+                <span>知识库构建</span>
+                <span class="progress-percent">45%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 45%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="progress-label">
+                <span>模型微调</span>
+                <span class="progress-percent">72%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 72%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="progress-label">
+                <span>磁盘清理</span>
+                <span class="progress-percent">91%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 91%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /.page-wrapper -->
+
+  <!-- ===== BOTTOM NAV ===== -->
+  <nav class="bottom-nav">
+    <span class="nav-style-name">Glassmorphism</span>
+    <span style="color:var(--text-muted);font-size:0.75rem">·</span>
+    <a href="../../">← 返回首页</a>
+  </nav>
+
+  <!-- ===== THEME TOGGLE SCRIPT ===== -->
+  <script>
+    (function() {
+      const toggle = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+      const html = document.documentElement;
+
+      // Load saved theme
+      const saved = localStorage.getItem('glass-theme');
+      if (saved === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+        icon.textContent = '☀️';
+      }
+
+      toggle.addEventListener('click', function() {
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        icon.textContent = next === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('glass-theme', next);
+      });
+    })();
+  </script>
+
+</body>
+</html>

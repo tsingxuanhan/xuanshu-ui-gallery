@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>铉枢 · 新拟态风格</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- ========== 1. Header ========== -->
+    <header class="neu-header flex-between">
+      <div>
+        <h1 class="neu-header__title">铉枢 · 材料科研工作站</h1>
+        <p class="neu-header__subtitle">Materials Research Workstation — Neumorphism UI Demo</p>
+      </div>
+      <div class="neu-header__actions">
+        <button class="neu-theme-toggle" id="themeToggle" aria-label="切换主题">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ========== 2. Status Bar ========== -->
+    <section class="neu-section">
+      <div class="neu-status-bar">
+        <div class="neu-status-item">
+          <span class="neu-status-dot neu-status-dot--success"></span>
+          <div>
+            <div class="neu-status-label">Docker</div>
+            <div class="neu-status-value">运行中</div>
+          </div>
+        </div>
+        <div class="neu-status-item">
+          <span class="neu-status-dot neu-status-dot--success"></span>
+          <div>
+            <div class="neu-status-label">Ollama</div>
+            <div class="neu-status-value">v0.5.4</div>
+          </div>
+        </div>
+        <div class="neu-status-item">
+          <span class="neu-status-dot neu-status-dot--warning"></span>
+          <div>
+            <div class="neu-status-label">GPU</div>
+            <div class="neu-status-value">73°C</div>
+          </div>
+        </div>
+        <div class="neu-status-item">
+          <span class="neu-status-dot neu-status-dot--info"></span>
+          <div>
+            <div class="neu-status-label">VRAM</div>
+            <div class="neu-status-value">12.4 / 16 GB</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== 3. Warning Bar ========== -->
+      <div class="neu-warning">
+        <span class="neu-warning__icon">⚠️</span>
+        <div class="neu-warning__content">
+          <div class="neu-warning__title">VRAM 使用率 77.5%</div>
+          <div class="neu-warning__text">显存占用较高，建议关闭不使用的模型以释放资源。</div>
+        </div>
+        <button class="neu-warning__dismiss" aria-label="关闭">✕</button>
+      </div>
+    </section>
+
+    <!-- ========== 4. Service Cards ========== -->
+    <section class="neu-section">
+      <h2 class="neu-section__title">服务状态</h2>
+      <div class="grid grid-3">
+        <div class="neu-service-card">
+          <div class="neu-service-card__icon">💬</div>
+          <div class="neu-service-card__name">Open WebUI</div>
+          <div class="neu-service-card__desc">大模型对话界面</div>
+          <div class="neu-service-card__status neu-service-card__status--running">
+            <span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span> 运行中
+          </div>
+        </div>
+        <div class="neu-service-card">
+          <div class="neu-service-card__icon">🦙</div>
+          <div class="neu-service-card__name">Ollama API</div>
+          <div class="neu-service-card__desc">模型推理服务</div>
+          <div class="neu-service-card__status neu-service-card__status--running">
+            <span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span> 运行中
+          </div>
+        </div>
+        <div class="neu-service-card">
+          <div class="neu-service-card__icon">📓</div>
+          <div class="neu-service-card__name">JupyterLab</div>
+          <div class="neu-service-card__desc">交互式计算环境</div>
+          <div class="neu-service-card__status neu-service-card__status--running">
+            <span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span> 运行中
+          </div>
+        </div>
+        <div class="neu-service-card">
+          <div class="neu-service-card__icon">🎨</div>
+          <div class="neu-service-card__name">ComfyUI</div>
+          <div class="neu-service-card__desc">图像生成工作流</div>
+          <div class="neu-service-card__status neu-service-card__status--stopped">
+            <span class="neu-status-dot neu-status-dot--danger" style="width:6px;height:6px"></span> 已停止
+          </div>
+        </div>
+        <div class="neu-service-card">
+          <div class="neu-service-card__icon">🐳</div>
+          <div class="neu-service-card__name">Portainer</div>
+          <div class="neu-service-card__desc">容器管理面板</div>
+          <div class="neu-service-card__status neu-service-card__status--running">
+            <span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span> 运行中
+          </div>
+        </div>
+        <div class="neu-service-card">
+          <div class="neu-service-card__icon">📄</div>
+          <div class="neu-service-card__name">Stirling PDF</div>
+          <div class="neu-service-card__desc">PDF 工具箱</div>
+          <div class="neu-service-card__status neu-service-card__status--running">
+            <span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span> 运行中
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 5. Navigation Cards ========== -->
+    <section class="neu-section">
+      <h2 class="neu-section__title">功能模块</h2>
+      <div class="grid grid-3">
+        <div class="neu-nav-card">
+          <div class="neu-nav-card__icon">🔬</div>
+          <div class="neu-nav-card__label">文献挖掘</div>
+          <div class="neu-nav-card__desc">Semantic Scholar / arXiv 论文检索</div>
+        </div>
+        <div class="neu-nav-card">
+          <div class="neu-nav-card__icon">🧪</div>
+          <div class="neu-nav-card__label">实验设计</div>
+          <div class="neu-nav-card__desc">DOE 设计与参数优化</div>
+        </div>
+        <div class="neu-nav-card">
+          <div class="neu-nav-card__icon">📊</div>
+          <div class="neu-nav-card__label">数据分析</div>
+          <div class="neu-nav-card__desc">XRD / SEM / XPS 数据解析</div>
+        </div>
+        <div class="neu-nav-card">
+          <div class="neu-nav-card__icon">🤖</div>
+          <div class="neu-nav-card__label">Agent 调度</div>
+          <div class="neu-nav-card__desc">多 Agent 协作任务编排</div>
+        </div>
+        <div class="neu-nav-card">
+          <div class="neu-nav-card__icon">📝</div>
+          <div class="neu-nav-card__label">论文写作</div>
+          <div class="neu-nav-card__desc">AI 辅助论文撰写与润色</div>
+        </div>
+        <div class="neu-nav-card">
+          <div class="neu-nav-card__icon">⚙️</div>
+          <div class="neu-nav-card__label">系统设置</div>
+          <div class="neu-nav-card__desc">模型管理 / 服务配置</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 6. Data Panel ========== -->
+    <section class="neu-section">
+      <h2 class="neu-section__title">知识库概览</h2>
+      <div class="grid grid-4">
+        <div class="neu-metric">
+          <div class="neu-metric__value">2,847</div>
+          <div class="neu-metric__label">论文总量</div>
+          <div class="neu-metric__change neu-metric__change--up">↑ 124 本周新增</div>
+        </div>
+        <div class="neu-metric">
+          <div class="neu-metric__value">186</div>
+          <div class="neu-metric__label">知识卡片</div>
+          <div class="neu-metric__change neu-metric__change--up">↑ 23 本周新增</div>
+        </div>
+        <div class="neu-metric">
+          <div class="neu-metric__value">42</div>
+          <div class="neu-metric__label">数据集</div>
+          <div class="neu-metric__change neu-metric__change--up">↑ 5 本周新增</div>
+        </div>
+        <div class="neu-metric">
+          <div class="neu-metric__value">15.2<small style="font-size:0.6em">GB</small></div>
+          <div class="neu-metric__label">存储占用</div>
+          <div class="neu-metric__change neu-metric__change--down">↓ 较上周减少 0.3GB</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 7. Data Table ========== -->
+    <section class="neu-section">
+      <h2 class="neu-section__title">Agent 运行状态</h2>
+      <div class="neu-table-wrapper">
+        <table class="neu-table">
+          <thead>
+            <tr>
+              <th>Agent</th>
+              <th>角色</th>
+              <th>模型</th>
+              <th>任务数</th>
+              <th>状态</th>
+              <th>耗时</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>矿工</strong></td>
+              <td>文献挖掘</td>
+              <td>deepseek-v4-pro</td>
+              <td>12</td>
+              <td><span class="neu-table__badge neu-table__badge--running"><span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span>运行</span></td>
+              <td>2h 34m</td>
+            </tr>
+            <tr>
+              <td><strong>试金</strong></td>
+              <td>数据验证</td>
+              <td>deepseek-v4-flash</td>
+              <td>8</td>
+              <td><span class="neu-table__badge neu-table__badge--idle"><span class="neu-status-dot neu-status-dot--info" style="width:6px;height:6px"></span>空闲</span></td>
+              <td>1h 12m</td>
+            </tr>
+            <tr>
+              <td><strong>铸师</strong></td>
+              <td>方案生成</td>
+              <td>deepseek-v4-pro</td>
+              <td>5</td>
+              <td><span class="neu-table__badge neu-table__badge--running"><span class="neu-status-dot neu-status-dot--success" style="width:6px;height:6px"></span>运行</span></td>
+              <td>3h 08m</td>
+            </tr>
+            <tr>
+              <td><strong>匠人</strong></td>
+              <td>成果整合</td>
+              <td>deepseek-v4-flash</td>
+              <td>3</td>
+              <td><span class="neu-table__badge neu-table__badge--error"><span class="neu-status-dot neu-status-dot--danger" style="width:6px;height:6px"></span>异常</span></td>
+              <td>0h 45m</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========== 8. Components Showcase ========== -->
+    <section class="neu-section">
+      <h2 class="neu-section__title">组件展示</h2>
+      <div class="neu-card" style="margin-bottom: var(--space-lg);">
+        <div class="neu-card__header">
+          <span class="neu-card__title">按钮组</span>
+        </div>
+        <div class="flex flex-wrap gap-md">
+          <button class="neu-btn neu-btn--primary">🚀 启动服务</button>
+          <button class="neu-btn neu-btn--success">✅ 确认</button>
+          <button class="neu-btn neu-btn--warning">⚡ 刷新</button>
+          <button class="neu-btn neu-btn--danger">🗑 删除</button>
+          <button class="neu-btn">📎 默认按钮</button>
+        </div>
+        <div class="neu-divider"></div>
+        <div class="flex flex-wrap gap-md">
+          <button class="neu-btn neu-btn--sm neu-btn--primary">小号按钮</button>
+          <button class="neu-btn neu-btn--primary">中号按钮</button>
+          <button class="neu-btn neu-btn--lg neu-btn--primary">大号按钮</button>
+          <button class="neu-btn neu-btn--icon">⚙</button>
+          <button class="neu-btn neu-btn--icon">🔔</button>
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div class="neu-card" style="margin-bottom: var(--space-lg);">
+        <div class="neu-card__header">
+          <span class="neu-card__title">标签组</span>
+        </div>
+        <div class="flex flex-wrap gap-sm">
+          <span class="neu-tag neu-tag--accent">🏷 材料科学</span>
+          <span class="neu-tag neu-tag--success">● 在线</span>
+          <span class="neu-tag neu-tag--warning">⏳ 处理中</span>
+          <span class="neu-tag neu-tag--danger">✕ 已中断</span>
+          <span class="neu-tag neu-tag--info">📊 数据</span>
+          <span class="neu-tag">默认标签</span>
+        </div>
+      </div>
+
+      <!-- Inputs -->
+      <div class="neu-card" style="margin-bottom: var(--space-lg);">
+        <div class="neu-card__header">
+          <span class="neu-card__title">输入框</span>
+        </div>
+        <div class="grid grid-2 gap-md">
+          <div>
+            <input class="neu-input" type="text" placeholder="搜索论文标题 / DOI...">
+          </div>
+          <div class="neu-input-group">
+            <input class="neu-input" type="text" placeholder="输入关键词...">
+            <button class="neu-input-group__append">🔍</button>
+          </div>
+        </div>
+        <div class="mt-md">
+          <textarea class="neu-textarea" placeholder="输入研究需求描述...&#10;支持多行文本输入"></textarea>
+        </div>
+      </div>
+
+      <!-- Progress Bars -->
+      <div class="neu-card">
+        <div class="neu-card__header">
+          <span class="neu-card__title">进度条</span>
+        </div>
+        <div class="neu-progress">
+          <div class="neu-progress__header">
+            <span class="neu-progress__label">VRAM 使用</span>
+            <span class="neu-progress__value">77.5%</span>
+          </div>
+          <div class="neu-progress__track">
+            <div class="neu-progress__fill neu-progress__fill--warning" style="width: 77.5%"></div>
+          </div>
+        </div>
+        <div class="neu-progress">
+          <div class="neu-progress__header">
+            <span class="neu-progress__label">GPU 利用率</span>
+            <span class="neu-progress__value">62%</span>
+          </div>
+          <div class="neu-progress__track">
+            <div class="neu-progress__fill neu-progress__fill--accent" style="width: 62%"></div>
+          </div>
+        </div>
+        <div class="neu-progress">
+          <div class="neu-progress__header">
+            <span class="neu-progress__label">磁盘空间</span>
+            <span class="neu-progress__value">45%</span>
+          </div>
+          <div class="neu-progress__track">
+            <div class="neu-progress__fill neu-progress__fill--success" style="width: 45%"></div>
+          </div>
+        </div>
+        <div class="neu-progress">
+          <div class="neu-progress__header">
+            <span class="neu-progress__label">内存占用</span>
+            <span class="neu-progress__value">91%</span>
+          </div>
+          <div class="neu-progress__track">
+            <div class="neu-progress__fill neu-progress__fill--danger" style="width: 91%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom padding for fixed nav -->
+    <div style="height: 80px;"></div>
+
+  </div>
+
+  <!-- ========== 9. Bottom Navigation ========== -->
+  <nav class="neu-bottom-nav">
+    <button class="neu-bottom-nav__item neu-bottom-nav__item--active">
+      <div class="neu-bottom-nav__icon">🏠</div>
+      <span class="neu-bottom-nav__label">首页</span>
+    </button>
+    <button class="neu-bottom-nav__item">
+      <div class="neu-bottom-nav__icon">📂</div>
+      <span class="neu-bottom-nav__label">文件</span>
+    </button>
+    <button class="neu-bottom-nav__item">
+      <div class="neu-bottom-nav__icon">💻</div>
+      <span class="neu-bottom-nav__label">终端</span>
+    </button>
+    <button class="neu-bottom-nav__item">
+      <div class="neu-bottom-nav__icon">📈</div>
+      <span class="neu-bottom-nav__label">监控</span>
+    </button>
+    <button class="neu-bottom-nav__item">
+      <div class="neu-bottom-nav__icon">⚙️</div>
+      <span class="neu-bottom-nav__label">设置</span>
+    </button>
+  </nav>
+
+  <!-- ========== 10. Theme Toggle Script ========== -->
+  <script>
+    (function() {
+      const html = document.documentElement;
+      const toggle = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+
+      // Load saved theme
+      const saved = localStorage.getItem('neu-theme');
+      if (saved) {
+        html.setAttribute('data-theme', saved);
+        icon.textContent = saved === 'dark' ? '☀️' : '🌙';
+      }
+
+      toggle.addEventListener('click', function() {
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('neu-theme', next);
+        icon.textContent = next === 'dark' ? '☀️' : '🌙';
+      });
+
+      // Bottom nav interaction
+      const navItems = document.querySelectorAll('.neu-bottom-nav__item');
+      navItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+          navItems.forEach(function(i) { i.classList.remove('neu-bottom-nav__item--active'); });
+          item.classList.add('neu-bottom-nav__item--active');
+        });
+      });
+
+      // Warning dismiss
+      const dismissBtn = document.querySelector('.neu-warning__dismiss');
+      if (dismissBtn) {
+        dismissBtn.addEventListener('click', function() {
+          const warning = document.querySelector('.neu-warning');
+          if (warning) {
+            warning.style.opacity = '0';
+            warning.style.transform = 'translateY(-10px)';
+            warning.style.transition = 'all 0.3s ease';
+            setTimeout(function() { warning.style.display = 'none'; }, 300);
+          }
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

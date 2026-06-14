@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>铉枢 · 材料科研工作站 — Cyberpunk Theme</title>
+  <style>
+/* ============================================
+   Cyberpunk Theme - xuanshu UI Gallery
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Core Neon Palette */
+  --neon-cyan: #00fff0;
+  --neon-magenta: #ff00ff;
+  --neon-yellow: #f0ff00;
+  --neon-cyan-rgb: 0, 255, 240;
+  --neon-magenta-rgb: 255, 0, 255;
+  --neon-yellow-rgb: 240, 255, 0;
+
+  /* Surface Colors */
+  --bg-deep: #0a0a0f;
+  --bg-card: #12121a;
+  --bg-card-hover: #16162200;
+  --bg-elevated: #1a1a28;
+  --bg-input: #0e0e16;
+
+  /* Text Colors */
+  --text-primary: #e0e0e0;
+  --text-secondary: #707080;
+  --text-dim: #404050;
+
+  /* Border Colors */
+  --border-cyan: rgba(0, 255, 240, 0.2);
+  --border-cyan-bright: rgba(0, 255, 240, 0.5);
+  --border-magenta: rgba(255, 0, 255, 0.2);
+  --border-magenta-bright: rgba(255, 0, 255, 0.5);
+  --border-yellow: rgba(240, 255, 0, 0.3);
+
+  /* Glow Effects */
+  --glow-cyan: 0 0 10px rgba(0, 255, 240, 0.3), 0 0 20px rgba(0, 255, 240, 0.1);
+  --glow-cyan-strong: 0 0 10px rgba(0, 255, 240, 0.4), 0 0 30px rgba(0, 255, 240, 0.2), 0 0 60px rgba(0, 255, 240, 0.1);
+  --glow-magenta: 0 0 10px rgba(255, 0, 255, 0.3), 0 0 20px rgba(255, 0, 255, 0.1);
+  --glow-yellow: 0 0 10px rgba(240, 255, 0, 0.3), 0 0 20px rgba(240, 255, 0, 0.1);
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+
+  /* Typography */
+  --font-display: 'Orbitron', 'Rajdhani', sans-serif;
+  --font-body: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Light Theme Override */
+[data-theme="light"] {
+  --bg-deep: #e8e8f0;
+  --bg-card: #f0f0f8;
+  --bg-elevated: #f8f8ff;
+  --bg-input: #e0e0ea;
+  --text-primary: #1a1a2e;
+  --text-secondary: #5a5a70;
+  --text-dim: #8a8a9a;
+  --border-cyan: rgba(0, 200, 190, 0.3);
+  --border-cyan-bright: rgba(0, 200, 190, 0.6);
+  --border-magenta: rgba(200, 0, 200, 0.3);
+  --border-magenta-bright: rgba(200, 0, 200, 0.6);
+  --glow-cyan: 0 0 8px rgba(0, 200, 190, 0.2), 0 0 16px rgba(0, 200, 190, 0.08);
+  --glow-magenta: 0 0 8px rgba(200, 0, 200, 0.2), 0 0 16px rgba(200, 0, 200, 0.08);
+  --glow-yellow: 0 0 8px rgba(180, 200, 0, 0.2), 0 0 16px rgba(180, 200, 0, 0.08);
+}
+
+/* ============================================
+   Base Reset & Body
+   ============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 14px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/* Grid Texture Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(rgba(0, 255, 240, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 240, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scanline Effect */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 240, 0.008) 2px,
+    rgba(0, 255, 240, 0.008) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ============================================
+   Layout
+   ============================================ */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  position: relative;
+  z-index: 1;
+}
+
+.section {
+  margin-bottom: var(--space-2xl);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border-cyan);
+}
+
+/* ============================================
+   Header
+   ============================================ */
+
+.header {
+  padding: var(--space-xl) 0;
+  border-bottom: 1px solid var(--border-cyan);
+  margin-bottom: var(--space-xl);
+  position: relative;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta), transparent);
+}
+
+.header-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 20px rgba(0, 255, 240, 0.4), 0 0 40px rgba(0, 255, 240, 0.1);
+  letter-spacing: 3px;
+  margin-bottom: var(--space-xs);
+}
+
+.header-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: var(--space-xl);
+  right: 0;
+  background: transparent;
+  border: 1px solid var(--border-cyan);
+  color: var(--neon-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.theme-toggle:hover {
+  background: rgba(0, 255, 240, 0.1);
+  border-color: var(--border-cyan-bright);
+  box-shadow: var(--glow-cyan);
+}
+
+/* ============================================
+   Status Bar
+   ============================================ */
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid var(--border-cyan);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.status-indicator.online {
+  background: var(--neon-cyan);
+  box-shadow: 0 0 8px var(--neon-cyan), 0 0 16px rgba(0, 255, 240, 0.3);
+}
+
+.status-indicator.warning {
+  background: var(--neon-yellow);
+  box-shadow: 0 0 8px var(--neon-yellow), 0 0 16px rgba(240, 255, 0, 0.3);
+}
+
+.status-indicator.error {
+  background: #ff3366;
+  box-shadow: 0 0 8px #ff3366, 0 0 16px rgba(255, 51, 102, 0.3);
+}
+
+.status-indicator.processing {
+  background: var(--neon-magenta);
+  box-shadow: 0 0 8px var(--neon-magenta), 0 0 16px rgba(255, 0, 255, 0.3);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ============================================
+   Warning Banner
+   ============================================ */
+
+.warning-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid var(--border-yellow);
+  border-radius: var(--radius-md);
+  background: rgba(240, 255, 0, 0.03);
+  margin-bottom: var(--space-lg);
+  color: var(--neon-yellow);
+  font-size: 0.8rem;
+}
+
+.warning-banner .warning-icon {
+  font-size: 1.2rem;
+  text-shadow: 0 0 8px rgba(240, 255, 0, 0.5);
+}
+
+/* ============================================
+   Cards
+   ============================================ */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cyan);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+/* Card Top Gradient Line */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+}
+
+.card:hover {
+  border-color: var(--border-cyan-bright);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-2px);
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+  letter-spacing: 1px;
+}
+
+.card-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: var(--space-md);
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+/* ============================================
+   Feature Nav Cards
+   ============================================ */
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.feature-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cyan);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+}
+
+.feature-card:hover {
+  border-color: var(--border-cyan-bright);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-2px);
+}
+
+.feature-card .icon {
+  font-size: 1.8rem;
+  margin-bottom: var(--space-sm);
+  display: block;
+}
+
+.feature-card .label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ============================================
+   Metric Cards / Data Panel
+   ============================================ */
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cyan);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+}
+
+.metric-value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 15px rgba(0, 255, 240, 0.3);
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.metric-value.magenta {
+  color: var(--neon-magenta);
+  text-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+}
+
+.metric-value.yellow {
+  color: var(--neon-yellow);
+  text-shadow: 0 0 15px rgba(240, 255, 0, 0.3);
+}
+
+.metric-label {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ============================================
+   Data Table
+   ============================================ */
+
+.data-table-wrapper {
+  border: 1px solid var(--border-cyan);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--space-xl);
+  background: var(--bg-card);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.data-table thead {
+  background: rgba(0, 255, 240, 0.05);
+}
+
+.data-table th {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: var(--space-md) var(--space-lg);
+  text-align: left;
+  border-bottom: 1px solid var(--border-cyan);
+}
+
+.data-table td {
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid rgba(0, 255, 240, 0.06);
+  color: var(--text-primary);
+}
+
+.data-table tbody tr {
+  transition: background var(--transition-fast);
+}
+
+.data-table tbody tr:hover {
+  background: rgba(0, 255, 240, 0.03);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  padding: 2px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+}
+
+.table-status.running {
+  color: var(--neon-cyan);
+  border-color: rgba(0, 255, 240, 0.3);
+  background: rgba(0, 255, 240, 0.05);
+}
+
+.table-status.idle {
+  color: var(--text-secondary);
+  border-color: rgba(112, 112, 128, 0.3);
+  background: rgba(112, 112, 128, 0.05);
+}
+
+.table-status.error {
+  color: #ff3366;
+  border-color: rgba(255, 51, 102, 0.3);
+  background: rgba(255, 51, 102, 0.05);
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+
+.btn-group {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+}
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: transparent;
+  position: relative;
+}
+
+.btn-cyan {
+  border: 1px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+}
+
+.btn-cyan:hover {
+  background: rgba(0, 255, 240, 0.15);
+  box-shadow: var(--glow-cyan);
+  text-shadow: 0 0 8px rgba(0, 255, 240, 0.5);
+}
+
+.btn-magenta {
+  border: 1px solid var(--neon-magenta);
+  color: var(--neon-magenta);
+}
+
+.btn-magenta:hover {
+  background: rgba(255, 0, 255, 0.15);
+  box-shadow: var(--glow-magenta);
+  text-shadow: 0 0 8px rgba(255, 0, 255, 0.5);
+}
+
+.btn-yellow {
+  border: 1px solid var(--neon-yellow);
+  color: var(--neon-yellow);
+}
+
+.btn-yellow:hover {
+  background: rgba(240, 255, 0, 0.15);
+  box-shadow: var(--glow-yellow);
+  text-shadow: 0 0 8px rgba(240, 255, 0, 0.5);
+}
+
+.btn-filled {
+  border: 1px solid var(--neon-cyan);
+  color: var(--bg-deep);
+  background: var(--neon-cyan);
+  font-weight: 600;
+}
+
+.btn-filled:hover {
+  box-shadow: var(--glow-cyan-strong);
+  background: #33fff4;
+}
+
+/* ============================================
+   Tags / Badges
+   ============================================ */
+
+.tag-group {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+  letter-spacing: 0.5px;
+}
+
+.tag-cyan {
+  color: var(--neon-cyan);
+  border-color: rgba(0, 255, 240, 0.3);
+  background: rgba(0, 255, 240, 0.06);
+}
+
+.tag-magenta {
+  color: var(--neon-magenta);
+  border-color: rgba(255, 0, 255, 0.3);
+  background: rgba(255, 0, 255, 0.06);
+}
+
+.tag-yellow {
+  color: var(--neon-yellow);
+  border-color: rgba(240, 255, 0, 0.3);
+  background: rgba(240, 255, 0, 0.06);
+}
+
+.tag-red {
+  color: #ff3366;
+  border-color: rgba(255, 51, 102, 0.3);
+  background: rgba(255, 51, 102, 0.06);
+}
+
+/* ============================================
+   Input Fields
+   ============================================ */
+
+.input-group {
+  margin-bottom: var(--space-lg);
+}
+
+.input-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: var(--space-sm);
+}
+
+.input-field {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-input);
+  border: 1px solid var(--border-cyan);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.input-field::placeholder {
+  color: var(--text-dim);
+}
+
+.input-field:focus {
+  border-color: var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.input-field.magenta:focus {
+  border-color: var(--neon-magenta);
+  box-shadow: var(--glow-magenta);
+}
+
+/* ============================================
+   Progress Bars
+   ============================================ */
+
+.progress-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  max-width: 500px;
+}
+
+.progress-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.progress-label {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  min-width: 80px;
+  text-align: right;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(0, 255, 240, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  position: relative;
+  transition: width 0.5s ease;
+}
+
+.progress-fill.cyan {
+  background: var(--neon-cyan);
+  box-shadow: 0 0 8px rgba(0, 255, 240, 0.5), 0 0 16px rgba(0, 255, 240, 0.2);
+}
+
+.progress-fill.magenta {
+  background: var(--neon-magenta);
+  box-shadow: 0 0 8px rgba(255, 0, 255, 0.5), 0 0 16px rgba(255, 0, 255, 0.2);
+}
+
+.progress-fill.yellow {
+  background: var(--neon-yellow);
+  box-shadow: 0 0 8px rgba(240, 255, 0, 0.5), 0 0 16px rgba(240, 255, 0, 0.2);
+}
+
+.progress-value {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--neon-cyan);
+  min-width: 36px;
+}
+
+/* ============================================
+   Bottom Navigation
+   ============================================ */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-cyan);
+  padding: var(--space-sm) var(--space-lg);
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xl);
+  z-index: 1000;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.bottom-nav::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-magenta), transparent);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  transition: all var(--transition-fast);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.nav-item .nav-icon {
+  font-size: 1.2rem;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px rgba(0, 255, 240, 0.5);
+}
+
+/* ============================================
+   Utility
+   ============================================ */
+
+.text-cyan { color: var(--neon-cyan); }
+.text-magenta { color: var(--neon-magenta); }
+.text-yellow { color: var(--neon-yellow); }
+.text-dim { color: var(--text-secondary); }
+
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+
+/* Padding for bottom nav */
+.page-content {
+  padding-bottom: 80px;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+  .header-title {
+    font-size: 1.4rem;
+  }
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .metric-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .status-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  .theme-toggle {
+    position: static;
+    margin-top: var(--space-md);
+  }
+}
+
+</style>
+</head>
+<body>
+  <div class="page-content">
+    <div class="container">
+
+      <!-- ==================== HEADER ==================== -->
+      <header class="header">
+        <h1 class="header-title">铉枢 · 材料科研工作站</h1>
+        <p class="header-subtitle">XUANSHU Material Research Workstation v3.3.0</p>
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+          <span id="themeIcon">☀</span> 切换亮色
+        </button>
+      </header>
+
+      <!-- ==================== STATUS BAR ==================== -->
+      <div class="status-bar">
+        <div class="status-item">
+          <span class="status-indicator online"></span>
+          <span>系统就绪</span>
+        </div>
+        <div class="status-item">
+          <span class="status-indicator processing"></span>
+          <span>矿工 Agent 运行中</span>
+        </div>
+        <div class="status-item">
+          <span class="status-indicator online"></span>
+          <span>API Proxy: 127.0.0.1:8080</span>
+        </div>
+        <div class="status-item">
+          <span class="status-indicator warning"></span>
+          <span>VRAM: 14.2 / 16.0 GB</span>
+        </div>
+        <div class="status-item">
+          <span class="status-indicator online"></span>
+          <span>ChromaDB: Connected</span>
+        </div>
+      </div>
+
+      <!-- ==================== VRAM WARNING ==================== -->
+      <div class="warning-banner">
+        <span class="warning-icon">⚠</span>
+        <span>VRAM 使用率 88.7% — 接近硬约束阈值 (16GB)，建议关闭闲置模型或切换至 flash 推理通道</span>
+      </div>
+
+      <!-- ==================== SERVICE CARDS ==================== -->
+      <section class="section">
+        <h2 class="section-title">// 服务矩阵</h2>
+        <div class="card-grid">
+          <div class="card">
+            <h3 class="card-title">矿工 Agent (Pro)</h3>
+            <p class="card-desc">深度文献挖掘与知识提取，调用 DeepSeek-V4-Pro 进行多轮推理与结构化分析。</p>
+            <div class="card-meta">
+              <span class="status-indicator online" style="width:6px;height:6px;"></span>
+              <span>Running · deepseek-v4-pro</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">试金 Agent (Flash)</h3>
+            <p class="card-desc">数据验证与快速检索通道，低延迟响应，处理高频查询任务。</p>
+            <div class="card-meta">
+              <span class="status-indicator online" style="width:6px;height:6px;"></span>
+              <span>Idle · deepseek-v4-flash</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">铸师 Agent (Pro)</h3>
+            <p class="card-desc">方案生成与策略优化，基于验证数据构建实验方案与技术路线图。</p>
+            <div class="card-meta">
+              <span class="status-indicator processing" style="width:6px;height:6px;"></span>
+              <span>Processing · deepseek-v4-pro</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">匠人 Agent (Flash)</h3>
+            <p class="card-desc">成果整合与报告生成，汇总多 Agent 输出为可交付文档。</p>
+            <div class="card-meta">
+              <span class="status-indicator online" style="width:6px;height:6px;"></span>
+              <span>Idle · deepseek-v4-flash</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">API Proxy</h3>
+            <p class="card-desc">纯 Python API 代理层，无 Docker 依赖，低内存占用，统一管理密钥与请求路由。</p>
+            <div class="card-meta">
+              <span class="status-indicator online" style="width:6px;height:6px;"></span>
+              <span>Listening · :8080</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">向量记忆引擎</h3>
+            <p class="card-desc">NGramTFIDF + Hybrid RRF 检索，SlotMemory 冲突检测，本地化知识持久化。</p>
+            <div class="card-meta">
+              <span class="status-indicator warning" style="width:6px;height:6px;"></span>
+              <span>High Load · 2,847 slots</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== FEATURE NAV ==================== -->
+      <section class="section">
+        <h2 class="section-title">// 功能模块</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span class="icon">📚</span>
+            <span class="label">知识库</span>
+          </div>
+          <div class="feature-card">
+            <span class="icon">🔬</span>
+            <span class="label">实验管理</span>
+          </div>
+          <div class="feature-card">
+            <span class="icon">📊</span>
+            <span class="label">数据分析</span>
+          </div>
+          <div class="feature-card">
+            <span class="icon">🤖</span>
+            <span class="label">Agent 编排</span>
+          </div>
+          <div class="feature-card">
+            <span class="icon">🔗</span>
+            <span class="label">A2A 通道</span>
+          </div>
+          <div class="feature-card">
+            <span class="icon">⚙️</span>
+            <span class="label">系统配置</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== DATA PANEL ==================== -->
+      <section class="section">
+        <h2 class="section-title">// 知识库概览</h2>
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-value">2,847</div>
+            <div class="metric-label">知识槽位</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value magenta">156</div>
+            <div class="metric-label">活跃项目</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value yellow">89.3%</div>
+            <div class="metric-label">命中率</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">12ms</div>
+            <div class="metric-label">平均检索延迟</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== DATA TABLE ==================== -->
+      <section class="section">
+        <h2 class="section-title">// Agent 运行状态</h2>
+        <div class="data-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Agent</th>
+                <th>模型</th>
+                <th>状态</th>
+                <th>Token 用量</th>
+                <th>延迟</th>
+                <th>最后活跃</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>矿工</td>
+                <td>deepseek-v4-pro</td>
+                <td><span class="table-status running">● Running</span></td>
+                <td>48,291</td>
+                <td>1.2s</td>
+                <td>刚刚</td>
+              </tr>
+              <tr>
+                <td>试金</td>
+                <td>deepseek-v4-flash</td>
+                <td><span class="table-status idle">○ Idle</span></td>
+                <td>12,044</td>
+                <td>0.3s</td>
+                <td>3 分钟前</td>
+              </tr>
+              <tr>
+                <td>铸师</td>
+                <td>deepseek-v4-pro</td>
+                <td><span class="table-status running">● Running</span></td>
+                <td>31,877</td>
+                <td>1.8s</td>
+                <td>刚刚</td>
+              </tr>
+              <tr>
+                <td>匠人</td>
+                <td>deepseek-v4-flash</td>
+                <td><span class="table-status idle">○ Idle</span></td>
+                <td>8,502</td>
+                <td>0.4s</td>
+                <td>12 分钟前</td>
+              </tr>
+              <tr>
+                <td>API Proxy</td>
+                <td>—</td>
+                <td><span class="table-status running">● Active</span></td>
+                <td>—</td>
+                <td>2ms</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>向量引擎</td>
+                <td>NGramTFIDF</td>
+                <td><span class="table-status error">⚠ High Load</span></td>
+                <td>—</td>
+                <td>45ms</td>
+                <td>刚刚</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== COMPONENT SHOWCASE ==================== -->
+      <section class="section">
+        <h2 class="section-title">// 组件展示</h2>
+
+        <!-- Buttons -->
+        <h3 class="card-title mb-md">按钮组</h3>
+        <div class="btn-group">
+          <button class="btn btn-cyan">执行任务</button>
+          <button class="btn btn-magenta">中断进程</button>
+          <button class="btn btn-yellow">警告确认</button>
+          <button class="btn btn-filled">启动 Agent</button>
+        </div>
+
+        <!-- Tags -->
+        <h3 class="card-title mb-md">标签组</h3>
+        <div class="tag-group">
+          <span class="tag tag-cyan">deepseek-v4-pro</span>
+          <span class="tag tag-magenta">向量检索</span>
+          <span class="tag tag-yellow">VRAM 警告</span>
+          <span class="tag tag-red">异常终止</span>
+          <span class="tag tag-cyan">A2A</span>
+          <span class="tag tag-cyan">Hybrid RRF</span>
+          <span class="tag tag-magenta">SlotMemory</span>
+        </div>
+
+        <!-- Inputs -->
+        <h3 class="card-title mb-md">输入框</h3>
+        <div class="input-group">
+          <label class="input-label">搜索关键词</label>
+          <input type="text" class="input-field" placeholder="输入查询内容...">
+        </div>
+        <div class="input-group">
+          <label class="input-label">Agent 指令</label>
+          <input type="text" class="input-field magenta" placeholder="向矿工 Agent 发送指令...">
+        </div>
+
+        <!-- Progress Bars -->
+        <h3 class="card-title mb-md">进度条</h3>
+        <div class="progress-group">
+          <div class="progress-item">
+            <span class="progress-label">VRAM</span>
+            <div class="progress-bar">
+              <div class="progress-fill cyan" style="width: 88%"></div>
+            </div>
+            <span class="progress-value">88%</span>
+          </div>
+          <div class="progress-item">
+            <span class="progress-label">RAM</span>
+            <div class="progress-bar">
+              <div class="progress-fill magenta" style="width: 72%"></div>
+            </div>
+            <span class="progress-value" style="color: var(--neon-magenta);">72%</span>
+          </div>
+          <div class="progress-item">
+            <span class="progress-label">知识库</span>
+            <div class="progress-bar">
+              <div class="progress-fill yellow" style="width: 45%"></div>
+            </div>
+            <span class="progress-value" style="color: var(--neon-yellow);">45%</span>
+          </div>
+          <div class="progress-item">
+            <span class="progress-label">磁盘</span>
+            <div class="progress-bar">
+              <div class="progress-fill cyan" style="width: 31%"></div>
+            </div>
+            <span class="progress-value">31%</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ==================== BOTTOM NAV ==================== -->
+  <nav class="bottom-nav">
+    <a class="nav-item active">
+      <span class="nav-icon">◈</span>
+      <span>总览</span>
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon">⬡</span>
+      <span>Agent</span>
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon">◉</span>
+      <span>知识库</span>
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon">⚡</span>
+      <span>任务</span>
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon">⚙</span>
+      <span>设置</span>
+    </a>
+  </nav>
+
+  <!-- ==================== THEME TOGGLE JS ==================== -->
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+
+      if (html.getAttribute('data-theme') === 'dark') {
+        html.setAttribute('data-theme', 'light');
+        icon.textContent = '☾';
+        btn.innerHTML = '<span id="themeIcon">☾</span> 切换暗色';
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        icon.textContent = '☀';
+        btn.innerHTML = '<span id="themeIcon">☀</span> 切换亮色';
+      }
+    }
+  </script>
+</body>
+</html>
