@@ -1,0 +1,55 @@
+{
+  "app": {
+    "name": "材料科研AI工作站",
+    "shortName": "AI工作站",
+    "description": "Materials Research AI Workstation",
+    "themeColor": "#00d4aa",
+    "backgroundColor": "#0a0e17"
+  },
+  "services": [
+    {"name": "Open WebUI", "port": 3000, "icon": "webui", "url": "http://127.0.0.1:3000", "category": "ai"},
+    {"name": "OpenClaw GW", "port": 18789, "icon": "openclaw", "url": "http://127.0.0.1:18789", "category": "agent"},
+    {"name": "Ollama API", "port": 11434, "icon": "ollama", "url": "http://127.0.0.1:11434", "category": "ai"},
+    {"name": "JupyterLab", "port": 8888, "icon": "jupyter", "url": "http://127.0.0.1:8888", "category": "dev"},
+    {"name": "Portainer", "port": 9000, "icon": "portainer", "url": "http://127.0.0.1:9000", "category": "system"},
+    {"name": "ComfyUI", "port": 8188, "icon": "comfyui", "url": "http://127.0.0.1:8188", "category": "image"},
+    {"name": "Draw.io", "port": 8080, "icon": "drawio", "url": "http://127.0.0.1:8080", "category": "tool"},
+    {"name": "Stirling PDF", "port": 8400, "icon": "pdf", "url": "http://127.0.0.1:8400", "category": "tool"},
+    {"name": "Zotero", "port": 23119, "icon": "zotero", "url": "http://127.0.0.1:23119", "category": "research"}
+  ],
+  "pages": [
+    {"name": "模型管理", "file": "models.html", "icon": "model", "keywords": ["模型", "model", "ollama", "qwen", "推理"]},
+    {"name": "系统监控", "file": "monitor.html", "icon": "monitor", "keywords": ["监控", "monitor", "docker", "gpu", "vram", "状态"]},
+    {"name": "命令中心", "file": "commands.html", "icon": "command", "keywords": ["命令", "command", "docker", "ollama"]},
+    {"name": "通讯管理", "file": "communication.html", "icon": "comm", "keywords": ["通讯", "communication", "邮件", "email"]},
+    {"name": "知识库", "file": "knowledge.html", "icon": "knowledge", "keywords": ["知识库", "knowledge", "rag", "文献"]},
+    {"name": "配置文件", "file": "config.html", "icon": "config", "keywords": ["配置", "config", "api"]}
+  ],
+  "commands": {
+    "Ollama": [
+      {"cmd": "ollama list", "desc": "列出已安装模型"},
+      {"cmd": "ollama run qwen3:4b", "desc": "运行qwen3:4b模型"},
+      {"cmd": "ollama run qwen3.5:9b", "desc": "运行qwen3.5:9b模型"},
+      {"cmd": "ollama stop qwen3.5:9b", "desc": "停止qwen3.5:9b模型"},
+      {"cmd": "ollama ps", "desc": "查看运行中的模型"}
+    ],
+    "Docker": [
+      {"cmd": "docker ps", "desc": "查看运行中的容器"},
+      {"cmd": "docker compose up -d", "desc": "启动Docker Compose服务"},
+      {"cmd": "docker compose down", "desc": "停止Docker Compose服务"},
+      {"cmd": "docker logs --tail 50", "desc": "查看最近50行日志"}
+    ],
+    "System": [
+      {"cmd": "nvidia-smi", "desc": "查看GPU状态"},
+      {"cmd": "htop", "desc": "查看系统进程"},
+      {"cmd": "df -h", "desc": "查看磁盘使用"},
+      {"cmd": "free -h", "desc": "查看内存使用"}
+    ]
+  },
+  "settings": {
+    "refreshInterval": 5000,
+    "vramTotal": 16384,
+    "statusTimeout": 3000,
+    "searchShortcut": "Ctrl+K"
+  }
+}

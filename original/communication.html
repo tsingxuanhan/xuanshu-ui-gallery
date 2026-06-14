@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication Center - AI Workstation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <!-- 页面头部 -->
+        <div class="page-header">
+            <a href="index.html" class="back-btn">←</a>
+            <h1 class="page-title">📧 通讯中心</h1>
+            <div class="header-actions" style="margin-left: auto;">
+                <button class="theme-toggle" title="切换主题"></button>
+            </div>
+        </div>
+
+        <!-- 邮箱状态 -->
+        <h2 class="section-title">📬 邮箱账户</h2>
+        <div class="email-grid">
+            <!-- Outlook -->
+            <div class="email-card">
+                <div class="email-icon">📮</div>
+                <h3 class="email-title">Outlook</h3>
+                <p class="email-status">已连接 · professor@ujn.edu.cn</p>
+                <button class="email-btn" onclick="window.open('https://outlook.office.com', '_blank')">打开邮箱</button>
+            </div>
+
+            <!-- QQ邮箱 -->
+            <div class="email-card">
+                <div class="email-icon">🐧</div>
+                <h3 class="email-title">QQ邮箱</h3>
+                <p class="email-status">已连接 · research@qq.com</p>
+                <button class="email-btn" onclick="window.open('https://mail.qq.com', '_blank')">打开邮箱</button>
+            </div>
+
+            <!-- Coze -->
+            <div class="email-card">
+                <div class="email-icon">🤖</div>
+                <h3 class="email-title">Coze</h3>
+                <p class="email-status">已连接 · AI助手通知</p>
+                <button class="email-btn" onclick="window.open('https://www.coze.com', '_blank')">打开Coze</button>
+            </div>
+        </div>
+
+        <!-- 最近邮件 -->
+        <h2 class="section-title">📬 最近邮件</h2>
+        <div class="email-list">
+            <div class="email-item">
+                <div class="email-from">📨 coze@coze.com</div>
+                <div class="email-subject">【通知】您的AI助手已完成新任务</div>
+                <div class="email-preview">材料配比分析任务已完成，结果已保存至知识库...</div>
+            </div>
+
+            <div class="email-item">
+                <div class="email-from">📨 professor@ujn.edu.cn</div>
+                <div class="email-subject">Re: 低碳建筑材料研究进展汇报</div>
+                <div class="email-preview">收到，关于下一阶段的工作安排，请在下周一上午...</div>
+            </div>
+
+            <div class="email-item">
+                <div class="email-from">📨 zotero@zotero.org</div>
+                <div class="email-subject">Zotero同步通知：3篇新文献已添加</div>
+                <div class="email-preview">您的Zotero文献库已同步，以下文献已添加到您的库中...</div>
+            </div>
+
+            <div class="email-item">
+                <div class="email-from">📨 research@qq.com</div>
+                <div class="email-subject">期刊投稿状态更新</div>
+                <div class="email-preview">您投稿的论文"Low-Carbon Building Materials..."</div>
+            </div>
+
+            <div class="email-item">
+                <div class="email-from">📨 github@github.com</div>
+                <div class="email-subject">[GitHub] xuan-hub: 新PR合并通知</div>
+                <div class="email-preview">Pull Request #42 已被合并到main分支...</div>
+            </div>
+        </div>
+
+        <!-- 消息记录 -->
+        <h2 class="section-title">💬 消息记录</h2>
+        <div class="model-card" style="margin-bottom: 30px;">
+            <div style="max-height: 400px; overflow-y: auto;">
+                <div style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                        <span style="color: var(--accent); font-weight: 500;">🧠 AI助手</span>
+                        <span style="color: var(--text-secondary); font-size: 0.8rem;">14:32</span>
+                    </div>
+                    <p style="color: var(--text-secondary);">您好！有什么可以帮助您的？无论是材料配比分析、文献检索还是代码编写，我都可以协助您完成。</p>
+                </div>
+
+                <div style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                        <span style="color: #22c55e; font-weight: 500;">👤 您</span>
+                        <span style="color: var(--text-secondary); font-size: 0.8rem;">14:33</span>
+                    </div>
+                    <p style="color: var(--text-secondary);">帮我分析一下低碳混凝土的配比优化方案</p>
+                </div>
+
+                <div style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                        <span style="color: var(--accent); font-weight: 500;">🧠 AI助手</span>
+                        <span style="color: var(--text-secondary); font-size: 0.8rem;">14:33</span>
+                    </div>
+                    <p style="color: var(--text-secondary);">根据您的需求，我为您找到以下相关信息：<br><br>1. <strong>传统配比范围</strong>：水泥300-450kg/m³，水灰比0.4-0.6<br>2. <strong>低碳优化方向</strong>：添加粉煤灰30%-40%，减少水泥用量<br>3. <strong>推荐方案</strong>：粉煤灰替代率35%，硅灰5%，减水剂1.2%<br><br>是否需要我生成详细的配比计算报告？</p>
+                </div>
+
+                <div style="padding: 12px 0;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                        <span style="color: #22c55e; font-weight: 500;">👤 您</span>
+                        <span style="color: var(--text-secondary); font-size: 0.8rem;">14:35</span>
+                    </div>
+                    <p style="color: var(--text-secondary);">好的，请生成报告</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 16px; display: flex; gap: 12px;">
+                <input type="text" class="search-input" placeholder="输入新消息..." style="flex: 1;">
+                <button class="search-btn" style="padding: 14px 24px;">发送</button>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>Materials Research AI Workstation · University of Jinan · 2024</p>
+        </footer>
+    </div>
+
+    <script src="js/common.js"></script>
+</body>
+</html>

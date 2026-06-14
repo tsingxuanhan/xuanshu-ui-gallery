@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水墨国风 · Ink Wash — 铉枢风格库</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Demo-specific: style switcher bar */
+        .demo-bar {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: var(--bg-card); border-top: 1px solid var(--border);
+            padding: 10px 24px; display: flex; align-items: center;
+            justify-content: space-between; z-index: 999;
+            backdrop-filter: blur(10px); font-size: 0.82rem;
+        }
+        .demo-bar a { color: var(--accent); text-decoration: none; font-weight: 500; }
+        .demo-bar a:hover { text-decoration: underline; }
+        .demo-bar .style-label {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--text-secondary);
+        }
+        body { padding-bottom: 60px; }
+    </style>
+</head>
+<body>
+    <div class="ink-bg-decoration"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-title">
+                <h1>铉枢 · 材料科研工作站</h1>
+                <p>XuanShu Workstation — Ink Wash Theme Demo</p>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" onclick="toggleTheme()" title="切换明暗" id="themeBtn">🌙</button>
+                <button class="settings-btn" title="搜索 Ctrl+K">🔍</button>
+            </div>
+        </header>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-indicator online"></div>
+                <span class="status-label">Docker</span>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator online"></div>
+                <span class="status-label">Ollama</span>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator online"></div>
+                <span class="status-label">GPU</span>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator warning"></div>
+                <span class="status-label">VRAM 7.2/16GB</span>
+            </div>
+        </div>
+
+        <!-- VRAM Warning -->
+        <div class="vram-warning">
+            <span>⚠️</span>
+            <span><strong>VRAM Mutex:</strong> Ollama Inference ↔ ComfyUI Image, pick one</span>
+            <span>•</span>
+            <span>已用: <strong>7.2GB</strong> / 总计: <strong>16GB</strong></span>
+        </div>
+
+        <!-- Quick Access -->
+        <h2 class="section-title">快速访问</h2>
+        <div class="cards-grid">
+            <div class="service-card">
+                <div class="service-card-icon">🌐</div>
+                <div class="service-card-name">Open WebUI</div>
+                <div class="service-card-status online">● 运行中 :3000</div>
+            </div>
+            <div class="service-card">
+                <div class="service-card-icon">🤖</div>
+                <div class="service-card-name">Ollama API</div>
+                <div class="service-card-status online">● 运行中 :11434</div>
+            </div>
+            <div class="service-card">
+                <div class="service-card-icon">📓</div>
+                <div class="service-card-name">JupyterLab</div>
+                <div class="service-card-status online">● 运行中 :8888</div>
+            </div>
+            <div class="service-card">
+                <div class="service-card-icon">🎨</div>
+                <div class="service-card-name">ComfyUI</div>
+                <div class="service-card-status">○ 已停止 :8188</div>
+            </div>
+            <div class="service-card">
+                <div class="service-card-icon">🐳</div>
+                <div class="service-card-name">Portainer</div>
+                <div class="service-card-status online">● 运行中 :9000</div>
+            </div>
+            <div class="service-card">
+                <div class="service-card-icon">📄</div>
+                <div class="service-card-name">Stirling PDF</div>
+                <div class="service-card-status online">● 运行中 :8400</div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <h2 class="section-title">功能模块</h2>
+        <div class="nav-cards">
+            <a class="nav-card" href="#">
+                <div class="nav-card-icon">🧠</div>
+                <div class="nav-card-name">模型管理</div>
+            </a>
+            <a class="nav-card" href="#">
+                <div class="nav-card-icon">📊</div>
+                <div class="nav-card-name">系统监控</div>
+            </a>
+            <a class="nav-card" href="#">
+                <div class="nav-card-icon">⌨️</div>
+                <div class="nav-card-name">命令中心</div>
+            </a>
+            <a class="nav-card" href="#">
+                <div class="nav-card-icon">📧</div>
+                <div class="nav-card-name">通讯管理</div>
+            </a>
+            <a class="nav-card" href="#">
+                <div class="nav-card-icon">📚</div>
+                <div class="nav-card-name">知识库</div>
+            </a>
+            <a class="nav-card" href="#">
+                <div class="nav-card-icon">⚙️</div>
+                <div class="nav-card-name">配置文件</div>
+            </a>
+        </div>
+
+        <!-- Data Panel — Metrics -->
+        <div class="data-panel">
+            <div class="data-panel-header">
+                <span class="data-panel-title">知识库概览</span>
+                <span class="data-panel-badge">v2.0 活跃</span>
+            </div>
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <div class="metric-value">524</div>
+                    <div class="metric-label">论文总量</div>
+                    <div class="metric-change up">↑ 12 本周新增</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">30</div>
+                    <div class="metric-label">分类数</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">89%</div>
+                    <div class="metric-label">检索命中率</div>
+                    <div class="metric-change up">↑ 3.2%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">4.2ms</div>
+                    <div class="metric-label">平均响应</div>
+                    <div class="metric-change down">↓ 0.8ms</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Panel — Table -->
+        <div class="data-panel">
+            <div class="data-panel-header">
+                <span class="data-panel-title">Agent 运行状态</span>
+                <span class="data-panel-badge">v5.0</span>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Agent</th>
+                        <th>角色</th>
+                        <th>模型</th>
+                        <th>状态</th>
+                        <th>今日任务</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>矿工</td>
+                        <td>文献挖掘</td>
+                        <td>deepseek-v4-pro</td>
+                        <td><span class="tag tag-success">在线</span></td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>试金</td>
+                        <td>数据验证</td>
+                        <td>deepseek-v4-flash</td>
+                        <td><span class="tag tag-success">在线</span></td>
+                        <td>28</td>
+                    </tr>
+                    <tr>
+                        <td>铸师</td>
+                        <td>方案生成</td>
+                        <td>deepseek-v4-pro</td>
+                        <td><span class="tag tag-warning">空闲</span></td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>匠人</td>
+                        <td>成果整合</td>
+                        <td>deepseek-v4-flash</td>
+                        <td><span class="tag tag-info">待命</span></td>
+                        <td>3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Data Panel — Controls -->
+        <div class="data-panel">
+            <div class="data-panel-header">
+                <span class="data-panel-title">组件展示</span>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;">
+                <button class="btn btn-primary">主操作</button>
+                <button class="btn">次要操作</button>
+                <button class="btn btn-ghost">幽灵按钮</button>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;">
+                <span class="tag tag-success">在线</span>
+                <span class="tag tag-warning">空闲</span>
+                <span class="tag tag-danger">离线</span>
+                <span class="tag tag-info">待命</span>
+            </div>
+            <div style="max-width: 400px;">
+                <input class="input" type="text" placeholder="搜索模型、命令、文献..." />
+            </div>
+            <div style="max-width: 400px; margin-top: 16px;">
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">GPU 使用率 — 45%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 45%;"></div>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">VRAM 使用率 — 72%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill warning" style="width: 72%;"></div>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">磁盘 — 91%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill danger" style="width: 91%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            铉枢风格库 · 水墨国风 Demo · 2026-06-14
+        </div>
+    </div>
+
+    <!-- Demo Navigation Bar -->
+    <div class="demo-bar">
+        <span class="style-label">当前风格：水墨国风 Ink Wash</span>
+        <a href="../index.html">← 返回风格库</a>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('themeBtn');
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                btn.textContent = '🌙';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                btn.textContent = '☀️';
+            }
+        }
+    </script>
+</body>
+</html>

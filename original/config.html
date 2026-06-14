@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iron Laws & Config - AI Workstation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <!-- 页面头部 -->
+        <div class="page-header">
+            <a href="index.html" class="back-btn">←</a>
+            <h1 class="page-title">⚡ 配置与铁律</h1>
+            <div class="header-actions" style="margin-left: auto;">
+                <button class="theme-toggle" title="切换主题"></button>
+            </div>
+        </div>
+
+        <!-- 核心铁律 -->
+        <h2 class="section-title">📜 核心铁律 (30条)</h2>
+        
+        <!-- 铁律1-10 -->
+        <div class="config-section open">
+            <h3 class="config-title" onclick="toggleConfigSection(this)">质量铁律 (Laws #1-10)</h3>
+            <div class="config-content">
+                <div class="law-item">Law #1: 所有输出必须经过双AI交叉验证</div>
+                <div class="law-item">Law #2: 数值计算结果保留4位有效数字</div>
+                <div class="law-item">Law #3: 实验数据必须标注来源和置信区间</div>
+                <div class="law-item">Law #4: 化学配方需注明温度、压力条件</div>
+                <div class="law-item">Law #5: 引用文献需包含DOI或完整链接</div>
+                <div class="law-item">Law #6: 任何预测需附带不确定性分析</div>
+                <div class="law-item">Law #7: 配比设计必须满足强度等级要求</div>
+                <div class="law-item">Law #8: 新材料引入需进行文献综述</div>
+                <div class="law-item">Law #9: 数据可视化需符合学术规范</div>
+                <div class="law-item">Law #10: 代码实现需包含单元测试</div>
+            </div>
+        </div>
+
+        <!-- 铁律11-20 -->
+        <div class="config-section">
+            <h3 class="config-title" onclick="toggleConfigSection(this)">安全铁律 (Laws #11-20)</h3>
+            <div class="config-content">
+                <div class="law-item">Law #11: 禁止在公共场合讨论未公开成果</div>
+                <div class="law-item">Law #12: 敏感数据必须加密存储</div>
+                <div class="law-item">Law #13: API密钥不得硬编码在代码中</div>
+                <div class="law-item">Law #14: 外部链接需经过安全扫描</div>
+                <div class="law-item">Law #15: 协作项目需明确权限分级</div>
+                <div class="law-item">Law #16: 邮件附件禁止包含原始数据</div>
+                <div class="law-item">Law #17: 云服务配置需遵循最小权限原则</div>
+                <div class="law-item">Law #18: 备份频率不低于每周一次</div>
+                <div class="law-item">Law #19: 异常访问需记录审计日志</div>
+                <div class="law-item">Law #20: 离职交接必须更改所有密码</div>
+            </div>
+        </div>
+
+        <!-- 铁律21-30 -->
+        <div class="config-section">
+            <h3 class="config-title" onclick="toggleConfigSection(this)">效率铁律 (Laws #21-30)</h3>
+            <div class="config-content">
+                <div class="law-item">Law #21: 单次任务不超过25分钟（番茄工作法）</div>
+                <div class="law-item">Law #22: 重复任务必须自动化</div>
+                <div class="law-item">Law #23: 会议议程必须提前24小时发出</div>
+                <div class="law-item">Law #24: 日报不超过5个核心事项</div>
+                <div class="law-item">Law #25: 文件命名格式：[日期]_[项目]_[版本]</div>
+                <div class="law-item">Law #26: 每周五进行本周工作总结</div>
+                <div class="law-item">Law #27: 新想法记录在Inbox而非打扰当前工作</div>
+                <div class="law-item">Law #28: 代码注释率不低于20%</div>
+                <div class="law-item">Law #29: 文档更新与代码同步</div>
+                <div class="law-item">Law #30: 每月进行一次知识整理</div>
+            </div>
+        </div>
+
+        <!-- M1-M10材料专项约束 -->
+        <h2 class="section-title">🏗️ 材料专项约束 (M1-M10)</h2>
+        
+        <div class="config-section">
+            <h3 class="config-title" onclick="toggleConfigSection(this)">M1: 低碳混凝土约束</h3>
+            <div class="config-content">
+                <div class="law-item">M1.1: 粉煤灰替代率不低于30%</div>
+                <div class="law-item">M1.2: 矿渣粉添加量不超过40%</div>
+                <div class="law-item">M1.3: 硅灰添加量控制在5-10%</div>
+                <div class="law-item">M1.4: 水胶比不超过0.45</div>
+                <div class="law-item">M1.5: 28天抗压强度不低于C30</div>
+            </div>
+        </div>
+
+        <div class="config-section">
+            <h3 class="config-title" onclick="toggleConfigSection(this)">M2: 相变材料约束</h3>
+            <div class="config-content">
+                <div class="law-item">M2.1: 相变温度范围15-30°C</div>
+                <div class="law-item">M2.2: 相变焓不低于150 kJ/kg</div>
+                <div class="law-item">M2.3: 循环稳定性不低于500次</div>
+                <div class="law-item">M2.4: 封装泄漏率低于0.5%</div>
+            </div>
+        </div>
+
+        <div class="config-section">
+            <h3 class="config-title" onclick="toggleConfigSection(this)">M3-M10: 其他材料约束</h3>
+            <div class="config-content">
+                <div class="law-item">M3: 再生骨料 · 替代率20-50%</div>
+                <div class="law-item">M4: 隔热材料 · 导热系数<0.05 W/(m·K)</div>
+                <div class="law-item">M5: 透水混凝土 · 孔隙率15-25%</div>
+                <div class="law-item">M6: 自愈合材料 · 裂缝宽度<0.2mm</div>
+                <div class="law-item">M7: 抗菌材料 · 抑菌率>99%</div>
+                <div class="law-item">M8: 隔音材料 · 隔声量>40dB</div>
+                <div class="law-item">M9: 防火材料 · 耐火极限>2h</div>
+                <div class="law-item">M10: 装饰材料 · 耐磨等级>AC4</div>
+            </div>
+        </div>
+
+        <!-- 模型路由表 -->
+        <h2 class="section-title">🧠 模型路由表</h2>
+        <div class="model-card" style="margin-bottom: 30px;">
+            <table class="config-table">
+                <thead>
+                    <tr>
+                        <th>任务类型</th>
+                        <th>推荐模型</th>
+                        <th>显存需求</th>
+                        <th>响应速度</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>日常问答</td>
+                        <td>qwen3:1.8b</td>
+                        <td>~1.5GB</td>
+                        <td>⚡⚡⚡ 快速</td>
+                    </tr>
+                    <tr>
+                        <td>文档分析</td>
+                        <td>qwen3:4b</td>
+                        <td>~3.2GB</td>
+                        <td>⚡⚡ 中等</td>
+                    </tr>
+                    <tr>
+                        <td>代码生成</td>
+                        <td>qwen2.5:7b</td>
+                        <td>~5.5GB</td>
+                        <td>⚡ 较慢</td>
+                    </tr>
+                    <tr>
+                        <td>文献综述</td>
+                        <td>qwen3:4b + nomic-embed</td>
+                        <td>~3.5GB</td>
+                        <td>⚡⚡ 中等</td>
+                    </tr>
+                    <tr>
+                        <td>图像生成</td>
+                        <td>ComfyUI (SDXL)</td>
+                        <td>~8GB</td>
+                        <td>⚡ 慢</td>
+                    </tr>
+                    <tr>
+                        <td>多模态理解</td>
+                        <td>qwen2.5:7b</td>
+                        <td>~5.5GB</td>
+                        <td>⚡ 较慢</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 配置文件入口 -->
+        <h2 class="section-title">📁 配置文件</h2>
+        <div class="nav-cards">
+            <div class="nav-card" onclick="showToast('配置文件: config.json')">
+                <span class="nav-card-icon">📝</span>
+                <span class="nav-card-text">config.json</span>
+            </div>
+            <div class="nav-card" onclick="showToast('环境变量: .env')">
+                <span class="nav-card-icon">🔐</span>
+                <span class="nav-card-text">.env</span>
+            </div>
+            <div class="nav-card" onclick="showToast('Ollama配置: OllamaConfig.md')">
+                <span class="nav-card-icon">🦙</span>
+                <span class="nav-card-text">OllamaConfig.md</span>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>Materials Research AI Workstation · University of Jinan · 2024</p>
+        </footer>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script>
+        // 折叠/展开功能
+        function toggleConfigSection(element) {
+            const section = element.parentElement;
+            section.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

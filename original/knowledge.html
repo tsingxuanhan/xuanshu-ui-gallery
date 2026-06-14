@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Base - AI Workstation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <!-- 页面头部 -->
+        <div class="page-header">
+            <a href="index.html" class="back-btn">←</a>
+            <h1 class="page-title">📖 知识库</h1>
+            <div class="header-actions" style="margin-left: auto;">
+                <button class="theme-toggle" title="切换主题"></button>
+            </div>
+        </div>
+
+        <!-- 知识库类型卡片 -->
+        <h2 class="section-title">🗂️ 知识库分类</h2>
+        <div class="kb-cards">
+            <div class="kb-card">
+                <span class="kb-icon">🏗️</span>
+                <div class="kb-info">
+                    <h3>领域知识库</h3>
+                    <p>Low-Carbon Building Materials</p>
+                </div>
+            </div>
+
+            <div class="kb-card">
+                <span class="kb-icon">⚖️</span>
+                <div class="kb-info">
+                    <h3>铁律规则库</h3>
+                    <p>30条核心设计约束</p>
+                </div>
+            </div>
+
+            <div class="kb-card">
+                <span class="kb-icon">🎭</span>
+                <div class="kb-info">
+                    <h3>角色矩阵库</h3>
+                    <p>Multi-Agent角色定义</p>
+                </div>
+            </div>
+
+            <div class="kb-card">
+                <span class="kb-icon">📁</span>
+                <div class="kb-info">
+                    <h3>项目状态库</h3>
+                    <p>当前项目进度与文档</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- RAG检索 -->
+        <h2 class="section-title">🔍 RAG 智能检索</h2>
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="输入问题，AI将检索相关知识...">
+            <button class="search-btn" onclick="performSearch()">搜索</button>
+        </div>
+
+        <!-- 检索结果 -->
+        <div id="searchResults" style="display: none;">
+            <div class="model-card" style="margin-bottom: 30px;">
+                <h3 style="color: var(--accent); margin-bottom: 12px;">检索结果</h3>
+                <div id="resultContent" style="color: var(--text-secondary); line-height: 1.8;"></div>
+            </div>
+        </div>
+
+        <!-- Zotero快捷入口 -->
+        <h2 class="section-title">📚 文献管理</h2>
+        <div style="display: flex; gap: 16px; margin-bottom: 30px;">
+            <a href="http://127.0.0.1:23119" target="_blank" class="nav-card" style="flex: 1;">
+                <span class="nav-card-icon">📚</span>
+                <span class="nav-card-text">Zotero 文献库</span>
+            </a>
+            <a href="http://127.0.0.1:23119/web" target="_blank" class="nav-card" style="flex: 1;">
+                <span class="nav-card-icon">🌐</span>
+                <span class="nav-card-text">Zotero Web</span>
+            </a>
+        </div>
+
+        <!-- 最近检索历史 -->
+        <h2 class="section-title">📜 最近检索</h2>
+        <div class="history-list" id="historyList">
+            <p style="color: var(--text-secondary); padding: 20px; text-align: center;">暂无检索历史</p>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>Materials Research AI Workstation · University of Jinan · 2024</p>
+        </footer>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script>
+        // 页面加载时渲染历史
+        document.addEventListener('DOMContentLoaded', function() {
+            renderHistoryList('historyList', 'kb_search_history');
+        });
+
+        // 执行检索
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) {
+                showToast('请输入检索内容', 'error');
+                return;
+            }
+
+            showToast('正在检索...');
+            
+            // 保存到历史
+            saveHistory('kb_search_history', query);
+            renderHistoryList('historyList', 'kb_search_history');
+
+            // 模拟检索结果
+            setTimeout(() => {
+                document.getElementById('searchResults').style.display = 'block';
+                document.getElementById('resultContent').innerHTML = `
+                    <p style="margin-bottom: 12px;">基于您的检索 "<strong style="color: var(--text-primary);">${query}</strong>"，找到以下相关内容：</p>
+                    <ul style="margin-left: 20px; margin-bottom: 12px;">
+                        <li style="margin-bottom: 8px;">低碳建筑材料领域知识库 · 相关度: 92%</li>
+                        <li style="margin-bottom: 8px;">铁律规则库第12条: 材料配比优化原则 · 相关度: 85%</li>
+                        <li style="margin-bottom: 8px;">项目文档: 研究进展报告 v2.3 · 相关度: 78%</li>
+                    </ul>
+                    <p style="color: var(--accent); font-size: 0.85rem;">💡 提示: 点击具体条目查看完整内容</p>
+                `;
+                showToast('检索完成');
+            }, 800);
+        }
+
+        // 回车键搜索
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>

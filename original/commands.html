@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Commands - AI Workstation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <!-- 页面头部 -->
+        <div class="page-header">
+            <a href="index.html" class="back-btn">←</a>
+            <h1 class="page-title">💻 快速命令</h1>
+            <div class="header-actions" style="margin-left: auto;">
+                <button class="theme-toggle" title="切换主题"></button>
+            </div>
+        </div>
+
+        <!-- 终端模拟 -->
+        <div class="terminal">
+            <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+            </div>
+            <div class="terminal-content" id="terminalContent">
+                $ materials-research AI Workstation v1.0<br>
+                $ System Ready · 16GB VRAM Available<br>
+                $ Type 'help' for available commands
+            </div>
+        </div>
+
+        <!-- 命令分类Tab -->
+        <div class="cmd-tabs">
+            <button class="cmd-tab active" data-tab="ollama">Ollama</button>
+            <button class="cmd-tab" data-tab="docker">Docker</button>
+            <button class="cmd-tab" data-tab="system">System</button>
+            <button class="cmd-tab" data-tab="shortcuts">快捷脚本</button>
+        </div>
+
+        <!-- Ollama命令 -->
+        <div class="cmd-list" id="cmd-ollama">
+            <div class="cmd-item">
+                <span class="cmd-text">ollama list</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'ollama list')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">ollama run qwen3:4b</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'ollama run qwen3:4b')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">ollama run qwen3:1.8b</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'ollama run qwen3:1.8b')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">ollama stop qwen3:4b</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'ollama stop qwen3:4b')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">ollama stop qwen3:1.8b</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'ollama stop qwen3:1.8b')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">ollama ps</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'ollama ps')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">ollama show qwen3:4b</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'ollama show qwen3:4b')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">ollama pull nomic-embed-text</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'ollama pull nomic-embed-text')">复制</button>
+            </div>
+        </div>
+
+        <!-- Docker命令 -->
+        <div class="cmd-list" id="cmd-docker" style="display: none;">
+            <div class="cmd-item">
+                <span class="cmd-text">docker ps</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'docker ps')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">docker ps -a</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'docker ps -a')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">docker compose up -d</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'docker compose up -d')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">docker compose down</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'docker compose down')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">docker logs -f [container_name]</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'docker logs -f [container_name]')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">docker exec -it [container_name] /bin/bash</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'docker exec -it [container_name] /bin/bash')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">docker system df</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'docker system df')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">docker compose restart [service]</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'docker compose restart [service]')">复制</button>
+            </div>
+        </div>
+
+        <!-- System命令 -->
+        <div class="cmd-list" id="cmd-system" style="display: none;">
+            <div class="cmd-item">
+                <span class="cmd-text">nvidia-smi</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'nvidia-smi')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">nvidia-smi --query-gpu=memory.used,memory.total --format=csv</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'nvidia-smi --query-gpu=memory.used,memory.total --format=csv')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">htop</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'htop')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">df -h</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'df -h')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">free -h</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'free -h')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">curl http://127.0.0.1:11434/api/tags</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'curl http://127.0.0.1:11434/api/tags')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">systemctl status docker</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'systemctl status docker')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">uptime</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'uptime')">复制</button>
+            </div>
+        </div>
+
+        <!-- 快捷脚本 -->
+        <div class="cmd-list" id="cmd-shortcuts" style="display: none;">
+            <div class="cmd-item">
+                <span class="cmd-text">bash ~/scripts/start-inference.sh</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'bash ~/scripts/start-inference.sh')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">bash ~/scripts/stop-all-models.sh</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'bash ~/scripts/stop-all-models.sh')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">bash ~/scripts/backup-kb.sh</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'bash ~/scripts/backup-kb.sh')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">bash ~/scripts/health-check.sh</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'bash ~/scripts/health-check.sh')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">bash ~/scripts/restart-ollama.sh</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'bash ~/scripts/restart-ollama.sh')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">bash ~/scripts/update-models.sh</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'bash ~/scripts/update-models.sh')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">bash ~/scripts/gpu-monitor.sh</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'bash ~/scripts/gpu-monitor.sh')">复制</button>
+            </div>
+            <div class="cmd-item">
+                <span class="cmd-text">bash ~/scripts/sync-zotero.sh</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'bash ~/scripts/sync-zotero.sh')">复制</button>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>Materials Research AI Workstation · University of Jinan · 2024</p>
+        </footer>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script>
+        // Tab切换
+        document.querySelectorAll('.cmd-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 移除所有active
+                document.querySelectorAll('.cmd-tab').forEach(t => t.classList.remove('active'));
+                // 添加active
+                this.classList.add('active');
+                
+                // 隐藏所有命令列表
+                document.querySelectorAll('.cmd-list').forEach(list => {
+                    list.style.display = 'none';
+                });
+                
+                // 显示对应命令列表
+                const tabName = this.getAttribute('data-tab');
+                document.getElementById('cmd-' + tabName).style.display = 'grid';
+            });
+        });
+
+        // 复制命令
+        function copyCommand(btn, command) {
+            copyToClipboard(command);
+            
+            // 按钮状态变化
+            btn.textContent = '已复制!';
+            btn.classList.add('copied');
+            
+            setTimeout(() => {
+                btn.textContent = '复制';
+                btn.classList.remove('copied');
+            }, 2000);
+
+            // 更新终端显示
+            updateTerminal(command);
+        }
+
+        // 更新终端内容
+        function updateTerminal(command) {
+            const terminal = document.getElementById('terminalContent');
+            const timestamp = new Date().toLocaleTimeString('zh-CN', { hour12: false });
+            terminal.innerHTML += `<br><span style="color: #6b7280;">[${timestamp}]</span> <span style="color: #22c55e;">$</span> ${command}`;
+            
+            // 模拟执行
+            terminal.innerHTML += `<br><span style="color: #22c55e;">命令已复制到剪贴板，请在终端中粘贴执行</span>`;
+            
+            // 滚动到底部
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+    </script>
+</body>
+</html>

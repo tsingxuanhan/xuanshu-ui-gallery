@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Monitor - AI Workstation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <!-- 页面头部 -->
+        <div class="page-header">
+            <a href="index.html" class="back-btn">←</a>
+            <h1 class="page-title">📊 系统监控</h1>
+            <div class="header-actions" style="margin-left: auto;">
+                <button class="theme-toggle" title="切换主题"></button>
+            </div>
+        </div>
+
+        <!-- 圆环图 -->
+        <h2 class="section-title">🎯 资源使用</h2>
+        <div class="ring-charts">
+            <!-- GPU 使用率 -->
+            <div class="ring-chart">
+                <div class="ring">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <circle class="ring-bg" cx="50" cy="50" r="45"/>
+                        <circle class="ring-fill" id="gpuRing" cx="50" cy="50" r="45" style="stroke-dashoffset: 70;"/>
+                    </svg>
+                    <span class="ring-value" id="gpuValue">75%</span>
+                </div>
+                <span class="ring-label">GPU 使用率</span>
+            </div>
+
+            <!-- VRAM 使用率 -->
+            <div class="ring-chart">
+                <div class="ring">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <circle class="ring-bg" cx="50" cy="50" r="45"/>
+                        <circle class="ring-fill" id="vramRing" cx="50" cy="50" r="45" style="stroke-dashoffset: 113;"/>
+                    </svg>
+                    <span class="ring-value" id="vramValue">60%</span>
+                </div>
+                <span class="ring-label">VRAM <span id="vramDetail">7.2GB</span> / 16GB</span>
+            </div>
+
+            <!-- RAM 使用率 -->
+            <div class="ring-chart">
+                <div class="ring">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <circle class="ring-bg" cx="50" cy="50" r="45"/>
+                        <circle class="ring-fill" id="ramRing" cx="50" cy="50" r="45" style="stroke-dashoffset: 99;"/>
+                    </svg>
+                    <span class="ring-value" id="ramValue">65%</span>
+                </div>
+                <span class="ring-label">RAM <span id="ramDetail">10.4GB</span> / 16GB</span>
+            </div>
+
+            <!-- CPU 使用率 -->
+            <div class="ring-chart">
+                <div class="ring">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <circle class="ring-bg" cx="50" cy="50" r="45"/>
+                        <circle class="ring-fill" id="cpuRing" cx="50" cy="50" r="45" style="stroke-dashoffset: 141;"/>
+                    </svg>
+                    <span class="ring-value" id="cpuValue">50%</span>
+                </div>
+                <span class="ring-label">CPU 6核 / 12线程</span>
+            </div>
+        </div>
+
+        <!-- Docker容器状态 -->
+        <h2 class="section-title">📦 Docker 容器</h2>
+        <div class="service-list" id="dockerContainerList">
+            <!-- 由JS动态生成 -->
+        </div>
+
+        <!-- Agent状态区域 -->
+        <div class="agent-status-area" id="agentStatusArea" style="display: none;">
+            <h2 class="section-title">🤖 Agent 状态</h2>
+            <div class="agent-list" id="agentList">
+                <!-- 由JS动态生成 -->
+            </div>
+        </div>
+
+        <!-- 服务健康检查 -->
+        <h2 class="section-title">🔍 服务健康检查</h2>
+        <div class="service-list" id="healthCheckList">
+            <!-- 由JS动态生成 -->
+        </div>
+
+        <!-- 系统日志 -->
+        <h2 class="section-title">📋 系统日志</h2>
+        <div class="log-area" id="logArea">
+            <div class="log-entry"><span class="log-time">[14:32:15]</span> INFO: Ollama服务启动成功，监听端口11434</div>
+            <div class="log-entry"><span class="log-time">[14:32:18]</span> INFO: Open WebUI已连接Ollama API</div>
+            <div class="log-entry"><span class="log-time">[14:32:20]</span> INFO: 模型qwen3:4b加载完成，耗时2.3秒</div>
+            <div class="log-entry"><span class="log-time">[14:35:42]</span> INFO: 用户请求: 检索低碳建筑材料文献</div>
+            <div class="log-entry"><span class="log-time">[14:36:01]</span> INFO: RAG检索完成，返回3条相关结果</div>
+            <div class="log-entry"><span class="log-time">[14:40:15]</span> WARN: VRAM使用率超过80%，建议释放未使用模型</div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>Materials Research AI Workstation · University of Jinan · 2024</p>
+        </footer>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script>
+        // 初始化
+        document.addEventListener('DOMContentLoaded', async () => {
+            await init();
+            
+            // 加载Docker容器
+            await loadDockerContainers();
+            
+            // 加载Agent状态
+            await loadAgentStatus();
+            
+            // 加载健康检查
+            await loadHealthChecks();
+            
+            // 模拟资源数据更新
+            simulateResourceData();
+            
+            // 定时刷新
+            setInterval(() => {
+                loadDockerContainers();
+                loadAgentStatus();
+            }, 15000);
+        });
+        
+        // 加载Docker容器
+        async function loadDockerContainers() {
+            const container = document.getElementById('dockerContainerList');
+            
+            try {
+                // 尝试通过Portainer API
+                const response = await fetch('http://127.0.0.1:9000/api/endpoints/1/docker/containers/json?all=true');
+                
+                if (!response.ok) throw new Error('API not available');
+                
+                const containers = await response.json();
+                
+                container.innerHTML = containers.map(c => {
+                    const name = c.Names[0]?.replace(/^\//, '') || 'unknown';
+                    const status = c.State === 'running' ? '运行中' : '已停止';
+                    const statusClass = c.State === 'running' ? 'online' : 'offline';
+                    const statusColor = c.State === 'running' ? 'var(--success)' : 'var(--text-secondary)';
+                    
+                    return `
+                        <div class="service-list-item">
+                            <div class="service-info">
+                                <div class="status-indicator ${statusClass}"></div>
+                                <span class="service-name">${name}</span>
+                                <span class="service-port">:${getPortFromImage(c.Image)}</span>
+                            </div>
+                            <span style="color: ${statusColor};">${status}</span>
+                        </div>
+                    `;
+                }).join('');
+                
+            } catch (error) {
+                console.warn('Docker containers API unavailable:', error);
+                // 显示静态配置
+                container.innerHTML = `
+                    <div class="service-list-item">
+                        <div class="service-info">
+                            <div class="status-indicator online"></div>
+                            <span class="service-name">open-webui</span>
+                            <span class="service-port">:3000</span>
+                        </div>
+                        <span style="color: var(--success);">运行中</span>
+                    </div>
+                    <div class="service-list-item">
+                        <div class="service-info">
+                            <div class="status-indicator online"></div>
+                            <span class="service-name">openclaw</span>
+                            <span class="service-port">:18789</span>
+                        </div>
+                        <span style="color: var(--success);">运行中</span>
+                    </div>
+                    <div class="service-list-item">
+                        <div class="service-info">
+                            <div class="status-indicator online"></div>
+                            <span class="service-name">ollama</span>
+                            <span class="service-port">:11434</span>
+                        </div>
+                        <span style="color: var(--success);">运行中</span>
+                    </div>
+                    <div class="service-list-item">
+                        <div class="service-info">
+                            <div class="status-indicator offline"></div>
+                            <span class="service-name">comfyui</span>
+                            <span class="service-port">:8188</span>
+                        </div>
+                        <span style="color: var(--text-secondary);">已停止</span>
+                    </div>
+                `;
+            }
+        }
+        
+        // 从镜像名推断端口
+        function getPortFromImage(image) {
+            const portMap = {
+                'open-webui': 3000,
+                'openclaw': 18789,
+                'ollama': 11434,
+                'jupyter': 8888,
+                'portainer': 9000,
+                'comfyui': 8188
+            };
+            
+            for (const [key, port] of Object.entries(portMap)) {
+                if (image.toLowerCase().includes(key)) {
+                    return port;
+                }
+            }
+            return '-';
+        }
+        
+        // 加载Agent状态
+        async function loadAgentStatus() {
+            const area = document.getElementById('agentStatusArea');
+            const list = document.getElementById('agentList');
+            
+            try {
+                const response = await fetch('http://127.0.0.1:18789/api/sessions');
+                
+                if (!response.ok) throw new Error('Gateway API not available');
+                
+                const data = await response.json();
+                const sessions = data.sessions || [];
+                
+                if (sessions.length > 0) {
+                    area.style.display = 'block';
+                    
+                    list.innerHTML = sessions.map(session => `
+                        <div class="agent-card">
+                            <div class="agent-header">
+                                <span class="agent-name">${session.name || 'Agent ' + session.id}</span>
+                                <div class="status-indicator ${session.status === 'active' ? 'online' : 'offline'}"></div>
+                            </div>
+                            <p class="agent-task">${session.currentTask || '空闲'}</p>
+                            <div class="agent-meta">
+                                <span>运行时长: ${formatDuration(session.uptime)}</span>
+                                <span>会话数: ${session.conversationCount || 0}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    area.style.display = 'none';
+                }
+                
+            } catch (error) {
+                console.warn('Gateway API unavailable:', error);
+                area.style.display = 'none';
+            }
+        }
+        
+        // 格式化运行时长
+        function formatDuration(seconds) {
+            if (!seconds) return '-';
+            
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            
+            if (hours > 0) {
+                return `${hours}h ${minutes}m`;
+            }
+            return `${minutes}m`;
+        }
+        
+        // 加载健康检查
+        async function loadHealthChecks() {
+            const container = document.getElementById('healthCheckList');
+            const services = CONFIG?.services || [];
+            
+            const checks = await Promise.all(
+                services.map(service => checkHealth(service))
+            );
+            
+            container.innerHTML = checks.map(result => `
+                <div class="service-list-item">
+                    <div class="service-info">
+                        <div class="status-indicator ${result.online ? 'online' : 'offline'}"></div>
+                        <span class="service-name">${result.name}</span>
+                        <span class="service-port">:${result.port}</span>
+                    </div>
+                    <span style="color: ${result.online ? 'var(--success)' : 'var(--text-secondary)'};">
+                        ${result.online ? `${result.latency}ms` : '离线'}
+                    </span>
+                </div>
+            `).join('');
+        }
+        
+        // 检查服务健康
+        function checkHealth(service) {
+            return new Promise((resolve) => {
+                checkServiceStatus('127.0.0.1', service.port, (result) => {
+                    resolve({
+                        name: service.name,
+                        port: service.port,
+                        online: result.online,
+                        latency: result.latency
+                    });
+                });
+            });
+        }
+        
+        // 模拟资源数据
+        function simulateResourceData() {
+            // 模拟GPU使用率
+            const gpuUsage = 65 + Math.random() * 20;
+            updateRingChart('gpu', gpuUsage);
+            
+            // 模拟VRAM
+            const vramGB = 6 + Math.random() * 6;
+            updateRingChart('vram', (vramGB / 16) * 100);
+            document.getElementById('vramDetail').textContent = vramGB.toFixed(1) + 'GB';
+            
+            // 模拟RAM
+            const ramGB = 8 + Math.random() * 6;
+            updateRingChart('ram', (ramGB / 16) * 100);
+            document.getElementById('ramDetail').textContent = ramGB.toFixed(1) + 'GB';
+            
+            // 模拟CPU
+            const cpuUsage = 30 + Math.random() * 40;
+            updateRingChart('cpu', cpuUsage);
+        }
+        
+        // 更新圆环图
+        function updateRingChart(type, percentage) {
+            const valueEl = document.getElementById(`${type}Value`);
+            const ringEl = document.getElementById(`${type}Ring`);
+            
+            if (valueEl) {
+                valueEl.textContent = Math.round(percentage) + '%';
+            }
+            
+            if (ringEl) {
+                // stroke-dashoffset 计算: 283 * (1 - percentage/100)
+                const offset = 283 * (1 - percentage / 100);
+                ringEl.style.strokeDashoffset = offset;
+                
+                // 根据使用率调整颜色
+                if (percentage > 90) {
+                    ringEl.style.stroke = 'var(--danger)';
+                } else if (percentage > 70) {
+                    ringEl.style.stroke = 'var(--warning)';
+                } else {
+                    ringEl.style.stroke = 'var(--accent)';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

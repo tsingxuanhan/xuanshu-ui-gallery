@@ -1,0 +1,696 @@
+/* ========================================
+   铉枢·风格库 — 水墨国风 (Ink Wash)
+   宣纸底色 · 朱砂点缀 · 宋体标题 · 墨线装饰
+   v1.0 | 2026-06-14
+   ======================================== */
+
+/* ========== Variables ========== */
+:root {
+    --bg-primary: #f5f0e8;
+    --bg-secondary: #ebe5d9;
+    --bg-card: rgba(255, 252, 245, 0.82);
+    --accent: #b83d3d;
+    --accent-hover: #a03333;
+    --accent-glow: rgba(184, 61, 61, 0.12);
+    --warning: #a0734a;
+    --danger: #c43b3b;
+    --success: #6b8e7b;
+    --info: #5a7d9a;
+    --text-primary: #2a2a2a;
+    --text-secondary: #6a6a6a;
+    --text-muted: #9a9590;
+    --border: rgba(120, 100, 80, 0.12);
+    --border-accent: rgba(184, 61, 61, 0.25);
+    --card-radius: 10px;
+    --shadow-sm: 0 1px 3px rgba(80, 60, 40, 0.06);
+    --shadow-md: 0 4px 20px rgba(80, 60, 40, 0.08);
+    --shadow-hover: 0 8px 32px rgba(80, 60, 40, 0.12);
+
+    /* 水墨装饰色 */
+    --ink-mist: rgba(107, 142, 123, 0.08);
+    --ink-wash: rgba(42, 42, 42, 0.03);
+    --vermillion-seal: #b83d3d;
+    --pine-ink: #3d5a4a;
+    --mountain-remote: #7a9488;
+}
+
+/* 暗色主题 — 夜墨 */
+[data-theme="dark"] {
+    --bg-primary: #121418;
+    --bg-secondary: #1a1d24;
+    --bg-card: rgba(28, 30, 36, 0.88);
+    --accent: #d45050;
+    --accent-hover: #e06060;
+    --accent-glow: rgba(212, 80, 80, 0.15);
+    --text-primary: #e8e4dc;
+    --text-secondary: #8a8678;
+    --text-muted: #5a5850;
+    --border: rgba(255, 255, 255, 0.06);
+    --border-accent: rgba(212, 80, 80, 0.3);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.25);
+    --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.35);
+    --ink-mist: rgba(107, 142, 123, 0.06);
+    --ink-wash: rgba(255, 255, 255, 0.015);
+}
+
+/* ========== Reset ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Noto Sans SC', 'PingFang SC', -apple-system, 'Segoe UI', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.8;
+    min-height: 100vh;
+    transition: background-color 0.4s ease, color 0.3s ease;
+    /* 宣纸纹理 */
+    background-image:
+        radial-gradient(ellipse at 15% 45%, var(--ink-wash) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 15%, var(--ink-wash) 0%, transparent 50%),
+        radial-gradient(ellipse at 65% 85%, var(--ink-wash) 0%, transparent 45%);
+}
+
+/* ========== Typography ========== */
+h1, h2, h3, h4 {
+    font-family: 'Noto Serif SC', 'STSongti', 'STSong', 'SimSun', 'Songti SC', serif;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+}
+
+/* ========== Layout ========== */
+.container {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 32px 28px;
+}
+
+/* ========== Header ========== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0 28px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+    position: relative;
+}
+
+/* 水墨装饰线 — 底部墨痕 */
+.header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent) 0%, rgba(184,61,61,0.3) 60%, transparent 100%);
+}
+
+.header-title h1 {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.04em;
+}
+
+.header-title p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    letter-spacing: 0.01em;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* ========== Theme Toggle — 印章按钮 ========== */
+.theme-toggle,
+.settings-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 1.1rem;
+}
+
+.theme-toggle:hover,
+.settings-btn:hover {
+    border-color: var(--border-accent);
+    color: var(--accent);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ========== Status Bar ========== */
+.status-bar {
+    display: flex;
+    gap: 20px;
+    padding: 14px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    margin-bottom: 24px;
+    backdrop-filter: blur(6px);
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    transition: background 0.3s ease;
+}
+
+.status-indicator.online { background: var(--success); box-shadow: 0 0 6px rgba(107,142,123,0.4); }
+.status-indicator.offline { background: var(--danger); }
+.status-indicator.warning { background: var(--warning); }
+
+.status-label {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+/* ========== VRAM Warning ========== */
+.vram-warning {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: rgba(160, 115, 74, 0.08);
+    border: 1px solid rgba(160, 115, 74, 0.18);
+    border-radius: 8px;
+    font-size: 0.78rem;
+    color: var(--warning);
+    margin-bottom: 24px;
+}
+
+/* ========== Section Title ========== */
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    padding-left: 14px;
+    position: relative;
+}
+
+/* 水墨竖线装饰 */
+.section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 3px;
+    height: 18px;
+    background: linear-gradient(180deg, var(--accent) 0%, rgba(184,61,61,0.2) 100%);
+    border-radius: 2px;
+}
+
+/* ========== Cards Grid ========== */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+}
+
+/* ========== Service Card — 墨卡 ========== */
+.service-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    padding: 18px 16px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(4px);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.service-card:hover {
+    border-color: var(--border-accent);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--accent-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+    color: var(--accent);
+    transition: all 0.2s ease;
+}
+
+.service-card:hover .service-card-icon {
+    background: var(--accent);
+    color: #fff;
+}
+
+.service-card-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.service-card-status {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.service-card-status.online {
+    color: var(--success);
+}
+
+/* ========== Nav Cards — 功能导航 ========== */
+.nav-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.nav-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.25s ease;
+    backdrop-filter: blur(4px);
+}
+
+.nav-card:hover {
+    border-color: var(--border-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.nav-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--ink-mist);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    transition: all 0.2s ease;
+}
+
+.nav-card:hover .nav-card-icon {
+    background: var(--accent-glow);
+    color: var(--accent);
+}
+
+.nav-card-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* ========== Data Panel — 数据面板 ========== */
+.data-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(4px);
+}
+
+.data-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.data-panel-title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.data-panel-badge {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: var(--accent-glow);
+    color: var(--accent);
+    font-weight: 500;
+}
+
+/* ========== Metric Cards ========== */
+.metrics-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.metric-card {
+    padding: 16px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+    color: var(--text-primary);
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.metric-change {
+    font-size: 0.72rem;
+    margin-top: 6px;
+    font-weight: 500;
+}
+
+.metric-change.up { color: var(--success); }
+.metric-change.down { color: var(--danger); }
+
+/* ========== Table ========== */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    border-bottom: 2px solid var(--border);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+.data-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-primary);
+}
+
+.data-table tr:hover td {
+    background: var(--ink-wash);
+}
+
+/* ========== Buttons ========== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.btn:hover {
+    border-color: var(--border-accent);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 2px 12px var(--accent-glow);
+}
+
+.btn-ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--text-secondary);
+}
+
+.btn-ghost:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* ========== Input ========== */
+.input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ========== Tags ========== */
+.tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+.tag-success { background: rgba(107,142,123,0.12); color: var(--success); }
+.tag-warning { background: rgba(160,115,74,0.12); color: var(--warning); }
+.tag-danger { background: rgba(196,59,59,0.12); color: var(--danger); }
+.tag-info { background: rgba(90,125,154,0.12); color: var(--info); }
+
+/* ========== Progress Bar ========== */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--bg-secondary);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 8px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--success), var(--mountain-remote));
+    transition: width 0.5s ease;
+}
+
+.progress-fill.warning {
+    background: linear-gradient(90deg, var(--warning), #c49050);
+}
+
+.progress-fill.danger {
+    background: linear-gradient(90deg, var(--danger), #d45050);
+}
+
+/* ========== Scrollbar ========== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(120,100,80,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(120,100,80,0.25); }
+
+/* ========== Selection ========== */
+::selection {
+    background: rgba(184, 61, 61, 0.15);
+    color: var(--text-primary);
+}
+
+/* ========== Search Modal ========== */
+.search-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(42, 42, 42, 0.4);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 15vh;
+}
+
+.search-overlay.active { display: flex; }
+
+.search-box {
+    width: 560px;
+    max-width: 90vw;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 16px 64px rgba(0,0,0,0.15);
+    overflow: hidden;
+}
+
+.search-input {
+    width: 100%;
+    padding: 18px 22px;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    color: var(--text-primary);
+    outline: none;
+    font-family: inherit;
+}
+
+.search-results {
+    border-top: 1px solid var(--border);
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.search-result-item {
+    padding: 12px 22px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    font-size: 0.88rem;
+    color: var(--text-primary);
+}
+
+.search-result-item:hover {
+    background: var(--ink-wash);
+}
+
+/* ========== Footer ========== */
+.footer {
+    margin-top: 48px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    position: relative;
+}
+
+/* 印章水印 */
+.footer::after {
+    content: '铉';
+    position: absolute;
+    right: 28px;
+    top: 12px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.4rem;
+    color: var(--vermillion-seal);
+    opacity: 0.2;
+    font-weight: 700;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+    .container { padding: 20px 16px; }
+    .header-title h1 { font-size: 1.3rem; }
+    .cards-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    .nav-cards { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+    .status-bar { flex-wrap: wrap; gap: 12px; }
+}
+
+@media (max-width: 480px) {
+    .cards-grid { grid-template-columns: 1fr 1fr; }
+    .nav-cards { grid-template-columns: 1fr 1fr; }
+}
+
+/* ========== Animation ========== */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+/* ========== Ink Decoration — 水墨晕染背景 ========== */
+.ink-bg-decoration {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 45vw;
+    height: 45vh;
+    background: radial-gradient(ellipse at 70% 30%, var(--ink-mist) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.6;
+}
+
+/* ========== Print ========== */
+@media print {
+    body { background: #fff; }
+    .theme-toggle, .settings-btn { display: none; }
+    .service-card, .nav-card, .data-panel { break-inside: avoid; }
+}

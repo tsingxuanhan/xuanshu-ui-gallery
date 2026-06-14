@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materials Research AI Workstation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00d4aa">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2300d4aa' width='100' height='100' rx='20'/><text x='50' y='65' text-anchor='middle' font-size='50' fill='white'>AI</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部标题区 -->
+        <header class="header">
+            <div class="header-title">
+                <h1>Materials Research AI Workstation</h1>
+                <p>Low-Carbon Building Materials · University of Jinan</p>
+            </div>
+            <div class="header-actions">
+                <!-- Ctrl+K 快捷键提示 -->
+                <button class="theme-toggle" title="切换主题">
+                    <!-- SVG图标由JS动态插入 -->
+                </button>
+                <button class="settings-btn" onclick="openSearch()" title="搜索 (Ctrl+K)">
+                    <span>🔍</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 系统状态栏 -->
+        <div class="status-bar" id="statusBar">
+            <div class="status-item">
+                <div class="status-indicator" id="docker-status"></div>
+                <span class="status-label">Docker</span>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator" id="ollama-status"></div>
+                <span class="status-label">Ollama</span>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator" id="gpu-status"></div>
+                <span class="status-label">GPU</span>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator" id="vram-status"></div>
+                <span class="status-label">VRAM</span>
+            </div>
+        </div>
+
+        <!-- VRAM互斥锁提示 -->
+        <div class="vram-warning">
+            <span>⚠️</span>
+            <span><strong>VRAM Mutex:</strong> Ollama Inference ↔ ComfyUI Image, pick one</span>
+            <span>•</span>
+            <span>已用: <strong id="vram-used">7.2GB</strong> / 总计: <strong>16GB</strong></span>
+        </div>
+
+        <!-- 核心快捷入口区 -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 class="section-title" style="margin-bottom: 0;">🚀 快速访问</h2>
+            <button class="reset-layout-btn" onclick="resetLayout()">
+                <span style="display: inline-flex; align-items: center; gap: 6px;">
+                    <span style="width: 16px; height: 16px;" class="icon-reset"></span>
+                    重置布局
+                </span>
+            </button>
+        </div>
+        <div class="cards-grid" id="servicesGrid">
+            <!-- 服务卡片由JS动态生成 -->
+        </div>
+
+        <!-- 子页面导航 -->
+        <h2 class="section-title">📋 功能模块</h2>
+        <div class="nav-cards">
+            <a href="models.html" class="nav-card">
+                <div class="nav-card-icon" data-icon="model"></div>
+                <div class="nav-card-text">
+                    <h3>模型管理</h3>
+                    <p>Ollama模型控制</p>
+                </div>
+            </a>
+            <a href="monitor.html" class="nav-card">
+                <div class="nav-card-icon" data-icon="monitor"></div>
+                <div class="nav-card-text">
+                    <h3>系统监控</h3>
+                    <p>Docker容器、GPU状态</p>
+                </div>
+            </a>
+            <a href="commands.html" class="nav-card">
+                <div class="nav-card-icon" data-icon="command"></div>
+                <div class="nav-card-text">
+                    <h3>命令中心</h3>
+                    <p>常用命令快捷方式</p>
+                </div>
+            </a>
+            <a href="communication.html" class="nav-card">
+                <div class="nav-card-icon" data-icon="comm"></div>
+                <div class="nav-card-text">
+                    <h3>通讯管理</h3>
+                    <p>邮件收发</p>
+                </div>
+            </a>
+            <a href="knowledge.html" class="nav-card">
+                <div class="nav-card-icon" data-icon="knowledge"></div>
+                <div class="nav-card-text">
+                    <h3>知识库</h3>
+                    <p>RAG文献检索</p>
+                </div>
+            </a>
+            <a href="config.html" class="nav-card">
+                <div class="nav-card-icon" data-icon="config"></div>
+                <div class="nav-card-text">
+                    <h3>配置文件</h3>
+                    <p>API配置管理</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>Materials Research AI Workstation · University of Jinan · 2024</p>
+        </footer>
+    </div>
+
+    <!-- 搜索框 (Spotlight风格) -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <span class="search-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                </span>
+                <input type="text" class="search-input" id="searchInput" placeholder="搜索服务、页面、命令..." autocomplete="off">
+                <span class="search-shortcut">ESC</span>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+            <div class="search-footer">
+                <span><kbd>↑↓</kbd> 导航</span>
+                <span><kbd>Enter</kbd> 打开</span>
+                <span><kbd>ESC</kbd> 关闭</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script>
+        // 页面特定初始化
+        document.addEventListener('DOMContentLoaded', async () => {
+            await init();
+            
+            // 替换静态图标占位符
+            document.querySelectorAll('[data-icon]').forEach(el => {
+                const iconName = el.getAttribute('data-icon');
+                el.innerHTML = getIcon(iconName);
+            });
+            // 替换重置按钮图标
+            const resetIcon = document.querySelector('.icon-reset');
+            if (resetIcon) resetIcon.innerHTML = getIcon('reset');
+            // 替换主题切换按钮图标
+            const themeBtn = document.querySelector('.theme-toggle');
+            if (themeBtn) themeBtn.innerHTML = getIcon('sun');
+            
+            // 渲染服务卡片
+            const grid = document.getElementById('servicesGrid');
+            if (grid && CONFIG) {
+                grid.innerHTML = services.map(service => `
+                    <div class="service-card" data-service="${service.name}" draggable="true">
+                        <div class="card-header">
+                            <span class="card-icon">${getIcon(service.icon)}</span>
+                            <div class="card-status">
+                                <div class="status-indicator loading"></div>
+                            </div>
+                        </div>
+                        <h3 class="card-title">${service.name}</h3>
+                        <p class="card-port">:${service.port}</p>
+                        <p class="card-latency offline">检测中...</p>
+                        ${service.category === 'ai' ? '<p class="card-models"></p>' : ''}
+                        <a href="${service.url}" target="_blank" class="card-btn">
+                            打开 <span>→</span>
+                        </a>
+                    </div>
+                `).join('');
+                
+                // 初始化拖拽
+                initDragAndDrop();
+                
+                // 启动自动刷新
+                startAutoRefresh();
+                
+                // 更新模型数量
+                updateModelsCount();
+            }
+            
+            // 搜索相关
+            setupSearch();
+        });
+        
+        // 搜索功能
+        let currentResults = [];
+        let selectedIndex = -1;
+        
+        function setupSearch() {
+            const overlay = document.getElementById('searchOverlay');
+            const input = document.getElementById('searchInput');
+            const results = document.getElementById('searchResults');
+            
+            // Ctrl+K 快捷键
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    openSearch();
+                }
+            });
+            
+            // 点击遮罩关闭
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    closeSearch();
+                }
+            });
+            
+            // 键盘事件
+            document.addEventListener('keydown', (e) => {
+                if (!overlay.classList.contains('active')) return;
+                
+                if (e.key === 'Escape') {
+                    closeSearch();
+                } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    selectedIndex = Math.min(selectedIndex + 1, currentResults.length - 1);
+                    updateSelection();
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    selectedIndex = Math.max(selectedIndex - 1, -1);
+                    updateSelection();
+                } else if (e.key === 'Enter' && selectedIndex >= 0) {
+                    e.preventDefault();
+                    executeAction(currentResults[selectedIndex]);
+                }
+            });
+            
+            // 输入事件
+            input.addEventListener('input', (e) => {
+                const query = e.target.value;
+                currentResults = search(query);
+                selectedIndex = -1;
+                renderResults(query);
+            });
+            
+            // 默认显示
+            renderResults('');
+        }
+        
+        function openSearch() {
+            const overlay = document.getElementById('searchOverlay');
+            const input = document.getElementById('searchInput');
+            overlay.classList.add('active');
+            input.value = '';
+            input.focus();
+            renderResults('');
+        }
+        
+        function closeSearch() {
+            document.getElementById('searchOverlay').classList.remove('active');
+        }
+        
+        function renderResults(query) {
+            const results = document.getElementById('searchResults');
+            
+            if (!query) {
+                currentResults = searchIndex.slice(0, 5);
+            } else {
+                currentResults = search(query);
+            }
+            
+            if (currentResults.length === 0) {
+                results.innerHTML = '<div class="search-empty">未找到结果</div>';
+                return;
+            }
+            
+            // 按类型分组
+            const grouped = {
+                service: currentResults.filter(r => r.type === 'service'),
+                page: currentResults.filter(r => r.type === 'page'),
+                command: currentResults.filter(r => r.type === 'command')
+            };
+            
+            let html = '';
+            
+            if (grouped.service.length > 0) {
+                html += `<div class="search-section"><div class="search-section-title">服务</div>`;
+                grouped.service.forEach((item, i) => {
+                    html += createResultItem(item, query, currentResults.indexOf(item));
+                });
+                html += '</div>';
+            }
+            
+            if (grouped.page.length > 0) {
+                html += `<div class="search-section"><div class="search-section-title">页面</div>`;
+                grouped.page.forEach((item, i) => {
+                    html += createResultItem(item, query, currentResults.indexOf(item));
+                });
+                html += '</div>';
+            }
+            
+            if (grouped.command.length > 0) {
+                html += `<div class="search-section"><div class="search-section-title">命令</div>`;
+                grouped.command.forEach((item, i) => {
+                    html += createResultItem(item, query, currentResults.indexOf(item));
+                });
+                html += '</div>';
+            }
+            
+            results.innerHTML = html;
+            
+            // 绑定点击事件
+            results.querySelectorAll('.search-result-item').forEach((el) => {
+                el.addEventListener('click', () => {
+                    const idx = parseInt(el.dataset.index);
+                    if (currentResults[idx]) {
+                        executeAction(currentResults[idx]);
+                    }
+                });
+            });
+        }
+        
+        function createResultItem(item, query, index) {
+            const icon = getIcon(item.icon);
+            const typeLabel = item.type === 'service' ? '打开' : 
+                              item.type === 'page' ? '导航' : '复制';
+            const highlightedName = highlightMatch(item.name, query);
+            return `
+                <div class="search-result-item" data-index="${index}">
+                    <div class="result-icon">${icon}</div>
+                    <div class="result-info">
+                        <div class="result-name">${highlightedName}</div>
+                        <div class="result-desc">${item.subtext || ''}</div>
+                    </div>
+                    <span class="result-action">${typeLabel}</span>
+                </div>
+            `;
+        }
+        
+        function updateSelection() {
+            const results = document.getElementById('searchResults');
+            results.querySelectorAll('.search-result-item').forEach((el, i) => {
+                el.classList.toggle('selected', i === selectedIndex);
+            });
+            
+            if (selectedIndex >= 0) {
+                const selected = results.querySelectorAll('.search-result-item')[selectedIndex];
+                if (selected) selected.scrollIntoView({ block: 'nearest' });
+            }
+        }
+        
+        function executeAction(item) {
+            closeSearch();
+            
+            if (item.type === 'service' || item.type === 'page') {
+                window.location.href = item.url;
+            } else if (item.type === 'command') {
+                navigator.clipboard.writeText(item.command).then(() => {
+                    showToast(`已复制: ${item.command}`);
+                });
+            }
+        }
+        
+        function highlightMatch(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+    </script>
+    
+    <!-- Service Worker 注册 -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('SW registered'))
+                    .catch(err => console.log('SW registration failed'));
+            });
+        }
+    </script>
+</body>
+</html>

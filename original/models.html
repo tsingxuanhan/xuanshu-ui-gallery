@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Management - AI Workstation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <!-- 页面头部 -->
+        <div class="page-header">
+            <a href="index.html" class="back-btn">←</a>
+            <h1 class="page-title">🧠 模型管理</h1>
+            <div class="header-actions" style="margin-left: auto;">
+                <button class="theme-toggle" title="切换主题"></button>
+            </div>
+        </div>
+
+        <!-- 模式切换 -->
+        <div class="mode-switch">
+            <button class="mode-btn active" id="inferenceMode">推理模式</button>
+            <button class="mode-btn" id="imageMode">图像模式</button>
+        </div>
+
+        <!-- 当前运行模型 -->
+        <div class="model-card">
+            <div class="model-card-header">
+                <span class="model-name" id="currentModel">加载中...</span>
+                <button class="stop-btn" onclick="stopModel()">停止</button>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>VRAM 占用</span>
+                    <span id="vramText">- GB / 16 GB</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="vramProgress" style="width: 0%;"></div>
+                </div>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                状态: <span style="color: var(--accent);" id="modelStatus">● 加载中</span> | 
+                类型: <span id="modelType">-</span> |
+                上下文: <span id="modelContext">-</span>
+            </p>
+        </div>
+
+        <!-- 推荐配置 -->
+        <h2 class="section-title">📋 推荐配置</h2>
+        <div class="model-card" style="margin-bottom: 30px;">
+            <table class="config-table">
+                <thead>
+                    <tr>
+                        <th>模式</th>
+                        <th>模型组合</th>
+                        <th>总占用</th>
+                        <th>适用场景</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>推理模式</td>
+                        <td>qwen3:4b + qwen3.5:9b + nomic-embed-text</td>
+                        <td style="color: var(--warning);">≈ 9.4GB</td>
+                        <td>日常问答、文档分析</td>
+                    </tr>
+                    <tr>
+                        <td>图像模式</td>
+                        <td>ComfyUI + nomic-embed-text</td>
+                        <td style="color: var(--accent);">≈ 4GB</td>
+                        <td>图片生成、图像编辑</td>
+                    </tr>
+                    <tr>
+                        <td>轻量模式</td>
+                        <td>qwen3:1.8b + nomic-embed-text</td>
+                        <td style="color: var(--accent);">≈ 2.5GB</td>
+                        <td>快速响应、节省资源</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 可用模型列表 -->
+        <h2 class="section-title">📦 可用模型</h2>
+        <div class="model-list" id="modelList">
+            <div class="model-item skeleton" style="height: 70px;">
+                <div style="flex: 1;">
+                    <div class="skeleton" style="width: 100px; height: 20px; margin-bottom: 8px;"></div>
+                    <div class="skeleton" style="width: 200px; height: 16px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>Materials Research AI Workstation · University of Jinan · 2024</p>
+        </footer>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script>
+        // 模型列表容器
+        let allModels = [];
+        let runningModels = [];
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', async () => {
+            await init();
+            await loadModels();
+            
+            // 模式切换
+            document.getElementById('inferenceMode').addEventListener('click', () => switchMode('inference'));
+            document.getElementById('imageMode').addEventListener('click', () => switchMode('image'));
+            
+            // 定时刷新
+            setInterval(loadModels, 10000);
+        });
+        
+        // 加载模型列表
+        async function loadModels() {
+            try {
+                // 获取已安装模型
+                const tagsResponse = await fetch('http://127.0.0.1:11434/api/tags');
+                if (tagsResponse.ok) {
+                    const tagsData = await tagsResponse.json();
+                    allModels = tagsData.models || [];
+                }
+                
+                // 获取运行中模型
+                const psResponse = await fetch('http://127.0.0.1:11434/api/ps');
+                if (psResponse.ok) {
+                    const psData = await psResponse.json();
+                    runningModels = psData.models || [];
+                }
+                
+                renderModels();
+                updateRunningInfo();
+            } catch (error) {
+                console.error('Failed to load models:', error);
+                renderErrorState();
+            }
+        }
+        
+        // 渲染模型列表
+        function renderModels() {
+            const container = document.getElementById('modelList');
+            
+            if (allModels.length === 0) {
+                container.innerHTML = `
+                    <div class="model-item">
+                        <div class="model-item-info">
+                            <span class="model-item-name">Ollama API 不可用</span>
+                            <span class="model-item-size">请确保 Ollama 服务正在运行</span>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = allModels.map(model => {
+                const isRunning = runningModels.some(r => r.name === model.name);
+                const size = formatModelSize(model.size);
+                
+                return `
+                    <div class="model-item">
+                        <div class="model-item-info">
+                            <span class="model-item-name">${model.name}</span>
+                            <span class="model-item-size">${size} · ${getModelDescription(model.name)}</span>
+                        </div>
+                        ${isRunning ? `
+                            <div class="model-item-status">
+                                <div class="status-indicator online"></div>
+                                运行中
+                            </div>
+                        ` : ''}
+                        <button class="run-btn ${isRunning ? 'running' : ''}" 
+                                onclick="${isRunning ? `stopModel('${model.name}')` : `runModel('${model.name}')`}"
+                                ${isRunning ? 'disabled' : ''}>
+                            ${isRunning ? '运行中' : '运行'}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // 更新运行信息
+        function updateRunningInfo() {
+            if (runningModels.length > 0) {
+                const current = runningModels[0];
+                document.getElementById('currentModel').textContent = current.name;
+                document.getElementById('modelStatus').innerHTML = '● <span style="color: var(--success);">运行中</span>';
+                document.getElementById('modelType').textContent = '推理模型';
+                document.getElementById('modelContext').textContent = current.context_length ? `${Math.round(current.context_length / 1024)}K` : '8K';
+                
+                // VRAM 估算 (按模型大小)
+                const model = allModels.find(m => m.name === current.name);
+                if (model) {
+                    const vramGB = (model.size / (1024 * 1024 * 1024)).toFixed(1);
+                    document.getElementById('vramText').textContent = `${vramGB} GB / 16 GB`;
+                    document.getElementById('vramProgress').style.width = `${(vramGB / 16) * 100}%`;
+                }
+            } else {
+                document.getElementById('currentModel').textContent = '无运行模型';
+                document.getElementById('modelStatus').innerHTML = '● <span style="color: var(--text-secondary);">空闲</span>';
+                document.getElementById('vramText').textContent = '0 GB / 16 GB';
+                document.getElementById('vramProgress').style.width = '0%';
+            }
+        }
+        
+        // 渲染错误状态
+        function renderErrorState() {
+            const container = document.getElementById('modelList');
+            container.innerHTML = `
+                <div class="model-item">
+                    <div class="model-item-info">
+                        <span class="model-item-name">无法连接 Ollama API</span>
+                        <span class="model-item-size">检查服务是否在 127.0.0.1:11434 运行</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 运行模型
+        async function runModel(modelName) {
+            try {
+                showToast(`正在启动 ${modelName}...`);
+                
+                const response = await fetch('http://127.0.0.1:11434/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: modelName,
+                        prompt: '',
+                        stream: false
+                    })
+                });
+                
+                if (response.ok) {
+                    showToast(`${modelName} 已启动`);
+                    await loadModels();
+                } else {
+                    showToast('启动失败', 'error');
+                }
+            } catch (error) {
+                showToast('启动失败: ' + error.message, 'error');
+            }
+        }
+        
+        // 停止模型
+        async function stopModel(modelName) {
+            try {
+                showToast(`正在停止...`);
+                
+                await fetch('http://127.0.0.1:11434/api/generate', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                showToast('模型已停止');
+                await loadModels();
+            } catch (error) {
+                showToast('停止失败', 'error');
+            }
+        }
+        
+        // 模式切换
+        function switchMode(mode) {
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            
+            if (mode === 'inference') {
+                document.getElementById('inferenceMode').classList.add('active');
+            } else {
+                document.getElementById('imageMode').classList.add('active');
+            }
+        }
+        
+        // 格式化模型大小
+        function formatModelSize(bytes) {
+            if (!bytes) return '未知';
+            const gb = bytes / (1024 * 1024 * 1024);
+            if (gb >= 1) {
+                return gb.toFixed(1) + 'GB';
+            }
+            const mb = bytes / (1024 * 1024);
+            return mb.toFixed(0) + 'MB';
+        }
+        
+        // 获取模型描述
+        function getModelDescription(name) {
+            const descriptions = {
+                'qwen': '通义千问',
+                'llama': 'Llama',
+                'deepseek': 'DeepSeek',
+                'nomic': 'Nomic Embed',
+                'bge': 'BGE Embed'
+            };
+            
+            for (const [key, value] of Object.entries(descriptions)) {
+                if (name.toLowerCase().includes(key)) {
+                    return value;
+                }
+            }
+            return '语言模型';
+        }
+    </script>
+</body>
+</html>
